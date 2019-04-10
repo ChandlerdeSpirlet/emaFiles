@@ -1,0 +1,27 @@
+{
+    "name": "emaFiles",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ChandlerdeSpirlet/emaFiles.git"
+    },
+    "keywords": [],
+    "author": "Chandler de Spirlet",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/ChandlerdeSpirlet/classcounts/issues"
+    },
+    "homepage": "https://github.com/ChandlerdeSpirlet/emaFiles#readme",
+    "dependencies": {
+        "body-parser": "^1.18.3",
+        "cookie-parser": "^1.4.4",
+        "express": "^4.16.4",
+        "express-flash": "0.0.2",
+        "express-validator": "^5.3.1"
+    }
+}
