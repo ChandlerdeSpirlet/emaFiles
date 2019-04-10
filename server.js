@@ -6,9 +6,7 @@ app.use(expressValidator());
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended:true}));
 var flash = require('express-flash');
-var cookieParser = require('cookie-parser');
 var session = require('express-session');
-app.use(cookieParser('count'));
 app.use(session({
     secret: 'emaFiles',
     resave: false,

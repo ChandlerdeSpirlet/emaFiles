@@ -5,7 +5,6 @@ var exp_val = require('express-validator');
 var session = require("express-session");
 
 module.exports = app;
-app.use(cookieParser('emaFiles'));
 app.use(session({
     secret: 'emaFiles',
     resave: false,
