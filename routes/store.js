@@ -3,6 +3,7 @@ var app = express();
 var path = require('path');
 var exp_val = require('express-validator');
 var session = require("express-session");
+var fs = require('fs');
 
 module.exports = app;
 app.use(session({
