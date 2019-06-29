@@ -25,7 +25,7 @@ app.get('/schedule', function (req, res){
     res.send(data);
 });
 app.get('/CalendlyInstructions', function(req, res){
-    var data = fs.readFileSync(__dirname + '/storedFiles/CalendlyInstructions');
+    var data = fs.readFileSync(__dirname + '/storedFiles/CalendlyInstructions.pdf');
     res.contentType("application/pdf");
     res.send(data);
 });
