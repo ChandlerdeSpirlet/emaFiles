@@ -25,6 +25,7 @@
         "express-flash": "0.0.2",
         "express-session": "^1.15.6",
         "express-validator": "^5.3.1",
-        "fs": "0.0.1-security"
+        "fs": "0.0.1-security",
+        "lodash": "^4.17.14"
     }
 }
