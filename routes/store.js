@@ -109,3 +109,23 @@ app.get('/6GoalSetting', function(req, res){
     res.contentType("application/pdf");
     res.send(data);
 });
+app.get('/Level1Curriculum', function(req, res){
+    var data = fs.readFileSync(__dirname + '/storedFiles/Level1Curriculum.pdf');
+    res.contentType("application/pdf");
+    res.send(data);
+});
+app.get('/Level2Curriculum', function(req, res){
+    var data = fs.readFileSync(__dirname + '/storedFiles/Level2Curriculum.pdf');
+    res.contentType("application/pdf");
+    res.send(data);
+});
+app.get('/Level3Curriculum', function(req, res){
+    var data = fs.readFileSync(__dirname + '/storedFiles/Level3Curriculum.pdf');
+    res.contentType("application/pdf");
+    res.send(data);
+});
+app.get('/SWAT1Tasks', function(req, res){
+    var data = fs.readFileSync(__dirname + '/storedFiles/SWAT1Tasks.pdf');
+    res.contentType("application/pdf");
+    res.send(data);
+});
