@@ -10,53 +10,54 @@
         scroll-behavior: smooth;
         width: 50%;
     }
-    a {
-    background-color: red;
-    box-shadow: 0 5px 0 darkred;
-    color: white;
-    padding: 12px;
-    position: center;
-    text-decoration: none;
+    a:link {
+        color: black;
+        text-decoration: none;
     }
 
+        /* visited link */
+    a:visited {
+        color: black;
+        text-decoration: none;
+    }
+
+        /* mouse over link */
     a:hover {
-    background-color: #ce0606;
-    }
-
-    a:active {
-    box-shadow: none;
-    top: 5px;
+        color: black;
+        text-decoration: none;
     }
     tr {
         padding-top: 12px;
         padding-bottom: 12px;
     }
+    .button {
+        background-color: red;
+        border: none;
+        color: black;
+        padding: 15px 25px;
+        text-align: center;
+        font-size: 16px;
+        cursor: pointer;
+    }
 
-    /* Non-Demo Styles */
-    body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    .button:hover {
+        background-color: green;
     }
     table {
         align-items: center;
         scroll-behavior: smooth;
     }
 </style>
-<h1>EMA Fitness Division Workouts</h1>
+
 <br>
 <table>
     <tr>
-        <td><a href="/store/CardioKiller">Cardio Killer</a></td>
+        <h1>EMA Fitness Division Workouts</h1>
     </tr>
-    <br>
     <tr>
-        <td><a href="/store/Nasty30">Nasty 30</a></td>
-    </tr>
-    <br>
-    <tr>
-        <td><a href="/store/Warrior">Warrior</a></td>
+        <td><button class="button"><a href="/store/CardioKiller">Cardio Killer</a></button></td>
+        <td><button class="button"><a href="/store/Nasty30">Nasty 30</a></button></td>
+        <td><button class="button"><a href="/store/Warrior">Warrior</a></button></td>
     </tr>
 </table>
 <body>
