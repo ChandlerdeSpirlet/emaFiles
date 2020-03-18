@@ -132,3 +132,18 @@ app.get('/SWAT1Tasks', function(req, res){
     res.contentType("application/pdf");
     res.send(data);
 });
+app.get('/CardioKiller', function(req, res){
+    var data = fs.readFileSync(__dirname + '/workoutFiles/CardioKiller.pdf');
+    res.contentType("application/pdf");
+    res.send(data);
+});
+app.get('/Warrior', function(req, res){
+    var data = fs.readFileSync(__dirname + '/workoutFiles/Warrior.pdf');
+    res.contentType("application/pdf");
+    res.send(data);
+});
+app.get('/Nasty30', function(req, res){
+    var data = fs.readFileSync(__dirname + '/workoutFiles/Nasty30.pdf');
+    res.contentType("application/pdf");
+    res.send(data);
+});
