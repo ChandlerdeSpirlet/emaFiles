@@ -1,0 +1,50 @@
+<html>
+    <style>
+        * {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: black;
+        }
+        table{
+            background-color: black;
+        }
+        th, h1 {
+            color: blue;
+        }
+        td {
+            color: white;
+        }
+    </style>
+    <head>
+        <h1>Student Progress Check Scores</h1>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Jumping Jacks</th>
+                <th>Pushups</th>
+                <th>Situps</th>
+                <th>Mountain Climbers</th>
+                <th>Front Kicks</th>
+            </tr>
+        </table>
+        <table >
+            <% if (data) { %>
+                <!-- Using a for-loop to loop over each row in the database.
+                The 'data' variable is passed from the store.js during the response.render function call -->
+                    <% data.forEach(function(item){ %>
+                        <tr>
+                            <td><%= item.id %></td>
+                            <td><%= item.student_name %></td>
+                            <td><%= item.jumping_jacks %></td>
+                            <td><%= item.pushups %></td>
+                            <td><%= item.situps %></td>
+                            <td><%= item.mtn_climbers %></td>
+                            <td><%= item.front_kicks %></td>
+                        </tr>
+                    <% }) %>
+                <% } %>
+        </table>
+    </body>
+</html>

@@ -4,6 +4,7 @@ var path = require('path');
 var exp_val = require('express-validator');
 var session = require("express-session");
 var fs = require('fs');
+const bodyParser = require('body-parser');
 var db = require('../database');
 
 module.exports = app;
@@ -13,6 +14,12 @@ app.use(session({
     saveUninitialized: true,
     cookie: {maxAge: 8 * 60 * 1000}
 }));
+app.use(
+    bodyParser.urlencoded({
+        extended: true,
+    })
+)
+app.use(bodyParser.json())
 app.use(exp_val());
 app.use(express.static(path.join(__dirname, 'store')));
 app.get('/', function(req, res){
@@ -267,4 +274,30 @@ app.get('/good_job/(:stud_name)', function(req, res){
         comp: item,
         stud_name: stud_name
     })
+});
+
+app.get('/view_scores', function(req, res){
+    if (req.headers['x-forwarded-proto'] != 'https'){
+        res.redirect('https://emafiles.herokuapp.com/store/view_scores');
+    } else {
+        var query = 'select * from progress_check order by id';
+        db.any(query)
+            .then(function(rows){
+                res.render('store/view_scores', {
+                    data: rows
+                })
+            })
+            .catch(function(err){
+                req.flash('error', 'Unable to view student scores (ERROR: ' + err + ')');
+                res.render('store/student_progress_check', {
+                    fname: '',
+                    lname: '',
+                    jj: '',
+                    pu: '',
+                    mtn_cl: '',
+                    su: '',
+                    fk: ''
+                })
+            })
+    }
 });
