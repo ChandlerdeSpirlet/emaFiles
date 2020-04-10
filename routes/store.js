@@ -6,6 +6,8 @@ var session = require("express-session");
 var fs = require('fs');
 const bodyParser = require('body-parser');
 var db = require('../database');
+const cors = require('cors');
+app.use(cors())
 
 module.exports = app;
 app.use(session({
@@ -229,9 +231,11 @@ app.post('/preview', function(req, res){
         pu: req.sanitize('pu'),
         su: req.sanitize('su'),
         mtn_cl: req.sanitize('mtn_cl'),
-        fk: req.sanitize('fk')
-        
+        fk: req.sanitize('fk')  
     }
+    console.log('fname is ' + item.fname);
+    console.log('lname is ' + item.lname);
+    console.log('jj is ' + item.jj);
     if (item.button == 'Submit'){
         var query = 'insert into progress_check (student_name, jumping_jacks, pushups, situps, mtn_climbers, front_kicks) values ($1, $2, $3, $4, $5);';
         db.one(query, [item.fname + ' ' + item.lname, item.jj, item.pu, item.su, item.mtn_cl, item.fk])
