@@ -1,0 +1,100 @@
+<html>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        input[type='first name'] {
+            width: 130px;
+            box-sizing: border-box;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: white;
+            background-position: 10px 10px; 
+            background-repeat: no-repeat;
+            padding: 12px 20px 12px 40px;
+            -webkit-transition: width 0.4s ease-in-out;
+            transition: width 0.4s ease-in-out;
+        }
+        input[type='last name'] {
+            width: 130px;
+            box-sizing: border-box;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: white;
+            background-position: 10px 10px; 
+            background-repeat: no-repeat;
+            padding: 12px 20px 12px 40px;
+            -webkit-transition: width 0.4s ease-in-out;
+            transition: width 0.4s ease-in-out;
+        }
+        input[type='number'] {
+            width: 130px;
+            box-sizing: border-box;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: white;
+            background-position: 10px 10px; 
+            background-repeat: no-repeat;
+            padding: 12px 20px 12px 40px;
+            -webkit-transition: width 0.4s ease-in-out;
+            transition: width 0.4s ease-in-out;
+        }
+        /* Create two equal columns that floats next to each other */
+        .column {
+        float: left;
+        width: 50%;
+        padding: 10px;
+        height: 300px; /* Should be removed. Only for demonstration */
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        [type=submit] {
+            background-color: blue; /* Green */
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            -webkit-transition-duration: 0.4s; /* Safari */
+            transition-duration: 0.4s;
+            cursor: pointer;
+        }
+        h1 {
+            text-align: center;
+        }
+        label:invalid{
+            border: 2px blue;
+        }
+    </style>
+    <head>
+        <h1>Student Progess Check</h1>
+    </head>
+    <body>
+        <div class="row">
+            <form>
+                <div class="column" style="background-color:#aaa;">
+                    <label>First Name: </label><input type="first name" name="fname" id="fname" pattern="\b[A-z]+\b" title="First Name must only contain letters."value="<%= fname %>"/><br>
+                    <label>Jumping Jacks: </label><input type="number" name="jj" id="jj" pattern="\b[0-9]+\b" value="<%= jj %>"/><br>
+                    <label>Mountain Climbers: </label><input type="number" name="mtn_cl" id="mtn_cl" pattern="\b[0-9]+\b" value="<%= mtn_cl %>"/><br>
+                    <label>Front Kicks: </label><input type="number" name="fk" id="fk" pattern="\b[0-9]+\b" value="<%= fk %>"/><br>
+                    <input type="submit" name="Preview" value="Preview"/>
+                </div>
+                <div class="column" style="background-color:#aaa;">
+                    <label>Last Name: </label><input type="last name" name="lname" id="lname"  pattern="\b[A-z]+\b"value="<%= lname %>"/><br>
+                    <label>Push-ups: </label><input type="number" name="pu" id="pu" pattern="\b[0-9]+\b" value="<%= pu %>"/><br>
+                    <label>Sit-ups: </label><input type="number" name="su" id="su" pattern="\b[0-9]+\b" value="<%= su %>"/>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

@@ -147,3 +147,28 @@ app.get('/Nasty30', function(req, res){
     res.contentType("application/pdf");
     res.send(data);
 });
+/*
+app.get('/student_progress_check', function(req, res){
+    if(req.headers['x-forwarded-proto'] != 'https'){
+        res.redirect('https://emafiles.herokuapp.com/store/student_progress_check')
+    } else {
+        res.render('store/student_progress_check', {
+            fname: '',
+            lname: '',
+            jj: '',
+            pu: ''
+        })
+    }
+});
+*/
+app.get('/student_progress_check', function(req, res){
+    res.render('store/student_progress_check', {
+        fname: '',
+        lname: '',
+        jj: '',
+        pu: '',
+        mtn_cl: '',
+        su: '',
+        fk: ''
+    })
+});
