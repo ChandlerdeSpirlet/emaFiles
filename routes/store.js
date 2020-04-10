@@ -203,7 +203,7 @@ app.get('/preview', function(req, res){
 app.post('/preview', function(req, res){
     var item = {
         button: req.sanitize('button'),
-        fname: req.sanitize('fn'),
+        fname: req.sanitize('fname'),
         lname: req.sanitize('lname'),
         jj: req.sanitize('jj'),
         pu: req.sanitize('pu'),
