@@ -4,6 +4,7 @@ var path = require('path');
 var exp_val = require('express-validator');
 var session = require("express-session");
 var fs = require('fs');
+var db = require('../database');
 
 module.exports = app;
 app.use(session({
@@ -156,7 +157,10 @@ app.get('/student_progress_check', function(req, res){
             fname: '',
             lname: '',
             jj: '',
-            pu: ''
+            pu: '',
+            mtn_cl: '',
+            su: '',
+            fk: ''
         })
     }
 });
@@ -170,5 +174,79 @@ app.get('/student_progress_check', function(req, res){
         mtn_cl: '',
         su: '',
         fk: ''
+    })
+});
+
+app.post('/student_progress_check', function(req, res){
+    var item = {
+        fname: req.sanitize('fname'),
+        lname: req.sanitize('lname'),
+        jj: req.sanitize('jj').trim(),
+        pu: req.sanitize('pu').trim(),
+        mtn_cl: req.sanitize('mtn_cl').trim(),
+        su: req.sanitize('su').trim(),
+        fk: req.sanitize('fk').trim()
+    }
+    res.render('store/preview', {
+        fname: item.fname,
+        lname: item.lname,
+        jj: item.jj,
+        pu: item.pu,
+        su: item.su,
+        mtn_cl: item.mtn_cl,
+        fk: item.fk,
+        button: ''
+    })
+});
+
+app.get('/preview', function(req, res){
+    res.render('store/preview', {
+        fname: '',
+        lname: '',
+        jj: '',
+        pu: '',
+        mtn_cl: '',
+        su: '',
+        fk: '',
+        button: ''
+    })
+});
+
+app.post('/preview', function(req, res){
+    var item = {
+        button: req.sanitize('button'),
+        fname: req.sanitize('fn'),
+        lname: req.sanitize('lname'),
+        jj: req.sanitize('jj'),
+        pu: req.sanitize('pu'),
+        su: req.sanitize('su'),
+        mtn_cl: req.sanitize('mtn_cl'),
+        fk: req.sanitize('fk')
+        
+    }
+    if (item.button == 'Submit'){
+        db.none('insert into progress_check (student_name, jumping_jacks, pushups, situps, mtn_climbers, front_kicks) values ($1, $2, $3, $4, $5);', [item.fname + ' ' + item.lname, item.jj, item.pu, item.su, item.mtn_cl, item.fk]);
+        res.redirect('https')
+    }
+    if (item.button == 'Edit'){
+        res.render('store/student_progress_check', {
+            fname: item.fname,
+            lname: item.lname,
+            jj: item.jj,
+            pu: item.pu,
+            mtn_cl: item.mtn_cl,
+            su: item.su,
+            fk: item.fk
+        })
+    }
+});
+
+app.get('/good_job(:stud_name)', function(req, res){
+    var stud_name = req.params.stud_name;
+    var items = ['Nice job', 'Way to go', 'Awesome', 'Super cool', 'Looks great', 'Good job', 'Fantastic', 'Fantastic job', 'Awesome job', "That's karate-choppin'"];
+    var item = items[Math.floor(Math.random() * items.length)];
+    res.render('store/good_job', {
+        comp: item,
+        stud_name: stud_name
     })
 });

@@ -90,18 +90,18 @@
     </head>
     <body>
         <div class="row">
-            <form>
+            <form onsubmit="ValidateForm()" name="Form" action="/store/student_progress_check" method="post">
                 <div class="column">
-                    <label>First Name: </label><input type="first name" name="fname" id="fname" pattern="\b[A-z]{1}[A-z ]+\b" title="First Name must only contain letters."value="<%= fname %>"><br>
+                    <label>First Name: </label><input type="first name" name="fname" id="fname" pattern="[A-z]{1}[A-z ]+" title="First Name must only contain letters."value="<%= fname %>"><br>
                     <label>Jumping Jacks: </label><input inputmode="numeric" type="text" name="jj" id="jj" pattern="[0-9]+" value="<%= jj %>"/><br>
-                    <label>Mountain Climbers: </label><input type="text" name="mtn_cl" id="mtn_cl" pattern="\b[0-9]+\b" value="<%= mtn_cl %>"/><br>
-                    <label>Front Kicks: </label><input type="text" name="fk" id="fk" pattern="\b[0-9]+\b" value="<%= fk %>"/><br>
+                    <label>Mountain Climbers: </label><input inputmode="numeric" type="text" name="mtn_cl" id="mtn_cl" pattern="\b[0-9]+\b" value="<%= mtn_cl %>"/><br>
+                    <label>Front Kicks: </label><input inputmode="numeric" type="text" name="fk" id="fk" pattern="\b[0-9]+\b" value="<%= fk %>"/><br>
                     <input type="submit" name="Preview" value="Preview"/>
                 </div>
                 <div class="column">
                     <label>Last Name: </label><input type="last name" name="lname" id="lname"  pattern="\b[A-z]{1}[A-z ]+\b"value="<%= lname %>"/><br>
-                    <label>Push-ups: </label><input type="text" name="pu" id="pu" pattern="\b[0-9]+\b" value="<%= pu %>"/><br>
-                    <label>Sit-ups: </label><input type="text" name="su" id="su" pattern="\b[0-9]+\b" value="<%= su %>"/>
+                    <label>Push-ups: </label><input inputmode="numeric" type="text" name="pu" id="pu" pattern="\b[0-9]+\b" value="<%= pu %>"/><br>
+                    <label>Sit-ups: </label><input inputmode="numeric" type="text" name="su" id="su" pattern="\b[0-9]+\b" value="<%= su %>"/>
                 </div>
             </form>
         </div>
@@ -135,5 +135,43 @@
     }
     pu.oninvalid = function(event){
         event.target.setCustomValidity('Push-ups can only be numbers.');
+    }
+
+    function ValidateForm(){
+        var fname = document.forms["Form"]["fname"].value;
+        var lname = document.forms["Form"]["lname"].value;
+        var jj = document.forms["Form"]["jj"].value;
+        var pu = document.forms["Form"]["pu"].value;
+        var su = document.forms["Form"]["su"].value;
+        var mtn_cl = document.forms["Form"]["mtn_cl"].value;
+        var fk = document.forms["Form"]["fk"].value;
+        if (fname == null || fname == ""){
+            alert("First Name is required.");
+            return false;
+        }
+        if (lname == null || lname == ""){
+            alert("Last Name is required.");
+            return false;
+        }
+        if (jj == null || jj == ""){
+            alert("Jumping Jacks are required.");
+            return false;
+        }
+        if (pu == null || pu == ""){
+            alert("Push-ups are required.");
+            return false;
+        }
+        if (su == null || su == ""){
+            alert("Sit-ups are required.");
+            return false;
+        }
+        if (mtn_cl == null || mtn_cl == ""){
+            alert("Mountain Climbers are required.");
+            return false;
+        }
+        if (fk == null || fk == ""){
+            alert("Front Kicks are required.");
+            return false;
+        }
     }
 </script>

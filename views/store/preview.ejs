@@ -1,0 +1,65 @@
+<style>
+    * {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        background-color: black;
+    }
+    h1 {
+        color: blue;
+        text-shadow: white 3px;
+    }
+    body{
+        background-color: black;
+    }
+    footer{
+        background-color: black;
+    }
+    label{
+        color: blue;
+    }
+    p{
+        color: white;
+    }
+    [type=submit] {
+        background-color: blue; /* Green */
+        border: none;
+        color: white;
+        padding: 16px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+</style>
+<html>
+    <head>
+        <h1>Progress Check Preview</h1>
+    </head>
+    <body>
+        <h2>You have entered the following information</h2>
+        <label>First Name: </label> <p><%= fname %></p><br>
+        <label>Last Name: </label> <p><%= lname %></p><br>
+        <label>Jumping Jacks: </label> <p><%= jj %></p><br>
+        <label>Push-ups: </label><p><%= pu %></p><br>
+        <label>Sit-ups: </label><p><%= su %></p><br>
+        <label>Mountain Climbers: </label><p><%= mtn_cl %></p><br>
+        <label>Front Kicks: </label><p><%= fk %></p><br>
+    </body>
+    <footer>
+        <p>If this looks correct, click <i>Submit</i>, otherwise, click <i>Edit</i></p>
+        <form action="/store/preview" method="post">
+            <input type="hidden" name="fname" value="<%= fname %>"/>
+            <input type="hidden" name="lname" value="<%= lname %>"/>
+            <input type="hidden" name="jj" value="<%= jj %>"/>
+            <input type="hidden" name="pu" value="<%= pu %>"/>
+            <input type="hidden" name="su" value="<%= su %>"/>
+            <input type="hidden" name="mtn_cl" value="<%= mtn_cl %>"/>
+            <input type="hidden" name="fk" value="<%= fk %>"/>
+            <input type="submit" name="button" value="Submit"/>
+            <input type="submit" name="button" value="Edit"/>
+        </form>
+    </footer>
+</html>
