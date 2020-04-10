@@ -238,7 +238,7 @@ app.post('/preview', function(req, res){
     console.log('jj is ' + item.jj);
     if (item.button == 'Submit'){
         var query = 'insert into progress_check (student_name, jumping_jacks, pushups, situps, mtn_climbers, front_kicks) values ($1, $2, $3, $4, $5);';
-        db.one(query, [item.fname + ' ' + item.lname, item.jj, item.pu, item.su, item.mtn_cl, item.fk])
+        db.any(query, [item.fname + ' ' + item.lname, item.jj, item.pu, item.su, item.mtn_cl, item.fk])
             .then(function(row){
                 var stud = item.fname + " " + item.lname;
                 var redir = 'good_job/' + stud;
