@@ -148,7 +148,7 @@ app.get('/Nasty30', function(req, res){
     res.contentType("application/pdf");
     res.send(data);
 });
-/*
+
 app.get('/student_progress_check', function(req, res){
     if(req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/student_progress_check')
@@ -163,18 +163,6 @@ app.get('/student_progress_check', function(req, res){
             fk: ''
         })
     }
-});
-*/
-app.get('/student_progress_check', function(req, res){
-    res.render('store/student_progress_check', {
-        fname: '',
-        lname: '',
-        jj: '',
-        pu: '',
-        mtn_cl: '',
-        su: '',
-        fk: ''
-    })
 });
 
 app.post('/student_progress_check', function(req, res){
@@ -226,7 +214,7 @@ app.post('/preview', function(req, res){
     }
     if (item.button == 'Submit'){
         db.none('insert into progress_check (student_name, jumping_jacks, pushups, situps, mtn_climbers, front_kicks) values ($1, $2, $3, $4, $5);', [item.fname + ' ' + item.lname, item.jj, item.pu, item.su, item.mtn_cl, item.fk]);
-        res.redirect('https')
+        res.redirect('good_job')
     }
     if (item.button == 'Edit'){
         res.render('store/student_progress_check', {
