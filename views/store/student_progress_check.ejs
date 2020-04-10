@@ -29,7 +29,7 @@
             -webkit-transition: width 0.4s ease-in-out;
             transition: width 0.4s ease-in-out;
         }
-        input[type='number'] {
+        input[type='text'] {
             width: 130px;
             box-sizing: border-box;
             border-radius: 4px;
@@ -92,16 +92,16 @@
         <div class="row">
             <form>
                 <div class="column">
-                    <label>First Name: </label><input type="first name" name="fname" id="fname" pattern="\bA-z]{1}[A-z ]+\b" title="First Name must only contain letters."value="<%= fname %>"><br>
-                    <label>Jumping Jacks: </label><input type="number" name="jj" id="jj" pattern="[0-9]+" value="<%= jj %>"/><br>
-                    <label>Mountain Climbers: </label><input type="number" name="mtn_cl" id="mtn_cl" pattern="\b[0-9]+\b" value="<%= mtn_cl %>"/><br>
-                    <label>Front Kicks: </label><input type="number" name="fk" id="fk" pattern="\b[0-9]+\b" value="<%= fk %>"/><br>
+                    <label>First Name: </label><input type="first name" name="fname" id="fname" pattern="\b[A-z]{1}[A-z ]+\b" title="First Name must only contain letters."value="<%= fname %>"><br>
+                    <label>Jumping Jacks: </label><input type="text" name="jj" id="jj" pattern="[0-9]+" value="<%= jj %>"/><br>
+                    <label>Mountain Climbers: </label><input type="text" name="mtn_cl" id="mtn_cl" pattern="\b[0-9]+\b" value="<%= mtn_cl %>"/><br>
+                    <label>Front Kicks: </label><input type="text" name="fk" id="fk" pattern="\b[0-9]+\b" value="<%= fk %>"/><br>
                     <input type="submit" name="Preview" value="Preview"/>
                 </div>
                 <div class="column">
-                    <label>Last Name: </label><input type="last name" name="lname" id="lname"  pattern="\bA-z]{1}[A-z ]+\b"value="<%= lname %>"/><br>
-                    <label>Push-ups: </label><input type="number" name="pu" id="pu" pattern="\b[0-9]+\b" value="<%= pu %>"/><br>
-                    <label>Sit-ups: </label><input type="number" name="su" id="su" pattern="\b[0-9]+\b" value="<%= su %>"/>
+                    <label>Last Name: </label><input type="last name" name="lname" id="lname"  pattern="\b[A-z]{1}[A-z ]+\b"value="<%= lname %>"/><br>
+                    <label>Push-ups: </label><input type="text" name="pu" id="pu" pattern="\b[0-9]+\b" value="<%= pu %>"/><br>
+                    <label>Sit-ups: </label><input type="text" name="su" id="su" pattern="\b[0-9]+\b" value="<%= su %>"/>
                 </div>
             </form>
         </div>
