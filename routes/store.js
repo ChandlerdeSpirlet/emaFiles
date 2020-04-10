@@ -214,7 +214,9 @@ app.post('/preview', function(req, res){
     }
     if (item.button == 'Submit'){
         db.none('insert into progress_check (student_name, jumping_jacks, pushups, situps, mtn_climbers, front_kicks) values ($1, $2, $3, $4, $5);', [item.fname + ' ' + item.lname, item.jj, item.pu, item.su, item.mtn_cl, item.fk]);
-        res.redirect('good_job')
+        var stud = item.fname + " " + item.lname;
+        var redir = 'good_job/' + stud;
+        res.redirect(redir)
     }
     if (item.button == 'Edit'){
         res.render('store/student_progress_check', {
