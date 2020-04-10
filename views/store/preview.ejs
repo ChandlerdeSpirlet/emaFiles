@@ -5,7 +5,7 @@
     }
     h1 {
         color: blue;
-        text-shadow: white 3px;
+        text-shadow: white 1px 1px 2px;
     }
     body{
         background-color: black;
@@ -14,11 +14,9 @@
         background-color: black;
     }
     label{
-        color: blue;
-    }
-    p{
         color: white;
-    }
+        font-size: 16px;
+    }   
     [type=submit] {
         background-color: blue; /* Green */
         border: none;
@@ -33,6 +31,17 @@
         transition-duration: 0.4s;
         cursor: pointer;
     }
+    h2 {
+        color: blue;
+    }
+    h3 {
+        color: blue;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    p {
+        color: white;
+    }
 </style>
 <html>
     <head>
@@ -40,13 +49,13 @@
     </head>
     <body>
         <h2>You have entered the following information</h2>
-        <label>First Name: </label> <p><%= fname %></p><br>
-        <label>Last Name: </label> <p><%= lname %></p><br>
-        <label>Jumping Jacks: </label> <p><%= jj %></p><br>
-        <label>Push-ups: </label><p><%= pu %></p><br>
-        <label>Sit-ups: </label><p><%= su %></p><br>
-        <label>Mountain Climbers: </label><p><%= mtn_cl %></p><br>
-        <label>Front Kicks: </label><p><%= fk %></p><br>
+        <h3>First Name: <label><%= fname %></label></h3>
+        <h3>Last Name: <label><%= lname %></label></h3>
+        <h3>Jumping Jacks: <label><%= jj %></label></h3>
+        <h3>Push-ups: <label><%= pu %></label></h3>
+        <h3>Sit-ups: <label><%= su %></label></h3>
+        <h3>Mountain Climbers: <label><%= mtn_cl %></label></h3>
+        <h3>Front Kicks: <label><%= fk %></label></h3>
     </body>
     <footer>
         <p>If this looks correct, click <i>Submit</i>, otherwise, click <i>Edit</i></p>

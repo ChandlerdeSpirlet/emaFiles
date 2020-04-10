@@ -149,6 +149,7 @@ app.get('/Nasty30', function(req, res){
     res.send(data);
 });
 
+/*
 app.get('/student_progress_check', function(req, res){
     if(req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/student_progress_check')
@@ -163,6 +164,18 @@ app.get('/student_progress_check', function(req, res){
             fk: ''
         })
     }
+});
+*/
+app.get('/student_progress_check', function(req, res){
+    res.render('store/student_progress_check', {
+        fname: '',
+        lname: '',
+        jj: '',
+        pu: '',
+        mtn_cl: '',
+        su: '',
+        fk: ''
+    })
 });
 
 app.post('/student_progress_check', function(req, res){
@@ -231,7 +244,7 @@ app.post('/preview', function(req, res){
     }
 });
 
-app.get('/good_job(:stud_name)', function(req, res){
+app.get('/good_job/(:stud_name)', function(req, res){
     var stud_name = req.params.stud_name;
     var items = ['Nice job', 'Way to go', 'Awesome', 'Super cool', 'Looks great', 'Good job', 'Fantastic', 'Fantastic job', 'Awesome job', "That's karate-choppin'"];
     var item = items[Math.floor(Math.random() * items.length)];
