@@ -1,12 +1,20 @@
 <html>
-    <meta http-equiv = "refresh" content = "10"; url = "https://emafiles.herokuapp.com/store/student_progress_check"/>
+    <meta http-equiv = "refresh" content = "10; url = https://emafiles.herokuapp.com/store/student_progress_check"/>
     <style>
         body{
             font-family: -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: black;
         }
+        h2 {
+            color: white;
+        }
+        p {
+            color: white;
+            text-emphasis: small;
+        }
     </style>
     <body>
-        <h2><%= comp %> <%= stud_name %>! Your progress check scores have been submitted. (This page will retuen to the progress check page in 10 seconds.</h2>
+        <h2><%= comp %> <%= stud_name %>! Your progress check scores have been submitted. </h2>
+        <p>(This page will retuen to the progress check page in 10 seconds.)</p>
     </body>
 </html>
