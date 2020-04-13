@@ -284,14 +284,14 @@ app.post('/preview/(:fname)/(:lname)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', functio
                 req.flash('error', 'Unable to add progress check data (ERROR: ' + err + ')');
                 res.redirect('student_progress_check')
             })
-            /*
+            
             console.log('can_redir = ' + can_redir);
             if (can_redir == true){
                 var stud = req.params.fname + " " + req.params.lname;
                 var redir = 'good_job/' + stud;
                 res.redirect(redir);
             }
-            */
+            
     }
     if (item.button == 'Edit'){
         res.render('store/student_progress_check', {
