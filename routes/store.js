@@ -276,6 +276,12 @@ app.post('/preview/(:fname)/(:lname)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', functio
             .then(function(row){
                 can_redir = true;
             })
+            console.log('can_redir = ' + can_redir);
+            if (can_redir == true){
+                var stud = req.params.fname + " " + req.params.lname;
+                var redir = 'good_job/' + stud;
+                res.redirect(redir)
+            }
             .catch(function(err){
                 console.log("In .catch");
                 console.log('error is ' + err);
@@ -293,12 +299,6 @@ app.post('/preview/(:fname)/(:lname)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', functio
             su: item.su,
             fk: item.fk
         })
-    }
-    console.log('can_redir = ' + can_redir);
-    if (can_redir == true){
-        var stud = req.params.fname + " " + req.params.lname;
-        var redir = 'good_job/' + stud;
-        res.redirect(redir)
     }
 });
 
