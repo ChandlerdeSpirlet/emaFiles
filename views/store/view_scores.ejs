@@ -6,6 +6,8 @@
         }
         table{
             background-color: black;
+            width: 90%;
+            align-content: center;
         }
         th, h1 {
             color: blue;
@@ -13,6 +15,65 @@
         td {
             color: white;
         }
+        @media (min-width: 300px) {
+        th {
+            /* Since color is in min-width: 300px it will follow all the other sizes upwards */
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+        th,td {
+            width: calc(598px /6);
+            text-align: center;
+            padding-top: 5px; 
+            padding-bottom: 5px;
+        }
+        th:first-child {
+            padding-left: 30px;
+            padding-right: 25px;
+        }
+    }
+    @media (min-width: 600px) {
+        th, td {
+            width: calc(768px / 6);
+        }
+    }
+
+    @media (min-width: 768px) {
+        th,td {
+            width: calc(768px / 6);
+        }
+    }
+    @media (min-width: 768.02px) {
+        th, td {
+            width: calc(1024px / 6);
+        }
+    }
+    @media (min-width: 1024px) {
+        th,td {
+            width: calc(1024px / 6);
+        }
+    }
+    @media (min-width: 1024.02px) {
+        th, td {
+            width: calc(1200px / 6);
+        }
+    }
+    @media (min-width: 1200px) {
+        th,td {
+            width: calc(1600px / 6);
+        }
+    }
+    @media (min-width: 1600.02px) {
+        th, td {
+            width: calc(2000px / 6);
+            /* Simple hack for screen larger than 1600 pixels but smaller than 2000 */
+        }
+    }
+    @media (min-width: 2000.02px) {
+        th, td {
+            width: calc(2400px / 6);
+        }
+}
     </style>
     <head>
         <h1>Student Progress Check Scores</h1>
