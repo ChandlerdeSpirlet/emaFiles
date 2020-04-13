@@ -275,19 +275,20 @@ app.post('/preview/(:fname)/(:lname)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', functio
         db.none(query, [req.params.fname + ' ' + req.params.lname, req.params.jj, req.params.pu, req.params.su, req.params.mtn_cl, req.params.fk])
             .then(function(row){
                 can_redir = true;
+                console.log('in .then');
             })
-            console.log('can_redir = ' + can_redir);
-            if (can_redir == true){
-                var stud = req.params.fname + " " + req.params.lname;
-                var redir = 'good_job/' + stud;
-                res.redirect(redir)
-            }
             .catch(function(err){
                 console.log("In .catch");
                 console.log('error is ' + err);
                 req.flash('error', 'Unable to add progress check data (ERROR: ' + err + ')');
                 res.redirect('student_progress_check')
             })
+            console.log('can_redir = ' + can_redir);
+            if (can_redir == true){
+                var stud = req.params.fname + " " + req.params.lname;
+                var redir = 'good_job/' + stud;
+                res.redirect(redir);
+            }
     }
     if (item.button == 'Edit'){
         res.render('store/student_progress_check', {
