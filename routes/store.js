@@ -269,15 +269,12 @@ app.post('/preview/(:fname)/(:lname)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', functio
         mtn_cl: req.sanitize('mtn_cl'),
         fk: req.sanitize('fk')  
     }
+    var can_redir = false;
     if (item.button == 'Submit'){
         var query = 'insert into progress_check (student_name, jumping_jacks, pushups, situps, mtn_climbers, front_kicks) values ($1, $2, $3, $4, $5, $6)';
         db.none(query, [req.params.fname + ' ' + req.params.lname, req.params.jj, req.params.pu, req.params.su, req.params.mtn_cl, req.params.fk])
             .then(function(row){
-                var stud = req.params.fname + " " + req.params.lname;
-                console.log('row is: ' + row);
-                var redir = 'good_job/' + stud;
-                console.log("In .then");
-                res.redirect(redir)
+                can_redir = true;
             })
             .catch(function(err){
                 console.log("In .catch");
@@ -296,6 +293,12 @@ app.post('/preview/(:fname)/(:lname)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', functio
             su: item.su,
             fk: item.fk
         })
+    }
+    console.log('can_redir = ' + can_redir);
+    if (can_redir == true){
+        var stud = req.params.fname + " " + req.params.lname;
+        var redir = 'good_job/' + stud;
+        res.redirect(redir)
     }
 });
 
