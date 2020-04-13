@@ -269,13 +269,17 @@ app.post('/preview/(:fname)/(:lname)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', functio
         mtn_cl: req.sanitize('mtn_cl'),
         fk: req.sanitize('fk')  
     }
-    var can_redir = false;
     if (item.button == 'Submit'){
         var query = 'insert into progress_check (student_name, jumping_jacks, pushups, situps, mtn_climbers, front_kicks) values ($1, $2, $3, $4, $5, $6)';
         db.none(query, [req.params.fname + ' ' + req.params.lname, req.params.jj, req.params.pu, req.params.su, req.params.mtn_cl, req.params.fk])
             .then(function(row){
-                can_redir = true;
                 console.log('in .then');
+                var items = ['Nice job', 'Way to go', 'Awesome', 'Super cool', 'Looks great', 'Good job', 'Fantastic', 'Fantastic job', 'Awesome job', "That's karate-choppin'"];
+                var item = items[Math.floor(Math.random() * items.length)];
+                res.render('store/good_job', {
+                    comp: item,
+                    stud_name: req.params.fname + ' ' + req.params.lname
+                });
             })
             .catch(function(err){
                 can_redir = false;
@@ -284,14 +288,6 @@ app.post('/preview/(:fname)/(:lname)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', functio
                 req.flash('error', 'Unable to add progress check data (ERROR: ' + err + ')');
                 res.redirect('student_progress_check')
             })
-            
-            console.log('can_redir = ' + can_redir);
-            if (can_redir == true){
-                var stud = req.params.fname + " " + req.params.lname;
-                var redir = 'good_job/' + stud;
-                res.redirect(redir);
-            }
-            
     }
     if (item.button == 'Edit'){
         res.render('store/student_progress_check', {
@@ -313,6 +309,12 @@ app.get('/good_job/(:stud_name)', function(req, res){
     res.render('store/good_job', {
         comp: item,
         stud_name: stud_name
+    })
+});
+app.get('/good_job', function(req, res){
+    res.render('/store/good_job', {
+        comp: '',
+        stud_name: ''
     })
 });
 
