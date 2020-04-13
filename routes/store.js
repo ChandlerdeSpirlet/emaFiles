@@ -259,7 +259,7 @@ app.get('/preview', function(req, res){
 });
 */
 
-app.post('/preview', function(req, res){
+app.post('/preview/(:fname)/(:lname)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', function(req, res){
     var item = {
         button: req.sanitize('button'),
         fname: req.sanitize('fname'),
@@ -271,10 +271,10 @@ app.post('/preview', function(req, res){
         fk: req.sanitize('fk')  
     }
     if (item.button == 'Submit'){
-        var query = 'insert into progress_check (student_name, jumping_jacks, pushups, situps, mtn_climbers, front_kicks) values ($1, $2, $3, $4, $5);';
-        db.none(query, [item.fname + ' ' + item.lname, item.jj, item.pu, item.su, item.mtn_cl, item.fk])
+        var query = 'insert into progress_check (student_name, jumping_jacks, pushups, situps, mtn_climbers, front_kicks) values ($1, $2, $3, $4, $5)';
+        db.none(query, [req.params.fname + ' ' + req.params.lname, req.params.jj, req.params.pu, req.params.su, req.params.mtn_cl, req.params.fk])
             .then(function(row){
-                var stud = item.fname + " " + item.lname;
+                var stud = req.params.fname + " " + req.params.lname;
                 console.log('row is: ' + row);
                 var redir = 'good_job/' + stud;
                 console.log("In .then");
