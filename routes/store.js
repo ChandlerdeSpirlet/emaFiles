@@ -186,7 +186,7 @@ app.get('/student_progress_check', function(req, res){
         fk: ''
     })
 });
-
+/*
 app.post('/student_progress_check', function(req, res){
     var item = {
         fname: req.sanitize('fname'),
@@ -208,7 +208,43 @@ app.post('/student_progress_check', function(req, res){
         button: ''
     })
 });
+*/
+app.post('/student_progress_check', function(req, res){
+    var item = {
+        fname: req.sanitize('fname'),
+        lname: req.sanitize('lname'),
+        jj: req.sanitize('jj').trim(),
+        pu: req.sanitize('pu').trim(),
+        mtn_cl: req.sanitize('mtn_cl').trim(),
+        su: req.sanitize('su').trim(),
+        fk: req.sanitize('fk').trim()
+    }
+    var redir_link = '/store/preview/' + item.fname + '/' + item.lname + '/' + item.jj + '/' + item.pu + '/' + item.mtn_cl + '/' + item.su + '/' + item.fk;
+    console.log('redir_link = ' + redir_link);
+    res.redirect(redir_link);
+});
 
+app.get('/preview/(:fname)/(:lname)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', function(req, res){
+    var fname = req.params.fname;
+    var lname = req.params.lname;
+    var jj = req.params.jj;
+    var pu = req.params.pu;
+    var su = req.params.su;
+    var mtn_cl = req.params.mtn_cl;
+    var fk = req.params.fk;
+    res.render('store/preview', {
+        fname: fname,
+        lname: lname,
+        jj: jj,
+        pu: pu,
+        mtn_cl: mtn_cl,
+        su: su,
+        fk: fk,
+        button: ''
+    })
+
+});
+/*
 app.get('/preview', function(req, res){
     res.render('store/preview', {
         fname: '',
@@ -221,6 +257,7 @@ app.get('/preview', function(req, res){
         button: ''
     })
 });
+*/
 
 app.post('/preview', function(req, res){
     var item = {
@@ -233,28 +270,21 @@ app.post('/preview', function(req, res){
         mtn_cl: req.sanitize('mtn_cl'),
         fk: req.sanitize('fk')  
     }
-    console.log('fname is ' + item.fname);
-    console.log('lname is ' + item.lname);
-    console.log('jj is ' + item.jj);
     if (item.button == 'Submit'){
         var query = 'insert into progress_check (student_name, jumping_jacks, pushups, situps, mtn_climbers, front_kicks) values ($1, $2, $3, $4, $5);';
-        db.any(query, [item.fname + ' ' + item.lname, item.jj, item.pu, item.su, item.mtn_cl, item.fk])
+        db.none(query, [item.fname + ' ' + item.lname, item.jj, item.pu, item.su, item.mtn_cl, item.fk])
             .then(function(row){
                 var stud = item.fname + " " + item.lname;
+                console.log('row is: ' + row);
                 var redir = 'good_job/' + stud;
+                console.log("In .then");
                 res.redirect(redir)
             })
             .catch(function(err){
+                console.log("In .catch");
+                console.log('error is ' + err);
                 req.flash('error', 'Unable to add progress check data (ERROR: ' + err + ')');
-                res.render('store/student_progress_check', {
-                    fname: '',
-                    lname: '',
-                    jj: '',
-                    pu: '',
-                    mtn_cl: '',
-                    su: '',
-                    fk: ''
-                })
+                res.redirect('student_progress_check')
             })
     }
     if (item.button == 'Edit'){
