@@ -59,7 +59,7 @@
     </body>
     <footer>
         <p>If this looks correct, click <i>Submit</i>, otherwise, click <i>Edit</i></p>
-        <form action="/store/preview" method="post">
+        <form action="/store/preview/(:fname)/(:lname)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)" method="post">
             <input type="hidden" name="fname" value="<%= fname %>"/>
             <input type="hidden" name="lname" value="<%= lname %>"/>
             <input type="hidden" name="jj" value="<%= jj %>"/>

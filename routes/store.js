@@ -242,7 +242,6 @@ app.get('/preview/(:fname)/(:lname)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', function
         fk: fk,
         button: ''
     })
-
 });
 /*
 app.get('/preview', function(req, res){
