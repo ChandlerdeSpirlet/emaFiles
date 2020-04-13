@@ -14,6 +14,8 @@
         }
         td {
             color: white;
+        }
+        .content {
             border: 1px grey;
         }
         @media (min-width: 300px) {
@@ -91,7 +93,7 @@
                 <th>Front Kicks</th>
             </tr>
         </table>
-        <table>
+        <table class="content">
             <% if (data) { %>
                 <!-- Using a for-loop to loop over each row in the database.
                 The 'data' variable is passed from the store.js during the response.render function call -->
