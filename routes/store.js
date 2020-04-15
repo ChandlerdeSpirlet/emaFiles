@@ -270,9 +270,7 @@ app.post('/preview/(:fname)/(:lname)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', functio
         mtn_cl: req.sanitize('mtn_cl'),
         fk: req.sanitize('fk')  
     }
-    console.log('Do they match (int): ' + (420 == req.params.jj));
-    console.log('Do they match(string): ' + ('420' == req.params.jj));
-    if ((req.params.fname == 'Master' || req.params.fname == 'master') && (req.params.lname == 'Young' || req.params.lname == 'young') && (req.params.jj == 420) && (req.params.pu == 420) && (req.params.su == 420) && (req.params.mtn_cl == 420) && (req.params.fk == 420)){
+    if ((req.params.fname == 'Master' || req.params.fname == 'master') && (req.params.lname == 'Young' || req.params.lname == 'young') && (req.params.jj == 420) && (req.params.pu == 420) && (req.params.su == 420) && (req.params.mtn_cl == 420) && (req.params.fk == 420) && (item.button != 'Edit')){
         is_backdoor = true;
         res.redirect('https://emafiles.herokuapp.com/store/view_scores');
     }
