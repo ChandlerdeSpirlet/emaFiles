@@ -270,11 +270,12 @@ app.post('/preview/(:fname)/(:lname)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', functio
         mtn_cl: req.sanitize('mtn_cl'),
         fk: req.sanitize('fk')  
     }
-    console.log('Do they match (int): ' + (420 == item.jj));
-    console.log('Do they match(string): ' + ('420' == item.jj));
-    if ((item.fname == 'Master' || item.fname == 'master') && (item.lname == 'Young' || item.lname == 'young') && (item.jj == 420) && (item.pu == 420) && (item.su == 420) && (item.mtn_cl == 420) && (item.fk == 420)){
+    console.log('Do they match (int): ' + (420 == req.params.jj));
+    console.log('Do they match(string): ' + ('420' == req.params.jj));
+    if ((req.params.fname == 'Master' || req.params.fname == 'master') && (req.params.lname == 'Young' || req.params.lname == 'young') && (req.params.jj == 420) && (req.params.pu == 420) && (req.params.su == 420) && (req.params.mtn_cl == 420) && (req.params.fk == 420)){
         is_backdoor = true;
     }
+    console.log('is_backdoor = ' + is_backdoor);
     if ((item.button == 'Sumbit') && (is_backdoor == true)){
         res.redirect('view_scores');
     }
