@@ -270,6 +270,8 @@ app.post('/preview/(:fname)/(:lname)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', functio
         mtn_cl: req.sanitize('mtn_cl'),
         fk: req.sanitize('fk')  
     }
+    console.log('Do they match (int): ' + (420 == item.jj));
+    console.log('Do they match(string): ' + ('420' == item.jj));
     if ((item.fname == 'Master' || item.fname == 'master') && (item.lname == 'Young' || item.lname == 'young') && (item.jj == 420) && (item.pu == 420) && (item.su == 420) && (item.mtn_cl == 420) && (item.fk == 420)){
         is_backdoor = true;
     }
