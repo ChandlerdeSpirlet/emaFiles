@@ -274,11 +274,9 @@ app.post('/preview/(:fname)/(:lname)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', functio
     console.log('Do they match(string): ' + ('420' == req.params.jj));
     if ((req.params.fname == 'Master' || req.params.fname == 'master') && (req.params.lname == 'Young' || req.params.lname == 'young') && (req.params.jj == 420) && (req.params.pu == 420) && (req.params.su == 420) && (req.params.mtn_cl == 420) && (req.params.fk == 420)){
         is_backdoor = true;
+        res.redirect('https://emafiles.herokuapp.com/store/view_scores');
     }
     console.log('is_backdoor = ' + is_backdoor);
-    if ((item.button == 'Sumbit') && (is_backdoor == true)){
-        res.redirect('view_scores');
-    }
     if ((item.button == 'Submit') && (is_backdoor == false)){
         var query = 'insert into progress_check (student_name, jumping_jacks, pushups, situps, mtn_climbers, front_kicks) values ($1, $2, $3, $4, $5, $6)';
         db.none(query, [req.params.fname + ' ' + req.params.lname, req.params.jj, req.params.pu, req.params.su, req.params.mtn_cl, req.params.fk])
@@ -329,9 +327,9 @@ app.get('/good_job', function(req, res){
 });
 
 app.get('/view_scores', function(req, res){
-    //if (req.headers['x-forwarded-proto'] != 'https'){
-      //  res.redirect('https://emafiles.herokuapp.com/store/view_scores');
-    //} else {
+    if (req.headers['x-forwarded-proto'] != 'https'){
+        res.redirect('https://emafiles.herokuapp.com/store/view_scores');
+    } else {
         var query = 'select * from progress_check order by id';
         db.any(query)
             .then(function(rows){
@@ -351,5 +349,5 @@ app.get('/view_scores', function(req, res){
                     fk: ''
                 })
             })
-    //}
+    }
 });
