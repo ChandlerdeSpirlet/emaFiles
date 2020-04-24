@@ -158,7 +158,7 @@ app.get('/Nasty30', function(req, res){
     res.send(data);
 });
 
-/*
+
 app.get('/student_progress_check', function(req, res){
     if(req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/student_progress_check')
@@ -174,18 +174,7 @@ app.get('/student_progress_check', function(req, res){
         })
     }
 });
-*/
-app.get('/student_progress_check', function(req, res){
-    res.render('store/student_progress_check', {
-        fname: '',
-        lname: '',
-        jj: '',
-        pu: '',
-        mtn_cl: '',
-        su: '',
-        fk: ''
-    })
-});
+
 /*
 app.post('/student_progress_check', function(req, res){
     var item = {
