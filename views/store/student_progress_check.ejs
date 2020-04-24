@@ -106,7 +106,7 @@
     </head>
     <body>
         <div class="row">
-            <form onsubmit="ValidateForm()" name="Form" action="/store/student_progress_check" method="post">
+            <form onsubmit="return ValidateForm()" name="Form" action="/store/student_progress_check" method="post">
                 <div class="column">
                     <label>First Name: </label><input type="first name" name="fname" id="fname" pattern="[A-z]{1}[A-z ]+" title="First Name must only contain letters."value="<%= fname %>"><br>
                     <label>Jumping Jacks: </label><input inputmode="numeric" type="number" name="jj" id="jj" pattern="[0-9]+" value="<%= jj %>"/><br>
@@ -189,5 +189,6 @@
             alert("Front Kicks are required.");
             return false;
         }
+        return true;
     }
 </script>
