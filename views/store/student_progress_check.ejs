@@ -108,8 +108,8 @@
         <div class="row">
             <form onsubmit="return ValidateForm()" name="Form" action="/store/student_progress_check" method="post">
                 <div class="column">
-                    <label>First Name: </label><input type="first name" name="fname" id="fname" pattern="[A-z]{1}[A-z ]+" title="First Name must only contain letters."value="<%= fname %>"><br>
-                    <label>Jumping Jacks: </label><input inputmode="numeric" type="number" name="jj" id="jj" pattern="[0-9]+" value="<%= jj %>"/><br>
+                    <label>First Name: </label><input type="first name" name="fname" id="fname" pattern="[A-z]{1}[A-z ]+" value="<%= fname %>"><br>
+                    <label>Jumping Jacks: </label><input inputmode="numeric" type="number" name="jj" id="jj" pattern="\b[0-9]+\b" value="<%= jj %>"/><br>
                     <label>Mountain Climbers: </label><input inputmode="numeric" type="number" name="mtn_cl" id="mtn_cl" pattern="\b[0-9]+\b" value="<%= mtn_cl %>"/><br>
                     <label>Front Kicks: </label><input inputmode="numeric" type="number" name="fk" id="fk" pattern="\b[0-9]+\b" value="<%= fk %>"/><br>
                     <input type="submit" name="Preview" value="Preview"/>
@@ -132,10 +132,10 @@
     var pu = document.getElementById('pu');
     var su = document.getElementById('su');
     fname.oninvalid = function(event) {
-        event.target.setCustomValidity('Firstname should only include letters. e.g. Jonny');
+        event.target.setCustomValidity('Firstname should only include letters.');
     }
     lname.oninvalid = function(event) {
-        event.target.setCustomValidity('Lastname should only include letters. e.g. Appleseed');
+        event.target.setCustomValidity('Lastname should only include letters.');
     }
     jj.oninvalid = function(event){
         event.target.setCustomValidity('Jumping Jacks can only be numbers.');
