@@ -19,15 +19,15 @@
     "homepage": "https://github.com/ChandlerdeSpirlet/emaFiles#readme",
     "dependencies": {
         "body-parser": "^1.19.0",
-        "cookie-parser": "^1.4.4",
+        "cookie-parser": "^1.4.5",
         "cors": "^2.8.5",
-        "ejs": "^2.6.1",
-        "express": "^4.16.4",
+        "ejs": "^2.7.4",
+        "express": "^4.17.1",
         "express-flash": "0.0.2",
-        "express-session": "^1.15.6",
+        "express-session": "^1.17.1",
         "express-validator": "^5.3.1",
         "fs": "0.0.1-security",
-        "lodash": "^4.17.14",
-        "pg-promise": "^10.5.0"
+        "lodash": "^4.17.15",
+        "pg-promise": "^10.5.2"
     }
 }
