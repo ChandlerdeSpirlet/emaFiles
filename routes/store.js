@@ -317,7 +317,7 @@ app.get('/view_scores', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/view_scores');
     } else {
-        var query = 'select * from progress_check order by id';
+        var query = 'select * from progress_check order by id desc';
         db.any(query)
             .then(function(rows){
                 res.render('store/view_scores', {
