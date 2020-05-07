@@ -342,12 +342,8 @@ app.get('/view_scores', function(req, res){
 
 function Create_CSV(){
     const file = __dirname + '/storedFiles/progress_check_csv/progress_check_data.csv';
-    fs.writeFile(file, '', function (err) {
-        if (err) throw err;
-    });
 
     db.query("SELECT * FROM progress_check", (err, res) => {
-        done();
         if (err) {
             console.log(err.stack);
         } else {
@@ -375,9 +371,9 @@ function Create_CSV(){
 
 app.post('/download', function(req, res){
     console.log("BUILDING FILE");
-    console.log(Create_CSV);
     if (Create_CSV()){
         const file = __dirname + '/storedFiles/progress_check_csv/progress_check_data.csv';
+        console.log('File path is ' + file);
         res.download(file);
     }
     try {
