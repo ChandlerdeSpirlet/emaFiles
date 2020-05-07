@@ -355,7 +355,9 @@ function Create_CSV(){
     return ("DONE");
 }
 
-app.get('/download', function(req, res){
+app.post('/download', function(req, res){
+    console.log("BUILDING FILE");
+    console.log(Create_CSV);
     if (Create_CSV() == "DONE"){
         const file = __dirname + '/storedFiles/progress_check_csv/progress_check_data.csv';
         res.download(file);

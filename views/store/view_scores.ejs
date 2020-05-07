@@ -102,7 +102,9 @@
     </style>
     <head>
         <h1>Student Progress Check Scores</h1>
-        <button onclick="window.location.href = 'https://classcounts.herokuapp.com/store/download';">Download Progress Check Scores</button>
+        <form action="/store/download" method="post">
+            <input type="submit" value="Download Scores" />
+        </form>
     </head>
     <body>
         <div id="page-container">
