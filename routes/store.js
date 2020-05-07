@@ -6,6 +6,7 @@ var session = require("express-session");
 var fs = require('fs');
 const bodyParser = require('body-parser');
 var db = require('../database');
+const Json2csvParser = require("json2csv").Parser;
 const cors = require('cors');
 app.use(cors())
 
@@ -340,25 +341,38 @@ app.get('/view_scores', function(req, res){
 });
 
 function Create_CSV(){
-    var columns = ['id', 'student_name', 'jumping_jacks', 'pushups', 'situps', 'mtn_climbers', 'front_kicks'];
-    var ws = fs.createWriteStream(__dirname + '/storedFiles/progress_check_csv/progress_check_data.csv');
-    var query = client.query('SELECT '+columns.join(', ')+' FROM progress_check');
-    db.any(query)
-        .then(function(row){
-            var values = [];
-            columns.forEach(function(col){
-                values = row[col];
+    const file = __dirname + '/storedFiles/progress_check_csv/progress_check_data.csv'
+    db.query("SELECT * FROM progress_check", (err, res) => {
+        done();
+    
+        if (err) {
+            console.log(err.stack);
+        } else {
+            const jsonData = JSON.parse(JSON.stringify(res.rows));
+            console.log("jsonData", jsonData);
+    
+            const json2csvParser = new Json2csvParser({ header: true });
+            const csv = json2csvParser.parse(jsonData);
+    
+            fs.writeFile(file, csv, function(error) {
+                if (error) throw error;
+                    console.log("Write to progress_check_data.csv successfully!");
             });
-            ws.write(values.join('| '));
-        })
-    ws.close();
-    return ("DONE");
+        }
+    });
+
+    var stats = fs.statSync(file);
+    if (stats.isFile()){
+        return 1
+    } else {
+        return 0
+    }
 }
 
 app.post('/download', function(req, res){
     console.log("BUILDING FILE");
     console.log(Create_CSV);
-    if (Create_CSV() == "DONE"){
+    if (Create_CSV()){
         const file = __dirname + '/storedFiles/progress_check_csv/progress_check_data.csv';
         res.download(file);
     }
