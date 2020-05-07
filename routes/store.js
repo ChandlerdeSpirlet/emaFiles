@@ -158,6 +158,12 @@ app.get('/Nasty30', function(req, res){
     res.contentType("application/pdf");
     res.send(data);
 });
+app.get('/data', function(req, res){
+    Create_CSV();
+    var data = fs.readFileSync(__dirname + 'storedFiles/progress_check_csv/progress_check_data.csv');
+    res.contentType('csv');
+    res.send(data);
+})
 
 
 app.get('/student_progress_check', function(req, res){
