@@ -338,3 +338,32 @@ app.get('/view_scores', function(req, res){
             })
     }
 });
+
+function Create_CSV(){
+    var columns = ['id', 'student_name', 'jumping_jacks', 'pushups', 'situps', 'mtn_climbers', 'front_kicks'];
+    var ws = fs.createWriteStream(__dirname + '/storedFiles/progress_check_csv/progress_check_data.csv');
+    var query = client.query('SELECT '+columns.join(', ')+' FROM progress_check');
+    db.any(query)
+        .then(function(row){
+            var values = [];
+            columns.forEach(function(col){
+                values = row[col];
+            });
+            ws.write(values.join('| '));
+        })
+    ws.close();
+    return ("DONE");
+}
+
+app.get('/download', function(req, res){
+    if (Create_CSV() == "DONE"){
+        const file = __dirname + '/storedFiles/progress_check_csv/progress_check_data.csv';
+        res.download(file);
+    }
+    try {
+        fs.unlinkSync(__dirname + '/storedFiles/progress_check_csv/progress_check_data.csv');
+    } catch(err) {
+        console.error("ERROR DELETING: " + err);
+    }
+    res.redirect('view_scores');
+});
