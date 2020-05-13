@@ -3,10 +3,10 @@ var app = express();
 var path = require('path');
 var exp_val = require('express-validator');
 var session = require("express-session");
+const fastcsv = require("fast-csv");
 var fs = require('fs');
 const bodyParser = require('body-parser');
 var db = require('../database');
-const Json2csvParser = require("json2csv").Parser;
 const cors = require('cors');
 app.use(cors())
 
@@ -347,26 +347,24 @@ app.get('/view_scores', function(req, res){
 });
 
 function Create_CSV(){
-    const file = __dirname + '/storedFiles/progress_check_csv/progress_check_data.csv';
+    const file_name = __dirname + '/storedFiles/progress_check_csv/progress_check_data.csv';
 
-    db.query("SELECT * FROM progress_check", (err, res) => {
+    const ws = fs.createWriteStream(file_name);
+    var sqlQuery = 'select * from progress_check';
+    db.query(sqlQuery, (err, res) => {
+
         if (err) {
-            console.log(err.stack);
-        } else {
-            const jsonData = JSON.parse(JSON.stringify(res.rows));
-            console.log("jsonData", jsonData);
-    
-            const json2csvParser = new Json2csvParser({ header: true });
-            const csv = json2csvParser.parse(jsonData);
-    
-            fs.writeFile(file, csv, function(error) {
-                if (error) throw error;
-                    console.log("Write to progress_check_data.csv successfully!");
-            });
+        console.log("db.query()", err.stack)
         }
-    });
-
-    var stats = fs.statSync(file);
+        
+        if (res) {
+            const jsonData = JSON.parse(JSON.stringify(res.rows));
+            console.log("\njsonData:", jsonData)
+        
+            fastcsv.write(jsonData, {headers: true})
+        }
+    })
+    var stats = fs.statSync(file_name);
     console.log("In Create_CSV, file: " + stats.isFile());
     if (stats.isFile()){
         return 1
@@ -378,9 +376,9 @@ function Create_CSV(){
 app.post('/download', function(req, res){
     console.log("BUILDING FILE");
     if (Create_CSV()){
-        const file = __dirname + '/storedFiles/progress_check_csv/progress_check_data.csv';
-        console.log('File path is ' + file);
-        res.download(file);
+        const file_name = __dirname + '/storedFiles/progress_check_csv/progress_check_data.csv';
+        console.log('File path is ' + file_name);
+        res.download(file_name);
     }
     try {
         fs.unlinkSync(__dirname + '/storedFiles/progress_check_csv/progress_check_data.csv');
