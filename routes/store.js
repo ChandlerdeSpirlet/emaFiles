@@ -386,7 +386,9 @@ app.post('/download', function(req, res){
         console.log('File path is ' + file_name);
     }
     console.log('downloading');
-    res.download(__dirname + '/storedFiles/progress_check_csv/progress_check_data.csv');
+    var files = fs.createReadStream(__dirname + '/storedFiles/progress_check_csv/progress_check_data.csv');
+    res.writeHead(200, {'Content-disposition': 'attachment; filename=progress_check_data.csv'}); //here you can add more headers
+    files.pipe(res)
     try {
         fs.unlinkSync(__dirname + '/storedFiles/progress_check_csv/progress_check_data.csv');
     } catch(err) {
