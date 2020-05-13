@@ -37,6 +37,7 @@ app.get('/schedule', function (req, res){
     var data =fs.readFileSync(__dirname + '/storedFiles/sched.pdf');
     res.contentType("application/pdf");
     res.send(data);
+    console.log("DIRNAME IS: " + __dirname)
 });
 app.get('/CalendlyInstructions', function(req, res){
     var data = fs.readFileSync(__dirname + '/storedFiles/CalendlyInstructions.pdf');
