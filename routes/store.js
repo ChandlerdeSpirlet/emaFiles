@@ -49,6 +49,11 @@ app.get('/ITP', function(req, res){
     res.contentType("application/pdf");
     res.send(data);
 });
+app.get('/bingo_cards', function(req, res){
+    var data = fs.readFileSync(__dirname + '/storedFiles/bingo_cards.pdf');
+    res.contentType("application/pdf");
+    res.send(data);
+});
 app.get('/aspHomework', function(req, res){
     var data = fs.readFileSync(__dirname + '/storedFiles/ASPhomework.pdf');
     res.contentType("application/pdf");
