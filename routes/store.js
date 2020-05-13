@@ -386,7 +386,7 @@ app.post('/download', function(req, res){
         console.log('File path is ' + file_name);
     }
     console.log('downloading');
-    res.download(file_name);
+    res.download(__dirname + '/storedFiles/progress_check_csv/progress_check_data.csv');
     try {
         fs.unlinkSync(__dirname + '/storedFiles/progress_check_csv/progress_check_data.csv');
     } catch(err) {
