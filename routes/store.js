@@ -350,21 +350,13 @@ app.get('/view_scores', function(req, res){
 function Create_CSV(){
     const file_name = __dirname + '/storedFiles/progress_check_csv/progress_check_data.csv';
 
-    const ws = fs.createWriteStream(file_name);
-    var sqlQuery = 'select * from progress_check';
-    db.query(sqlQuery, (err, res) => {
+    var copyTo = require('pg-copy-streams').to
 
-        if (err) {
-        console.log("db.query()", err.stack)
-        }
-        
-        if (res) {
-            const jsonData = JSON.parse(JSON.stringify(res.rows));
-            console.log("\njsonData:", jsonData)
-        
-            fastcsv.write(jsonData, {headers: true})
-        }
-    })
+    var stream = db.query(copyTo('COPY progress_check TO STDOUT'))
+    stream.pipe(process.stdout)
+    stream.on('end', done)
+    stream.on('error', done)
+
     var stats = fs.statSync(file_name);
     console.log("In Create_CSV, file: " + stats.isFile());
     if (stats.isFile()){

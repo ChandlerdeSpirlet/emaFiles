@@ -30,6 +30,8 @@
         "fs": "0.0.1-security",
         "json2csv": "^5.0.1",
         "lodash": "^4.17.15",
+        "pg": "^8.1.0",
+        "pg-copy-streams": "^4.0.0",
         "pg-promise": "^10.5.3"
     }
 }
