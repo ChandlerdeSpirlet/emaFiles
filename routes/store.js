@@ -350,12 +350,25 @@ app.get('/view_scores', function(req, res){
 function Create_CSV(){
     const file_name = __dirname + '/storedFiles/progress_check_csv/progress_check_data.csv';
 
+    var { Pool } = require('pg')
     var copyTo = require('pg-copy-streams').to
-
-    var stream = db.query(copyTo('COPY progress_check TO STDOUT'))
-    stream.pipe(process.stdout)
-    stream.on('end', done)
-    stream.on('error', done)
+    
+    var pool = new Pool(db)
+    
+    try {
+        var writer = fs.createWriteStream('db.csv');
+        pool.connect(function (pgErr, client, done) {
+            var stream = client.query(copyTo('COPY progress_check TO STDOUT'));
+            var pipe = stream.pipe(writer);
+            pipe.on('finish', function () {
+                var stream = fs.createReadStream(file_name);
+                res.attachment('progress_check_data.csv');
+                stream.pipe(res);
+            });
+        })
+    } catch (e) {
+        console.log(e)
+    }
 
     var stats = fs.statSync(file_name);
     console.log("In Create_CSV, file: " + stats.isFile());
