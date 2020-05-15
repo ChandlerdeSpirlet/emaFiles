@@ -49,6 +49,21 @@ app.get('/ITP', function(req, res){
     res.contentType("application/pdf");
     res.send(data);
 });
+app.get('/L1', function(req, res){
+    var data = fs.readFileSync(__dirname + '/storedFiles/Level_1_Combos.pdf');
+    res.contentType("application/pdf");
+    res.send(data);
+});
+app.get('/L2', function(req, res){
+    var data = fs.readFileSync(__dirname + '/storedFiles/Level_2_Combos.pdf');
+    res.contentType("application/pdf");
+    res.send(data);
+});
+app.get('/L3', function(req, res){
+    var data = fs.readFileSync(__dirname + '/storedFiles/Level_3_Combos.pdf');
+    res.contentType("application/pdf");
+    res.send(data);
+});
 app.get('/bingo_cards', function(req, res){
     var data = fs.readFileSync(__dirname + '/storedFiles/bingo_cards.pdf');
     res.contentType("application/pdf");
