@@ -202,6 +202,11 @@ app.get('/student_progress_check', function(req, res){
         })
     }
 });
+app.get('/temp', function(req, res){
+    res.render('store/temp', {
+
+    })
+});
 
 /*
 app.post('/student_progress_check', function(req, res){
