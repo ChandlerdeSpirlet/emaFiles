@@ -298,15 +298,17 @@ app.post('/preview/(:fname)/(:lname)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', functio
     }
     console.log('is_backdoor = ' + is_backdoor);
     if ((item.button == 'Submit') && (is_backdoor == false)){
-        var query = 'insert into progress_check (student_name, jumping_jacks, pushups, situps, mtn_climbers, front_kicks) values ($1, $2, $3, $4, $5, $6)';
-        db.none(query, [req.params.fname + ' ' + req.params.lname, req.params.jj, req.params.pu, req.params.su, req.params.mtn_cl, req.params.fk])
+        var total_score = req.params.jj + req.params.pu + req.params.su + req.params.mtn_cl + req.params.fk;
+        var query = 'insert into progress_check (student_name, jumping_jacks, pushups, situps, mtn_climbers, front_kicks, total_score) values ($1, $2, $3, $4, $5, $6, $7)';
+        db.none(query, [req.params.fname + ' ' + req.params.lname, req.params.jj, req.params.pu, req.params.su, req.params.mtn_cl, req.params.fk, total_score])
             .then(function(row){
                 console.log('in .then');
                 var items = ['Nice job', 'Way to go', 'Awesome', 'Super cool', 'Looks great', 'Good job', 'Fantastic', 'Fantastic job', 'Awesome job', "That's karate-choppin'"];
                 var item = items[Math.floor(Math.random() * items.length)];
                 res.render('store/good_job', {
                     comp: item,
-                    stud_name: req.params.fname + ' ' + req.params.lname
+                    stud_name: req.params.fname + ' ' + req.params.lname,
+                    tot_score: total_score
                 });
             })
             .catch(function(err){
