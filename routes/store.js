@@ -298,7 +298,7 @@ app.post('/preview/(:fname)/(:lname)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', functio
     }
     console.log('is_backdoor = ' + is_backdoor);
     if ((item.button == 'Submit') && (is_backdoor == false)){
-        var total_score = req.params.jj + req.params.pu + req.params.su + req.params.mtn_cl + req.params.fk;
+        var total_score = int(req.params.jj) + int(req.params.pu) + int(req.params.su) + int(req.params.mtn_cl) + int(req.params.fk);
         var query = 'insert into progress_check (student_name, jumping_jacks, pushups, situps, mtn_climbers, front_kicks, total_score) values ($1, $2, $3, $4, $5, $6, $7)';
         db.none(query, [req.params.fname + ' ' + req.params.lname, req.params.jj, req.params.pu, req.params.su, req.params.mtn_cl, req.params.fk, total_score])
             .then(function(row){
