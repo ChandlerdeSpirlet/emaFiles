@@ -1,0 +1,67 @@
+<% if (messages.error) { %>
+    <p style="color:red"><%- messages.error %></p>
+<% } %>
+<html>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+
+    </style>
+    <head>
+        <h1>Belt Testing Signup</h1>
+    </head>
+    <body>
+        <form onsubmit="return ValidateForm()" name="Form" action="/store/tesing_signup" method="POST">
+            <label>First Name: </label><input type="first name" name="fname" id="fname" pattern="[A-z]{1}[A-z ]+" value="<%= fname %>"><br>
+            <label>Last Name: </label><input type="last name" name="lname" id="lname" pattern="[A-z]{1}[A-z ]+" value="<%= lname %>"><br>
+            <label>Email: </label><input type="email" name="email" id="email" pattern="[A-z0-9.]+[@][A-z0-9]{1,}[.]+[A-z]{2,}" value="<%= email %>"><br>
+            <label>Phone Number: </label><input inputmode="numeric" type="phone number" name="phone" id="phone" value="<%= phone %>"><br>
+            <label>Belt Rank: </label>
+                <select name="belts" id="belts">
+                    <option value="blank">Select A Belt Color</option>
+                    <option value="dragons">Little Dragons Belt</option>
+                    <option value="white">White Belt</option>
+                    <option value="gold">Gold Belt</option>
+                    <option value="orange">Orange Belt</option>
+                    <option value="high orange">High Orange Belt</option>
+                    <option value="green">Green Belt</option>
+                    <option value="high green">High Green Belt</option>
+                    <option value="purple">Purple Belt</option>
+                    <option value="high purple">High Purple Belt</option>
+                    <option value="blue">Blue Belt</option>
+                    <option value="high blue">High Blue Belt</option>
+                    <option value="red">Red Belt</option>
+                    <option value="high red">High Red Belt</option>
+                    <option value="brown">Brown Belt</option>
+                    <option value="high brown">High Brown Belt</option>
+                </select><br>
+            
+            <input type="submit" name="Preview" value="Preview"/>
+        </form>
+    </body>
+</html>
+<script>
+    function ValidateForm(){
+        var fname = document.forms["Form"]["fname"].value;
+        var lname = document.forms["Form"]["lname"].value;
+        var email = document.forms["Form"]["email"].value;
+        var phone = document.forms["Form"]["phone"].value;
+        var rank = document.forms["Form"]["belts"].value;
+        var fname = document.forms["Form"]["fname"].value;
+        if (fname == null || fname == ""){
+            alert("First name is required and must contain at least two letters.");
+            return false;
+        }
+        if (lname == null || lname == ""){
+            alert("Last name is required and must contain at least two letters.");
+            return false;
+        }
+        if ((phone == null || phone == "") || (email == null || email == "")){
+            alert("A phone number or email is required. We use this in case we need to contact you.");
+            return false;
+        }
+        if (rank == "blank"){
+            alert("Please select a belt color.");
+            return false;
+        }
+    }
+</script>
