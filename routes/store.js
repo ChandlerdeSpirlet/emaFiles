@@ -185,8 +185,8 @@ app.get('/data', function(req, res){
     res.contentType('csv');
     res.send(data);
 })
-app.get('../zohoverify/verifyforzoho', function(req, res){
-    res.render('../verifyforzoho')
+app.get('/zohoverify/verifyforzoho', function(req, res){
+    res.render('/verifyforzoho')
 });
 
 app.get('/student_progress_check', function(req, res){
