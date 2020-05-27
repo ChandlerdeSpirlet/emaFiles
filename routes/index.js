@@ -6,3 +6,6 @@ app.get('/', function (req, res){
         
     })
 });
+app.get('/zohoverify/verifyforzoho', function(req, res){
+    res.render('zohoverify/verifyforzoho');
+});
