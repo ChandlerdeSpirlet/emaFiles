@@ -184,9 +184,6 @@ app.get('/data', function(req, res){
     var data = fs.readFileSync(__dirname + 'storedFiles/progress_check_csv/progress_check_data.csv');
     res.contentType('csv');
     res.send(data);
-})
-app.get('/zohoverify/verifyforzoho', function(req, res){
-    res.render('zohoverify/verifyforzoho');
 });
 
 app.get('/student_progress_check', function(req, res){
