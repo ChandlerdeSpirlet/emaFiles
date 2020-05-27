@@ -186,7 +186,7 @@ app.get('/data', function(req, res){
     res.send(data);
 })
 app.get('/zohoverify/verifyforzoho', function(req, res){
-    res.render('/verifyforzoho')
+    res.render('zohoverify/verifyforzoho');
 });
 
 app.get('/student_progress_check', function(req, res){
