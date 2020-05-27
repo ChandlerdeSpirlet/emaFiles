@@ -16,10 +16,8 @@ app.use(session({
 app.use(flash());
 var index = require('./routes/index');
 var store = require('./routes/store');
-var zohoverify = require('./routes/zohoverify');
 app.use('/', index);
 app.use('/store', store);
-app.use('/zohoverify', zohoverify);
 var port = process.env.PORT;
 //var port = 5000
 app.listen(port, function(){
