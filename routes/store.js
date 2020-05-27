@@ -185,7 +185,9 @@ app.get('/data', function(req, res){
     res.contentType('csv');
     res.send(data);
 })
-
+applicationCache.get('../zohoverify/verifyforzoho', function(req, res){
+    res.render('../verifyforzoho')
+});
 
 app.get('/student_progress_check', function(req, res){
     if(req.headers['x-forwarded-proto'] != 'https'){
