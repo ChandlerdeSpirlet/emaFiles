@@ -303,7 +303,7 @@
             <label>Testing Days and Times:</label><br>
             <% if (data) {%>
                 <% data.forEach(function(item){ %>
-                    <pre>   <input type="radio" id="day_time" name="day_time" value="<%= item.month_name %> <%= item.day_number %> at <%= item.time_num %>"> <%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> (<%= 10 - item.count %> spots remaining).</pre>
+                    <pre>   <input type="radio" id="day_time" name="day_time" value="<%= item.month_name %> <%= item.day_number %> at <%= item.time_num %>"> <%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> (<%= 10 - item.count %> spot(s) remaining).</pre>
                 <% }) %>
             <% } %>
             <input type="submit" name="Preview" value="Preview"/>
