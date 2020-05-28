@@ -504,6 +504,7 @@ app.post('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(
                         fname: item.fname,
                         lname: item.lname,
                         email: item.email,
+                        day_time: '',
                         data: rows
                     })
                 })
