@@ -436,9 +436,10 @@ app.get('/testing_signup', function(req, res){
 });
 
 function parseDateInfo(day_time){
-    var n = day_time.indexOf(" ");
-    var month = day_time.substring(0,n);
-    var newStr = day_time.substring(n + 1, day_time.length);
+    day_time_str = String(day_time)
+    var n = day_time_str.indexOf(" ");
+    var month = day_time_str.substring(0,n);
+    var newStr = day_time_str.substring(n + 1, day_time.length);
     var temp = newStr.indexOf(" ");
     var day = newStr.substring(0,temp);
     var finalStr = newStr.substring(temp + 4, newStr.length);
