@@ -281,7 +281,16 @@
             <label>First Name: </label><input type="first name" name="fname" id="fname" pattern="[A-z]{1}[A-z ]+" value="<%= fname %>"><br>
             <label>Last Name: </label><input type="last name" name="lname" id="lname" pattern="[A-z]{1}[A-z ]+" value="<%= lname %>"><br>
             <label>Email: </label><input type="email" name="email" id="email" pattern="[A-z0-9.]+[@][A-z0-9]{1,}[.]+[A-z]{2,}" value="<%= email %>"><br>
-            <label>Belt Rank: </label>
+            <label>Current Belt Rank: </label>
+                <select name="belts" id="belts">
+                    <% if (belts) {%>
+                        <% data.forEach(function(item){ %>
+                            <%= console.log(item); %>
+                            <option value="<%= item %>"><%= item %></option>
+                        <% }) %>
+                    <% } %>
+                </select>
+            <!--<label>Belt Rank: </label>
                 <select name="belts" id="belts">
                     <option value="blank">Select A Belt Color</option>
                     <option value="dragons">Little Dragons Belt</option>
@@ -299,7 +308,7 @@
                     <option value="high red">High Red Belt</option>
                     <option value="brown">Brown Belt</option>
                     <option value="high brown">High Brown Belt</option>
-                </select><br>
+                </select><br>-->
             <label>Testing Days and Times:</label><br>
             <% if (data) {%>
                 <% data.forEach(function(item){ %>

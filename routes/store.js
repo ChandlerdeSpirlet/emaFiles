@@ -413,6 +413,7 @@ app.get('/testing_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/testing_signup');
     } else {
+        var belts = ['Little Dragons Belt', 'White Belt', 'Gold Belt', 'Orange Belt'];
         var query = 'select * from testing_signup where count < 10';
         db.any(query)
             .then(function(rows){
@@ -420,6 +421,7 @@ app.get('/testing_signup', function(req, res){
                     fname: '',
                     lname: '',
                     email: '',
+                    belts: belts,
                     data: rows
                 })
             })
