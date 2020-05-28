@@ -413,7 +413,6 @@ app.get('/testing_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/testing_signup');
     } else {
-        var belts = ['Little Dragons Belt', 'White Belt', 'Gold Belt', 'Orange Belt'];
         var query = 'select * from testing_signup where count < 10';
         db.any(query)
             .then(function(rows){
@@ -421,7 +420,6 @@ app.get('/testing_signup', function(req, res){
                     fname: '',
                     lname: '',
                     email: '',
-                    belts: belts,
                     data: rows
                 })
             })
@@ -497,7 +495,18 @@ app.post('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(
         button: req.sanitize('button')
     }
     if (item.button == 'Submit'){
-        console.log(hi);
+        var query_count = 'update testing_signup set count = count + 1 where month_name = $1 and day_number = $2, and time_num = $3';
+        db.query(query_count, [req.params.month, req.params.day, req.params.time]); //Updates count
+        var date_conversion = req.params.month + ' ' + req.params.day + ' 2020';
+        var query_sched = "insert into people_testing (first_name, last_name, belt, email, test_day, test_time) values ($1, $2, $3, $4, to_date($5, 'Month DD YYYY'), $6);"
+        db.query(query_sched, [req.params.fname, req.params.lname, req.params.belts, req.params.email, date_conversion, req.params.time]);
+        res.render('store/good_job_testing', {
+            stud_name: item.fname + item.lname,
+            month: req.params.month,
+            day: req.params.day,
+            time: req.params.time,
+            email: req.params.email
+        });
     }
     if (item.button == 'Edit'){
         var query = 'select * from testing_signup where count < 10';
@@ -523,4 +532,13 @@ app.post('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(
                 })
     }
     
+});
+app.get('/good_job_testing', function(req, res){
+    res.render('/store/good_job_testing', {
+        stud_name: '',
+        month: '',
+        day: '',
+        time: '',
+        email: ''
+    })
 });
