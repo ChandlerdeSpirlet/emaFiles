@@ -491,6 +491,7 @@ app.post('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(
         fname: req.sanitize('fname'),
         lname: req.sanitize('lname'),
         email: req.sanitize('email'),
+        belt: req.sanitize('belt'),
         button: req.sanitize('button')
     }
     if (item.button == 'Submit'){
@@ -504,6 +505,7 @@ app.post('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(
                         fname: item.fname,
                         lname: item.lname,
                         email: item.email,
+                        belts: item.belt,
                         day_time: '',
                         data: rows
                     })

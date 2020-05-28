@@ -315,13 +315,11 @@
 </html>
 <script>
     function ValidateForm(){
-        var fname = document.forms["Form"]["fname"].value;
-        var lname = document.forms["Form"]["lname"].value;
-        var email = document.forms["Form"]["email"].value;
-        var phone = document.forms["Form"]["phone"].value;
-        var rank = document.forms["Form"]["belts"].value;
-        var fname = document.forms["Form"]["fname"].value;
-        var day = document.forms["Form"]["day_time"].value;
+        var fname = document.getElementById('fname');
+        var lname = document.getElementById('lname');
+        var email = document.getElementById('email');
+        var rank = document.getElementById('belts');
+        var day = document.getElementById('day_time');
         if (fname == null || fname == ""){
             alert("First name is required and must contain at least two letters.");
             return false;
