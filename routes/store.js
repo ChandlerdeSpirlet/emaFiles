@@ -5,6 +5,7 @@ var exp_val = require('express-validator');
 var session = require("express-session");
 const fastcsv = require("fast-csv");
 var fs = require('fs');
+var nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 var db = require('../database');
 const cors = require('cors');
@@ -500,8 +501,10 @@ app.post('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(
         var date_conversion = req.params.month + ' ' + req.params.day + ' 2020';
         var query_sched = "insert into people_testing (first_name, last_name, belt, email, test_day, test_time) values ($1, $2, $3, $4, to_date($5, 'Month DD YYYY'), $6);"
         db.query(query_sched, [req.params.fname, req.params.lname, req.params.belts, req.params.email, date_conversion, req.params.time]);
+        var temp_name = item.fname + ' ' + item.lname;
+        sendEmail(temp_name, req.params.email, date_conversion, req.params.time);
         res.render('store/good_job_testing', {
-            stud_name: item.fname + item.lname,
+            stud_name: item.fname + ' ' + item.lname,
             month: req.params.month,
             day: req.params.day,
             time: req.params.time,
@@ -542,3 +545,25 @@ app.get('/good_job_testing', function(req, res){
         email: ''
     })
 });
+function sendEmail(name, email_user, date, time){
+    var transporter = nodemailer.createTransport({
+        service: 'outlook',
+        auth: {
+            user: 'EMA_Testing@outlook.com',
+            pass: 'bigfeK-qyxzof-kezvi3'
+        }
+    });
+    var mailOptions = {
+        from: 'EMA_Testing@outlook.com',
+        to: email_user,
+        subject: 'Testing Confirmed for ' + name,
+        html: "<b>" + name + "</b>" + ' is confirmed for testing on ' + "<b>" + date + "</b>" + ' at ' + "<b>" + time + "</b>"
+    };
+    transporter.sendMail(mailOptions, function(error, info){
+        if (error){
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+    });
+}
