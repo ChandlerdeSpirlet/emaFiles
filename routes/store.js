@@ -567,9 +567,53 @@ function sendEmail(name, email_user, date, time){
         }
     });
 }
-app.post('/login', function(req, res){
-
-});
 app.get('/login', function(req, res){
+    res.render('store/login', {
+        title: 'Login',
+        files_user: '',
+        files_pass: ''
+    })
+});
+app.post('/login', function(request, response){
+    request.assert('files_user', 'Username is required').notEmpty();
+    request.assert('files_pass', 'Password is required').notEmpty();
 
+    var errors = request.validationErrors();
+    if (!errors){
+        var item = {
+            user: request.sanitize('files_user').trim(),
+            pass: request.sanitize('files_pass').trim()
+        };
+        db.func('checkuser', [item.user, item.pass])
+            .then( data => {
+                var temp = data[0];
+                var final = temp.checkuser;
+                if (final == true && item.user == "Instructor"){
+                    request.session.user = item.user;
+                    request.flash('success', 'Instructor credentials accepted!');
+                    response.redirect('testing_schedule');
+                } else {
+                    request.flash('error', 'Login credentials rejected! Contact system admin if this is an issue.');
+                    response.redirect('login');
+                }
+            })
+    }
+});
+app.get('/testing_schedule', function(req, res){
+    if (req.session.user == 'Instructor'){
+        var query = 'select first_name, last_name, belt, test_day, test_time from people_testing';
+        db.any(query)
+            .then(function(rows){
+                res.render('store/testing_schedule', {
+                    data: rows
+                })
+            })
+            .catch(function(err){
+                req.flash('error', 'Unable to view testers (ERROR: ' + err + ')');
+                res.redirect('/store/login');
+            })
+    } else {
+        req.flash('error', 'Instructor credentials required.');
+        res.redirect('login');
+    }
 });

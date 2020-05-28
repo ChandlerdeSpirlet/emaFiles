@@ -309,17 +309,19 @@
                 text-align: center;
                 text-decoration: none;
                 display: inline-block;
-                font-size: 16px;
+                font-size: 12px;
                 margin: 4px 2px;
                 -webkit-transition-duration: 0.4s; /* Safari */
                 transition-duration: 0.4s;
                 cursor: pointer;
-                position: right;
+                position: absolute;
+                right: 10px;
+                bottom: 0;
             }
         }
     </style>
     <head>
-        <h1>Belt Testing Signup</h1><form name="login" id="login" action="/store/login" method="POST"><input type="submit" name="Instructor_Login" id="Instructor_Login" value="Instructor Login"/></form>
+        <h1>Belt Testing Signup</h1><button type="button" id="Instructor_Login" onclick="location.href = 'https://emafiles.herokuapp.com/store/login';">Instructor Login</button>
     </head>
     <body>
         <form onsubmit="return ValidateForm()" name="Form" action="/store/testing_signup" method="POST">
