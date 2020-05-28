@@ -10,7 +10,7 @@
                 font-family: -apple-system, BlinkMacSystemFont, sans-serif;
             }
             input[type='first name'] {
-                width: 130px;
+                width: 200px;
                 box-sizing: border-box;
                 border-radius: 4px;
                 border-color: blue;
@@ -21,9 +21,11 @@
                 padding: 12px 20px 12px 40px;
                 -webkit-transition: width 0.4s ease-in-out;
                 transition: width 0.4s ease-in-out;
+                padding-left: 10px;
+                padding-bottom: 5px;
             }
             input[type='last name'] {
-                width: 130px;
+                width: 200px;
                 box-sizing: border-box;
                 border-radius: 4px;
                 font-size: 16px;
@@ -34,9 +36,11 @@
                 padding: 12px 20px 12px 40px;
                 -webkit-transition: width 0.4s ease-in-out;
                 transition: width 0.4s ease-in-out;
+                padding-left: 10px;
+                padding-bottom: 5px;
             }
             input[type='email'] {
-                width: 130px;
+                width: 200px;
                 box-sizing: border-box;
                 border-radius: 4px;
                 font-size: 16px;
@@ -47,6 +51,8 @@
                 padding: 12px 20px 12px 40px;
                 -webkit-transition: width 0.4s ease-in-out;
                 transition: width 0.4s ease-in-out;
+                padding-left: 10px;
+                padding-bottom: 5px;
             }
             [type=submit] {
                 background-color: blue; /* Green */
@@ -61,25 +67,27 @@
                 -webkit-transition-duration: 0.4s; /* Safari */
                 transition-duration: 0.4s;
                 cursor: pointer;
+                padding-left: 10px;
+                padding-bottom: 5px;
             }
             label {
                 color: white;
                 font-size: 20px;
+                padding-left: 10px;
+                padding-bottom: 5px;
             }
             h1 {
                 text-align: center;
                 color: blue;
                 background-color: black;
             }
-            p {
-                color: white;
-                font-size: 16px;
-            }
             head {
                 background-color: black;
             }
             body {
                 background-color: black;
+                font-size: 16px;
+                color: white;
             }
             #footer {
                 position: absolute;
@@ -121,7 +129,7 @@
             <label>Testing Days and Times:</label><br>
             <% if (data) {%>
                 <% data.forEach(function(item){ %>
-                    <pre>   <input type="radio" id="day_time" name="day_time" value="<%= item.month_name %> <%= item.day_number %> at <%= item.time_num %>"><p><%= item.month_name %> <%= item.day_number %> at <%= item.time_num %></p></pre>
+                    <pre>   <input type="radio" id="day_time" name="day_time" value="<%= item.month_name %> <%= item.day_number %> at <%= item.time_num %>"><%= item.month_name %> <%= item.day_number %> at <%= item.time_num %></pre>
                 <% }) %>
             <% } %>
             <input type="submit" name="Preview" value="Preview"/>
@@ -160,5 +168,6 @@
             alert("Please select a day and time.");
             return false;
         }
+        return true;
     }
 </script>
