@@ -589,9 +589,12 @@ app.post('/login', function(request, response){
             user: request.sanitize('files_user').trim(),
             pass: request.sanitize('files_pass').trim()
         };
+        console.log('item.user is ' + item.user);
+        console.log('item.pass is ' + item.pass);
         db.func('checkuser', [item.user, item.pass])
             .then( data => {
                 var temp = data[0];
+                console.log('data is ' + data);
                 var final = temp.checkuser;
                 console.log(temp.checkuser + ' is the return from the function');
                 if (final == true && item.user == "Instructor"){
@@ -647,10 +650,10 @@ app.post('/add_day', function(req, res){
     db.query(query, [item.month, item.day, item.time])
         .then(function(rows){
             req.flash('success', 'Testing ' + item.month + ' ' + item.day + ' at ' + item.time + ' added!');
-            res.redirect('instructor');
+            res.render('store/instructor',{})
         })
         .catch(function(err){
             req.flash('error', 'Did not add time to the testing database. (ERROR: ' + err + ')');
-            res.redirect('instructor');
+            res.render('store/instructor',{})
         })
 });
