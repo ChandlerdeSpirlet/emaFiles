@@ -435,11 +435,87 @@ app.get('/testing_signup', function(req, res){
     }
 });
 
+function parseDateInfo(day_time){
+    var day_time = 'May 25 at 5:00 PM';
+    var n = day_time.indexOf(" ");
+    var month = day_time.substring(0,n);
+    var newStr = day_time.substring(n + 1, day_time.length);
+    var temp = newStr.indexOf(" ");
+    var day = newStr.substring(0,temp);
+    var finalStr = newStr.substring(temp + 4, newStr.length);
+    var time = finalStr;
+    var x = [];
+    x.push(month);
+    x.push(day);
+    x.push(time);
+    return x;
+}
+
 app.post('/testing_signup', function(req, res){
-    console.log(req);
     var item = {
         fname: req.sanitize('fname'),
         lname: req.sanitize('lname'),
-        email: req.sanitize('email')
+        email: req.sanitize('email'),
+        belts: req.sanitize('belts'),
+        day_time: req.sanitize('day_time')
     }
+    getInfo = parseDateInfo(item.day_time);
+    month_input = getInfo[0];
+    day_num = getInfo[1];
+    time_num = getInfo[2];
+    var redir_link = '/store/testing_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + item.belts + '/' + month_input + '/' + day_num + '/' + time_num;
+    res.redirect(redir_link);
+});
+
+app.get('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(:time)', function(req, res){
+    var fname = req.params.fname;
+    var lname = req.params.lname;
+    var email = req.params.email;
+    var belts = req.params.belts;
+    var month = req.params.month;
+    var day = req.params.day;
+    var time = req.params.time;
+    res.render('store/testing_preview', {
+        fname: fname,
+        lname: lname,
+        email: email,
+        belt: belts,
+        month: month,
+        day: day,
+        time: time
+    })
+});
+
+app.post('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(:time)', function(req, res){
+    var item = {
+        fname: req.sanitize('fname'),
+        lname: req.sanitize('lname'),
+        email: req.sanitize('email'),
+        button: req.sanitize('button')
+    }
+    if (item.button == 'Submit'){
+        console.log(hi);
+    }
+    if (item.button == 'Edit'){
+        var query = 'select * from testing_signup where count < 10';
+            db.any(query)
+                .then(function(rows){
+                    res.render('store/testing_signup', {
+                        fname: item.fname,
+                        lname: item.lname,
+                        email: item.email,
+                        data: rows
+                    })
+                })
+                .catch(function(err){
+                    req.flash('error', 'Unable to render testing signup (ERROR: ' + err + ')');
+                    res.render('store/testing_signup', {
+                        fname: '',
+                        lname: '',
+                        email: '',
+                        data: ''
+                    })
+                })
+    }
+    
 });
