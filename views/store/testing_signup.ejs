@@ -1,6 +1,9 @@
 <% if (messages.error) { %>
     <p style="color:red"><%- messages.error %></p>
 <% } %>
+<% if (messages.success) { %>
+    <p style="color:green"><%- messages.success %></p>
+<% } %>
 <html>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -316,7 +319,7 @@
                 cursor: pointer;
                 position: absolute;
                 right: 10px;
-                bottom: 0;
+                bottom: 10px;
             }
         }
     </style>
@@ -356,8 +359,8 @@
             <input type="submit" name="Preview" value="Preview"/>
         </form>
         <footer id="footer">
-            <button type="button" id="Instructor_Login" onclick="location.href = 'https://emafiles.herokuapp.com/store/login';">Instructor Login</button>
             Intellectual property of Chandler de Spirlet.
+            <button type="button" id="Instructor_Login" onclick="location.href = 'https://emafiles.herokuapp.com/store/login';">Instructor Login</button>
         </footer>
     </body>
 </html>

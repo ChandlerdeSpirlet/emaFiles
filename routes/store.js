@@ -453,6 +453,11 @@ function parseDateInfo(day_time){
 }
 
 app.post('/testing_signup', function(req, res){
+    req.assert('fname', 'First Name is Required').notEmpty();
+    req.assert('lname', 'Last Name is Required').notEmpty();
+    req.assert('email', 'Email is Required').notEmpty();
+    req.assert('belts', 'Belt Rank is Required').notEmpty();
+    req.assert('day_time', 'A Testing Time is Required').notEmpty();
     var item = {
         fname: req.sanitize('fname'),
         lname: req.sanitize('lname'),
@@ -588,6 +593,7 @@ app.post('/login', function(request, response){
             .then( data => {
                 var temp = data[0];
                 var final = temp.checkuser;
+                console.log(temp.checkuser + ' is the return from the function');
                 if (final == true && item.user == "Instructor"){
                     request.session.user = item.user;
                     request.flash('success', 'Instructor credentials accepted!');
