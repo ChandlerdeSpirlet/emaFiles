@@ -264,20 +264,6 @@ app.get('/preview/(:fname)/(:lname)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', function
         button: ''
     })
 });
-/*
-app.get('/preview', function(req, res){
-    res.render('store/preview', {
-        fname: '',
-        lname: '',
-        jj: '',
-        pu: '',
-        mtn_cl: '',
-        su: '',
-        fk: '',
-        button: ''
-    })
-});
-*/
 
 app.post('/preview/(:fname)/(:lname)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', function(req, res){
     var is_backdoor = false;
@@ -424,9 +410,9 @@ app.post('/download', function(req, res){
 });
 
 app.get('/testing_signup', function(req, res){
-    //if (req.headers['x-forwarded-proto'] != 'https'){
-    //    res.redirect('https://emafiles.herokuapp.com/store/testing_signup');
-    //} else {
+    if (req.headers['x-forwarded-proto'] != 'https'){
+        res.redirect('https://emafiles.herokuapp.com/store/testing_signup');
+    } else {
         var query = 'select * from testing_signup where count < 10';
         db.any(query)
             .then(function(rows){
@@ -446,5 +432,14 @@ app.get('/testing_signup', function(req, res){
                     data: ''
                 })
             })
-    //}
+    }
+});
+
+app.post('/testing_signup', function(req, res){
+    console.log(req);
+    var item = {
+        fname: req.sanitize('fname'),
+        lname: req.sanitize('lname'),
+        email: req.sanitize('email')
+    }
 });
