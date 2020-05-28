@@ -284,9 +284,9 @@
             <label>Current Belt Rank: </label>
                 <select name="belts" id="belts">
                     <% if (belts) {%>
-                        <% data.forEach(function(item){ %>
-                            <%= console.log(item); %>
-                            <option value="<%= item %>"><%= item %></option>
+                        <% data.forEach(function(belt_item){ %>
+                            <%= console.log(belt_item); %>
+                            <option value="<%= belt_item %>"><%= belt_item %></option>
                         <% }) %>
                     <% } %>
                 </select>
