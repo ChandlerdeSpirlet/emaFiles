@@ -422,3 +422,23 @@ app.post('/download', function(req, res){
     }
     res.redirect('view_scores');
 });
+
+app.get('/testing_signup', function(req, res){
+    if (req.headers['x-forwarded-proto'] != 'https'){
+        res.redirect('https://emafiles.herokuapp.com/store/testing_signup');
+    } else {
+        var query = 'select * from testing_signup where count < 10';
+        db.any(query)
+            .then(function(rows){
+                res.render('store/testing_signup', {
+                    data: rows
+                })
+            })
+            .catch(function(err){
+                req.flash('error', 'Unable to render testing signup (ERROR: ' + err + ')');
+                res.render('store/testing_signup', {
+                    data: ''
+                })
+            })
+    }
+});
