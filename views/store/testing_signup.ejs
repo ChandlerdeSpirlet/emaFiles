@@ -4,7 +4,92 @@
 <html>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-
+        @media (prefers-color-scheme: dark) {
+            * {
+                box-sizing: border-box;
+                font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            }
+            input[type='first name'] {
+                width: 130px;
+                box-sizing: border-box;
+                border-radius: 4px;
+                border-color: blue;
+                font-size: 16px;
+                background-color: white;
+                background-position: 10px 10px; 
+                background-repeat: no-repeat;
+                padding: 12px 20px 12px 40px;
+                -webkit-transition: width 0.4s ease-in-out;
+                transition: width 0.4s ease-in-out;
+            }
+            input[type='last name'] {
+                width: 130px;
+                box-sizing: border-box;
+                border-radius: 4px;
+                font-size: 16px;
+                border-color: blue;
+                background-color: white;
+                background-position: 10px 10px; 
+                background-repeat: no-repeat;
+                padding: 12px 20px 12px 40px;
+                -webkit-transition: width 0.4s ease-in-out;
+                transition: width 0.4s ease-in-out;
+            }
+            input[type='email'] {
+                width: 130px;
+                box-sizing: border-box;
+                border-radius: 4px;
+                font-size: 16px;
+                border-color: blue;
+                background-color: white;
+                background-position: 10px 10px; 
+                background-repeat: no-repeat;
+                padding: 12px 20px 12px 40px;
+                -webkit-transition: width 0.4s ease-in-out;
+                transition: width 0.4s ease-in-out;
+            }
+            [type=submit] {
+                background-color: blue; /* Green */
+                border: none;
+                color: white;
+                padding: 16px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                -webkit-transition-duration: 0.4s; /* Safari */
+                transition-duration: 0.4s;
+                cursor: pointer;
+            }
+            label {
+                color: white;
+                font-size: 20px;
+            }
+            h1 {
+                text-align: center;
+                color: blue;
+                background-color: black;
+            }
+            p {
+                color: white;
+                font-size: 16px;
+            }
+            head {
+                background-color: black;
+            }
+            body {
+                background-color: black;
+            }
+            #footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                height: 2.5rem;            /* Footer height */
+                color: white;
+                background-color: black;
+            }
+        }
     </style>
     <head>
         <h1>Belt Testing Signup</h1>
@@ -36,11 +121,14 @@
             <label>Testing Days and Times:</label><br>
             <% if (data) {%>
                 <% data.forEach(function(item){ %>
-                    <pre>   <input type="radio" id="day_time" name="day_time" value="<%= item.month_name %> <%= item.day_number %> at <%= item.time_num %>"></pre><br>
+                    <pre>   <input type="radio" id="day_time" name="day_time" value="<%= item.month_name %> <%= item.day_number %> at <%= item.time_num %>"><p><%= item.month_name %> <%= item.day_number %> at <%= item.time_num %></p></pre>
                 <% }) %>
             <% } %>
             <input type="submit" name="Preview" value="Preview"/>
         </form>
+        <footer id="footer">
+            Intellectual property of Chandler de Spirlet.
+        </footer>
     </body>
 </html>
 <script>
