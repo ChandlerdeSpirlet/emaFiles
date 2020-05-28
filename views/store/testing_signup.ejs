@@ -333,7 +333,7 @@
             <label>Email: </label><input type="email" name="email" id="email" pattern="[A-z0-9.]+[@][A-z0-9]{1,}[.]+[A-z]{2,}" value="<%= email %>"><br>
             <label>Belt Rank: </label>
                 <select name="belts" id="belts">
-                    <option value="blank">Select A Belt Color</option>
+                    <option value="">Select A Belt Color</option>
                     <option value="dragons">Little Dragons Belt</option>
                     <option value="white">White Belt</option>
                     <option value="gold">Gold Belt</option>
@@ -383,7 +383,7 @@
             alert("An email is required. We use this in case we need to contact you.");
             return false;
         }
-        if (rank == "blank"){
+        if (rank == ""){
             alert("Please select a belt color.");
             return false;
         }
