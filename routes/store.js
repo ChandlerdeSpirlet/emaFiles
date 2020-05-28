@@ -591,13 +591,17 @@ app.post('/login', function(request, response){
                 if (final == true && item.user == "Instructor"){
                     request.session.user = item.user;
                     request.flash('success', 'Instructor credentials accepted!');
-                    response.redirect('testing_schedule');
+                    response.redirect('instructor');
                 } else {
                     request.flash('error', 'Login credentials rejected! Contact system admin if this is an issue.');
                     response.redirect('login');
                 }
             })
     }
+});
+app.get('/instructor', function(req, res){
+    res.render('store/instructor',{
+    })
 });
 app.get('/testing_schedule', function(req, res){
     if (req.session.user == 'Instructor'){
@@ -616,4 +620,31 @@ app.get('/testing_schedule', function(req, res){
         req.flash('error', 'Instructor credentials required.');
         res.redirect('login');
     }
+});
+app.get('/add_day', function(req, res){
+    res.render('store/add_day', {
+        month: '',
+        day: '',
+        time: ''
+    })
+});
+app.post('/add_day', function(req, res){
+    req.assert('month', 'Month is required').notEmpty();
+    req.assert('day', 'Day is required').notEmpty();
+    req.assert('time', 'Time is required').notEmpty();
+    var item = {
+        month: req.sanitize('month'),
+        day: req.sanitize('day'),
+        time: req.sanitize('time'),
+    }
+    var query = 'insert into testing_signup (month_name, day_number, time_num) values ($1, $2, $3);'
+    db.query(query, [item.month, item.day, item.time])
+        .then(function(rows){
+            req.flash('success', 'Testing ' + item.month + ' ' + item.day + ' at ' + item.time + ' added!');
+            res.redirect('instructor');
+        })
+        .catch(function(err){
+            req.flash('error', 'Did not add time to the testing database. (ERROR: ' + err + ')');
+            res.redirect('instructor');
+        })
 });
