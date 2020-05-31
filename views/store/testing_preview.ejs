@@ -179,7 +179,7 @@
 </style>
 <html>
     <head>
-        <h1>Testing Signup Preview</h1>
+        <h1>Belt Testing Signup Preview</h1>
     </head>
     <body>
         <div id="page-container">
@@ -192,7 +192,7 @@
                 <h3>Date and Time: <label><%= month %> <%= day %> at <%= time %></label></h3>
                 <br>
                 <p>If this looks correct, click <i>Submit</i>, otherwise, click <i>Edit</i></p>
-                <form action="/store/testing_preview/<%= fname %>/<%= lname %>/<%= email %>/<%= belt %>/<%= month %>/<%= day %>/<%= time %>" method="post">
+                <form action="/store/testing_preview/<%= fname %>/<%= lname %>/<%= email %>/<%= belt %>/<%= month %>/<%= day %>/<%= time %>/<%= belt_group %>" method="post">
                     <input type="hidden" name="fname" value="<%= fname %>"/>
                     <input type="hidden" name="lname" value="<%= lname %>"/>
                     <input type="hidden" name="email" value="<%= email %>"/>
@@ -200,6 +200,7 @@
                     <input type="hidden" name="month" value="<%= month %>"/>
                     <input type="hidden" name="day" value="<%= day %>"/>
                     <input type="hidden" name="time" value="<%= time %>"/>
+                    <input type="hidden" name="belt_group" value="<%= belt_group %>">
                     <input type="submit" name="button" value="Submit"/>
                     <input type="submit" name="button" value="Edit"/>
                 </form>

@@ -410,14 +410,14 @@ app.post('/download', function(req, res){
     res.redirect('view_scores');
 });
 
-app.get('/testing_signup', function(req, res){
+app.get('/testing_signup_dragons', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
-        res.redirect('https://emafiles.herokuapp.com/store/testing_signup');
+        res.redirect('https://emafiles.herokuapp.com/store/testing_signup_dragons');
     } else {
-        var query = 'select * from testing_signup where count < 10';
+        var query = 'select * from testing_signup where count < 10 and level = -1';
         db.any(query)
             .then(function(rows){
-                res.render('store/testing_signup', {
+                res.render('store/testing_signup_dragons', {
                     fname: '',
                     lname: '',
                     email: '',
@@ -426,7 +426,107 @@ app.get('/testing_signup', function(req, res){
             })
             .catch(function(err){
                 req.flash('error', 'Unable to render testing signup (ERROR: ' + err + ')');
-                res.render('store/testing_signup', {
+                res.render('store/testing_signup_dragons', {
+                    fname: '',
+                    lname: '',
+                    email: '',
+                    data: ''
+                })
+            })
+    }
+});
+app.get('/testing_signup_basic', function(req, res){
+    if (req.headers['x-forwarded-proto'] != 'https'){
+        res.redirect('https://emafiles.herokuapp.com/store/testing_signup_basic');
+    } else {
+        var query = 'select * from testing_signup where count < 10 and level = 0';
+        db.any(query)
+            .then(function(rows){
+                res.render('store/testing_signup_basic', {
+                    fname: '',
+                    lname: '',
+                    email: '',
+                    data: rows
+                })
+            })
+            .catch(function(err){
+                req.flash('error', 'Unable to render testing signup (ERROR: ' + err + ')');
+                res.render('store/testing_signup_basic', {
+                    fname: '',
+                    lname: '',
+                    email: '',
+                    data: ''
+                })
+            })
+    }
+});
+app.get('/testing_signup_level1', function(req, res){
+    if (req.headers['x-forwarded-proto'] != 'https'){
+        res.redirect('https://emafiles.herokuapp.com/store/testing_signup_level1');
+    } else {
+        var query = 'select * from testing_signup where count < 10 and level = 1';
+        db.any(query)
+            .then(function(rows){
+                res.render('store/testing_signup_level1', {
+                    fname: '',
+                    lname: '',
+                    email: '',
+                    data: rows
+                })
+            })
+            .catch(function(err){
+                req.flash('error', 'Unable to render testing signup (ERROR: ' + err + ')');
+                res.render('store/testing_signup_level1', {
+                    fname: '',
+                    lname: '',
+                    email: '',
+                    data: ''
+                })
+            })
+    }
+});
+app.get('/testing_signup_level2', function(req, res){
+    if (req.headers['x-forwarded-proto'] != 'https'){
+        res.redirect('https://emafiles.herokuapp.com/store/testing_signup_level2');
+    } else {
+        var query = 'select * from testing_signup where count < 10 and level = 2';
+        db.any(query)
+            .then(function(rows){
+                res.render('store/testing_signup_level2', {
+                    fname: '',
+                    lname: '',
+                    email: '',
+                    data: rows
+                })
+            })
+            .catch(function(err){
+                req.flash('error', 'Unable to render testing signup (ERROR: ' + err + ')');
+                res.render('store/testing_signup_level2', {
+                    fname: '',
+                    lname: '',
+                    email: '',
+                    data: ''
+                })
+            })
+    }
+});
+app.get('/testing_signup_level3', function(req, res){
+    if (req.headers['x-forwarded-proto'] != 'https'){
+        res.redirect('https://emafiles.herokuapp.com/store/testing_signup_level3');
+    } else {
+        var query = 'select * from testing_signup where count < 10 and level = 3';
+        db.any(query)
+            .then(function(rows){
+                res.render('store/testing_signup_level3', {
+                    fname: '',
+                    lname: '',
+                    email: '',
+                    data: rows
+                })
+            })
+            .catch(function(err){
+                req.flash('error', 'Unable to render testing signup (ERROR: ' + err + ')');
+                res.render('store/testing_signup_level3', {
                     fname: '',
                     lname: '',
                     email: '',
@@ -452,7 +552,7 @@ function parseDateInfo(day_time){
     return x;
 }
 
-app.post('/testing_signup', function(req, res){
+app.post('/testing_signup_dragons', function(req, res){
     req.assert('fname', 'First Name is Required').notEmpty();
     req.assert('lname', 'Last Name is Required').notEmpty();
     req.assert('email', 'Email is Required').notEmpty();
@@ -469,11 +569,100 @@ app.post('/testing_signup', function(req, res){
     month_input = getInfo[0];
     day_num = getInfo[1];
     time_num = getInfo[2];
-    var redir_link = '/store/testing_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + item.belts + '/' + month_input + '/' + day_num + '/' + time_num;
+    belt_group = -1;
+    var redir_link = '/store/testing_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + item.belts + '/' + month_input + '/' + day_num + '/' + time_num + '/' + belt_group;
     res.redirect(redir_link);
 });
 
-app.get('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(:time)', function(req, res){
+app.post('/testing_signup_basic', function(req, res){
+    req.assert('fname', 'First Name is Required').notEmpty();
+    req.assert('lname', 'Last Name is Required').notEmpty();
+    req.assert('email', 'Email is Required').notEmpty();
+    req.assert('belts', 'Belt Rank is Required').notEmpty();
+    req.assert('day_time', 'A Testing Time is Required').notEmpty();
+    var item = {
+        fname: req.sanitize('fname'),
+        lname: req.sanitize('lname'),
+        email: req.sanitize('email'),
+        belts: req.sanitize('belts'),
+        day_time: req.sanitize('day_time')
+    }
+    getInfo = parseDateInfo(item.day_time);
+    month_input = getInfo[0];
+    day_num = getInfo[1];
+    time_num = getInfo[2];
+    belt_group = 0;
+    var redir_link = '/store/testing_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + item.belts + '/' + month_input + '/' + day_num + '/' + time_num + '/' + belt_group;
+    res.redirect(redir_link);
+});
+
+app.post('/testing_signup_level1', function(req, res){
+    req.assert('fname', 'First Name is Required').notEmpty();
+    req.assert('lname', 'Last Name is Required').notEmpty();
+    req.assert('email', 'Email is Required').notEmpty();
+    req.assert('belts', 'Belt Rank is Required').notEmpty();
+    req.assert('day_time', 'A Testing Time is Required').notEmpty();
+    var item = {
+        fname: req.sanitize('fname'),
+        lname: req.sanitize('lname'),
+        email: req.sanitize('email'),
+        belts: req.sanitize('belts'),
+        day_time: req.sanitize('day_time')
+    }
+    getInfo = parseDateInfo(item.day_time);
+    month_input = getInfo[0];
+    day_num = getInfo[1];
+    time_num = getInfo[2];
+    belt_group = 1;
+    var redir_link = '/store/testing_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + item.belts + '/' + month_input + '/' + day_num + '/' + time_num + '/' + belt_group;
+    res.redirect(redir_link);
+});
+
+app.post('/testing_signup_level2', function(req, res){
+    req.assert('fname', 'First Name is Required').notEmpty();
+    req.assert('lname', 'Last Name is Required').notEmpty();
+    req.assert('email', 'Email is Required').notEmpty();
+    req.assert('belts', 'Belt Rank is Required').notEmpty();
+    req.assert('day_time', 'A Testing Time is Required').notEmpty();
+    var item = {
+        fname: req.sanitize('fname'),
+        lname: req.sanitize('lname'),
+        email: req.sanitize('email'),
+        belts: req.sanitize('belts'),
+        day_time: req.sanitize('day_time')
+    }
+    getInfo = parseDateInfo(item.day_time);
+    month_input = getInfo[0];
+    day_num = getInfo[1];
+    time_num = getInfo[2];
+    belt_group = 2;
+    var redir_link = '/store/testing_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + item.belts + '/' + month_input + '/' + day_num + '/' + time_num + '/' + belt_group;
+    res.redirect(redir_link);
+});
+
+app.post('/testing_signup_level3', function(req, res){
+    req.assert('fname', 'First Name is Required').notEmpty();
+    req.assert('lname', 'Last Name is Required').notEmpty();
+    req.assert('email', 'Email is Required').notEmpty();
+    req.assert('belts', 'Belt Rank is Required').notEmpty();
+    req.assert('day_time', 'A Testing Time is Required').notEmpty();
+    var item = {
+        fname: req.sanitize('fname'),
+        lname: req.sanitize('lname'),
+        email: req.sanitize('email'),
+        belts: req.sanitize('belts'),
+        day_time: req.sanitize('day_time')
+    }
+    getInfo = parseDateInfo(item.day_time);
+    month_input = getInfo[0];
+    day_num = getInfo[1];
+    time_num = getInfo[2];
+    belt_group = 3;
+    var redir_link = '/store/testing_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + item.belts + '/' + month_input + '/' + day_num + '/' + time_num + '/' + belt_group;
+    res.redirect(redir_link);
+});
+
+app.get('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(:time)/(:belt_group)', function(req, res){
     var fname = req.params.fname;
     var lname = req.params.lname;
     var email = req.params.email;
@@ -488,11 +677,12 @@ app.get('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(:
         belt: belts,
         month: month,
         day: day,
-        time: time
+        time: time,
+        belt_group: req.params.belt_group
     })
 });
 
-app.post('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(:time)', function(req, res){
+app.post('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(:time)/(:belt_group)', function(req, res){
     var item = {
         fname: req.sanitize('fname'),
         lname: req.sanitize('lname'),
@@ -517,10 +707,11 @@ app.post('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(
         });
     }
     if (item.button == 'Edit'){
-        var query = 'select * from testing_signup where count < 10';
+        if (req.params.belt_group == -1){
+            var query = 'select * from testing_signup where count < 10 and level = -1';
             db.any(query)
                 .then(function(rows){
-                    res.render('store/testing_signup', {
+                    res.render('store/testing_signup_dragons', {
                         fname: item.fname,
                         lname: item.lname,
                         email: item.email,
@@ -531,13 +722,106 @@ app.post('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(
                 })
                 .catch(function(err){
                     req.flash('error', 'Unable to render testing signup (ERROR: ' + err + ')');
-                    res.render('store/testing_signup', {
+                    res.render('store/testing_signup_dragons', {
                         fname: '',
                         lname: '',
                         email: '',
                         data: ''
                     })
                 })
+        }
+        if (req.params.belt_group == 0){
+            var query = 'select * from testing_signup where count < 10 and level = 0';
+            db.any(query)
+                .then(function(rows){
+                    res.render('store/testing_signup_basic', {
+                        fname: item.fname,
+                        lname: item.lname,
+                        email: item.email,
+                        belts: item.belt,
+                        day_time: '',
+                        data: rows
+                    })
+                })
+                .catch(function(err){
+                    req.flash('error', 'Unable to render testing signup (ERROR: ' + err + ')');
+                    res.render('store/testing_signup_basic', {
+                        fname: '',
+                        lname: '',
+                        email: '',
+                        data: ''
+                    })
+                })
+        }
+        if (req.params.belt_group == 1){
+            var query = 'select * from testing_signup where count < 10 and level = 1';
+            db.any(query)
+                .then(function(rows){
+                    res.render('store/testing_signup_level1', {
+                        fname: item.fname,
+                        lname: item.lname,
+                        email: item.email,
+                        belts: item.belt,
+                        day_time: '',
+                        data: rows
+                    })
+                })
+                .catch(function(err){
+                    req.flash('error', 'Unable to render testing signup (ERROR: ' + err + ')');
+                    res.render('store/testing_signup_level1', {
+                        fname: '',
+                        lname: '',
+                        email: '',
+                        data: ''
+                    })
+                })
+        }
+        if (req.params.belt_group == 2){
+            var query = 'select * from testing_signup where count < 10 and level = 2';
+            db.any(query)
+                .then(function(rows){
+                    res.render('store/testing_signup_level2', {
+                        fname: item.fname,
+                        lname: item.lname,
+                        email: item.email,
+                        belts: item.belt,
+                        day_time: '',
+                        data: rows
+                    })
+                })
+                .catch(function(err){
+                    req.flash('error', 'Unable to render testing signup (ERROR: ' + err + ')');
+                    res.render('store/testing_signup_level2', {
+                        fname: '',
+                        lname: '',
+                        email: '',
+                        data: ''
+                    })
+                })
+        }
+        if (req.params.belt_group == 3){
+            var query = 'select * from testing_signup where count < 10 and level = 3';
+            db.any(query)
+                .then(function(rows){
+                    res.render('store/testing_signup_level3', {
+                        fname: item.fname,
+                        lname: item.lname,
+                        email: item.email,
+                        belts: item.belt,
+                        day_time: '',
+                        data: rows
+                    })
+                })
+                .catch(function(err){
+                    req.flash('error', 'Unable to render testing signup (ERROR: ' + err + ')');
+                    res.render('store/testing_signup_level3', {
+                        fname: '',
+                        lname: '',
+                        email: '',
+                        data: ''
+                    })
+                })
+        }
     }
     
 });

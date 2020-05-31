@@ -324,31 +324,24 @@
         }
     </style>
     <head>
-        <h1>Belt Testing Signup</h1>
+        <h1>Little Dragons Belt Testing Signup</h1>
     </head>
     <body>
-        <form onsubmit="return ValidateForm()" name="Form" action="/store/testing_signup" method="POST">
+        <form onsubmit="return ValidateForm()" name="Form" action="/store/testing_signup_dragons" method="POST">
             <label>First Name: </label><input type="first name" name="fname" id="fname" pattern="[A-z]{1}[A-z ]+" value="<%= fname %>"><br>
             <label>Last Name: </label><input type="last name" name="lname" id="lname" pattern="[A-z]{1}[A-z ]+" value="<%= lname %>"><br>
             <label>Email: </label><input type="email" name="email" id="email" pattern="[A-z0-9.]+[@][A-z0-9]{1,}[.]+[A-z]{2,}" value="<%= email %>"><br>
             <label>Belt Rank: </label>
                 <select name="belts" id="belts">
                     <option value="">Select A Belt Color</option>
-                    <option value="dragons">Little Dragons Belt</option>
-                    <option value="white">White Belt</option>
-                    <option value="gold">Gold Belt</option>
-                    <option value="orange">Orange Belt</option>
-                    <option value="high orange">High Orange Belt</option>
-                    <option value="green">Green Belt</option>
-                    <option value="high green">High Green Belt</option>
-                    <option value="purple">Purple Belt</option>
-                    <option value="high purple">High Purple Belt</option>
-                    <option value="blue">Blue Belt</option>
-                    <option value="high blue">High Blue Belt</option>
-                    <option value="red">Red Belt</option>
-                    <option value="high red">High Red Belt</option>
-                    <option value="brown">Brown Belt</option>
-                    <option value="high brown">High Brown Belt</option>
+                    <option value="dragon_white">Dragons White Belt</option>
+                    <option value="dragon_gold">Dragons Gold Belt</option>
+                    <option value="dragon_orange">Dragons Orange Belt</option>
+                    <option value="dragon_green">Dragons Green Belt</option>
+                    <option value="dragon_purple">Dragons Purple Belt</option>
+                    <option value="dragon_blue">Dragons Blue Belt</option>
+                    <option value="dragon_red">Dragons Red Belt</option>
+                    <option value="dragon_brown">Dragons Brown Belt</option>
                 </select><br>
             <label>Testing Days and Times:</label><br>
             <% if (data) {%>
