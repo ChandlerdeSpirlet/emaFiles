@@ -414,7 +414,7 @@ app.get('/testing_signup_dragons', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/testing_signup_dragons');
     } else {
-        var query = 'select * from testing_signup where count < 10 and level = -1';
+        var query = 'select * from testing_signup where count < 20 and level = -1';
         db.any(query)
             .then(function(rows){
                 res.render('store/testing_signup_dragons', {
@@ -439,7 +439,7 @@ app.get('/testing_signup_basic', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/testing_signup_basic');
     } else {
-        var query = 'select * from testing_signup where count < 10 and level = 0';
+        var query = 'select * from testing_signup where count < 20 and level = 0';
         db.any(query)
             .then(function(rows){
                 res.render('store/testing_signup_basic', {
@@ -464,7 +464,7 @@ app.get('/testing_signup_level1', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/testing_signup_level1');
     } else {
-        var query = 'select * from testing_signup where count < 10 and level = 1';
+        var query = 'select * from testing_signup where count < 20 and level = 1';
         db.any(query)
             .then(function(rows){
                 res.render('store/testing_signup_level1', {
@@ -489,7 +489,7 @@ app.get('/testing_signup_level2', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/testing_signup_level2');
     } else {
-        var query = 'select * from testing_signup where count < 10 and level = 2';
+        var query = 'select * from testing_signup where count < 20 and level = 2';
         db.any(query)
             .then(function(rows){
                 res.render('store/testing_signup_level2', {
@@ -514,7 +514,7 @@ app.get('/testing_signup_level3', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/testing_signup_level3');
     } else {
-        var query = 'select * from testing_signup where count < 10 and level = 3';
+        var query = 'select * from testing_signup where count < 20 and level = 3';
         db.any(query)
             .then(function(rows){
                 res.render('store/testing_signup_level3', {
@@ -691,8 +691,8 @@ app.post('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(
         button: req.sanitize('button')
     }
     if (item.button == 'Submit'){
-        var query_count = 'update testing_signup set count = count + 1 where month_name = $1 and day_number = $2 and time_num = $3';
-        db.query(query_count, [req.params.month, req.params.day, req.params.time]); //Updates count
+        var query_count = 'update testing_signup set count = count + 1 where month_name = $1 and day_number = $2 and time_num = $3 and level = $4';
+        db.query(query_count, [req.params.month, req.params.day, req.params.time, req.params.belt_group]); //Updates count
         var date_conversion = req.params.month + ' ' + req.params.day + ' 2020';
         var query_sched = "insert into people_testing (first_name, last_name, belt, email, test_day, test_time) values ($1, $2, $3, $4, to_date($5, 'Month DD YYYY'), $6);"
         db.query(query_sched, [req.params.fname, req.params.lname, req.params.belts, req.params.email, date_conversion, req.params.time]);
@@ -708,7 +708,7 @@ app.post('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(
     }
     if (item.button == 'Edit'){
         if (req.params.belt_group == -1){
-            var query = 'select * from testing_signup where count < 10 and level = -1';
+            var query = 'select * from testing_signup where count < 20 and level = -1';
             db.any(query)
                 .then(function(rows){
                     res.render('store/testing_signup_dragons', {
@@ -731,7 +731,7 @@ app.post('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(
                 })
         }
         if (req.params.belt_group == 0){
-            var query = 'select * from testing_signup where count < 10 and level = 0';
+            var query = 'select * from testing_signup where count < 20 and level = 0';
             db.any(query)
                 .then(function(rows){
                     res.render('store/testing_signup_basic', {
@@ -754,7 +754,7 @@ app.post('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(
                 })
         }
         if (req.params.belt_group == 1){
-            var query = 'select * from testing_signup where count < 10 and level = 1';
+            var query = 'select * from testing_signup where count < 20 and level = 1';
             db.any(query)
                 .then(function(rows){
                     res.render('store/testing_signup_level1', {
@@ -777,7 +777,7 @@ app.post('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(
                 })
         }
         if (req.params.belt_group == 2){
-            var query = 'select * from testing_signup where count < 10 and level = 2';
+            var query = 'select * from testing_signup where count < 20 and level = 2';
             db.any(query)
                 .then(function(rows){
                     res.render('store/testing_signup_level2', {
@@ -800,7 +800,7 @@ app.post('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(
                 })
         }
         if (req.params.belt_group == 3){
-            var query = 'select * from testing_signup where count < 10 and level = 3';
+            var query = 'select * from testing_signup where count < 20 and level = 3';
             db.any(query)
                 .then(function(rows){
                     res.render('store/testing_signup_level3', {
