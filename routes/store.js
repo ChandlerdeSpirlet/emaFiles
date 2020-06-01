@@ -698,13 +698,51 @@ app.post('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(
         db.query(query_sched, [req.params.fname, req.params.lname, req.params.belts, req.params.email, date_conversion, req.params.time]);
         var temp_name = item.fname + ' ' + item.lname;
         sendEmail(temp_name, req.params.email, date_conversion, req.params.time);
-        res.render('store/good_job_testing', {
-            stud_name: item.fname + ' ' + item.lname,
-            month: req.params.month,
-            day: req.params.day,
-            time: req.params.time,
-            email: req.params.email
-        });
+        if (req.params.belt_group == -1){
+            res.render('store/good_job_testing_dragons', {
+                stud_name: item.fname + ' ' + item.lname,
+                month: req.params.month,
+                day: req.params.day,
+                time: req.params.time,
+                email: req.params.email
+            });
+        }
+        if (req.params.belt_group == 0){
+            res.render('store/good_job_testing_basic', {
+                stud_name: item.fname + ' ' + item.lname,
+                month: req.params.month,
+                day: req.params.day,
+                time: req.params.time,
+                email: req.params.email
+            });
+        }
+        if (req.params.belt_group == 1){
+            res.render('store/good_job_testing_dragons_level1', {
+                stud_name: item.fname + ' ' + item.lname,
+                month: req.params.month,
+                day: req.params.day,
+                time: req.params.time,
+                email: req.params.email
+            });
+        }
+        if (req.params.belt_group == 2){
+            res.render('store/good_job_testing_dragons_level2', {
+                stud_name: item.fname + ' ' + item.lname,
+                month: req.params.month,
+                day: req.params.day,
+                time: req.params.time,
+                email: req.params.email
+            });
+        }
+        if (req.params.belt_group == 3){
+            res.render('store/good_job_testing_dragons_level3', {
+                stud_name: item.fname + ' ' + item.lname,
+                month: req.params.month,
+                day: req.params.day,
+                time: req.params.time,
+                email: req.params.email
+            });
+        }
     }
     if (item.button == 'Edit'){
         if (req.params.belt_group == -1){
@@ -825,8 +863,44 @@ app.post('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(
     }
     
 });
-app.get('/good_job_testing', function(req, res){
-    res.render('/store/good_job_testing', {
+app.get('/good_job_testing_dragons', function(req, res){
+    res.render('/store/good_job_testing_dragons', {
+        stud_name: '',
+        month: '',
+        day: '',
+        time: '',
+        email: ''
+    })
+});
+app.get('/good_job_testing_basic', function(req, res){
+    res.render('/store/good_job_testing_basic', {
+        stud_name: '',
+        month: '',
+        day: '',
+        time: '',
+        email: ''
+    })
+});
+app.get('/good_job_testing_level1', function(req, res){
+    res.render('/store/good_job_testing_level1', {
+        stud_name: '',
+        month: '',
+        day: '',
+        time: '',
+        email: ''
+    })
+});
+app.get('/good_job_testing_level2', function(req, res){
+    res.render('/store/good_job_testing_level2', {
+        stud_name: '',
+        month: '',
+        day: '',
+        time: '',
+        email: ''
+    })
+});
+app.get('/good_job_testing_level3', function(req, res){
+    res.render('/store/good_job_testing_level3', {
         stud_name: '',
         month: '',
         day: '',
