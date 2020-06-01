@@ -113,6 +113,14 @@
                 cursor: pointer;
                 position: right;
             }
+            p {
+                color: white;
+                font-size: 14px;
+            }
+            li {
+                color: white;
+                font-size: 14px;
+            }
         }
         @media (prefers-color-scheme: light) {
             input[type='first name'] {
@@ -215,6 +223,14 @@
                 transition-duration: 0.4s;
                 cursor: pointer;
                 position: right;
+            }
+            p {
+                color: black;
+                font-size: 14px;
+            }
+            li {
+                color: black;
+                font-size: 14px;
             }
         }
         @media (prefers-color-scheme: no-preference) {
@@ -321,10 +337,30 @@
                 right: 10px;
                 bottom: 10px;
             }
+            p {
+                color: black;
+                font-size: 14px;
+            }
+            li {
+                color: black;
+                font-size: 14px;
+            }
         }
     </style>
     <head>
-        <h1>Little Dragons Belt Testing Signup</h1>
+        <h1>Lil' Dragons Belt Testing Signup</h1>
+        <p>Lil' Dragons testing times are available at the school at the below times. There are only 20 spots available for each testing slot, so only testing times with available slots are shown.</p>
+        <p>*If you are not comfortable with testing at the school, Virtual Testing will be held from June 24th through July 1st via Zoom. If you would like to schedule a Virtual Test, go to the EMA app and select&nbsp;<em>Virtual Testing</em>, then select your favorite instructor.</p>
+        <p><strong>LIL' DRAGONS TESTING TIMES</strong></p>
+        <ul>
+        <li>June 24
+        <ul>
+        <li>10 AM</li>
+        <li>11 AM</li>
+        <li>12 PM</li>
+        </ul>
+        </li>
+        </ul>
     </head>
     <body>
         <form onsubmit="return ValidateForm()" name="Form" action="/store/testing_signup_dragons" method="POST">
@@ -346,7 +382,7 @@
             <label>Testing Days and Times:</label><br>
             <% if (data) {%>
                 <% data.forEach(function(item){ %>
-                    <pre>   <input type="radio" id="day_time" name="day_time" value="<%= item.month_name %> <%= item.day_number %> at <%= item.time_num %>"> <%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> (<%= 10 - item.count %> spot(s) remaining).</pre>
+                    <pre>   <input type="radio" id="day_time" name="day_time" value="<%= item.month_name %> <%= item.day_number %> at <%= item.time_num %>"> <%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> (<%= 20 - item.count %> spot(s) remaining).</pre>
                 <% }) %>
             <% } %>
             <input type="submit" name="Preview" value="Preview"/>
