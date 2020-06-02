@@ -717,7 +717,7 @@ app.post('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(
             });
         }
         if (req.params.belt_group == 1){
-            res.render('store/good_job_testing_dragons_level1', {
+            res.render('store/good_job_testing_level1', {
                 stud_name: item.fname + ' ' + item.lname,
                 month: req.params.month,
                 day: req.params.day,
@@ -726,7 +726,7 @@ app.post('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(
             });
         }
         if (req.params.belt_group == 2){
-            res.render('store/good_job_testing_dragons_level2', {
+            res.render('store/good_job_testing_level2', {
                 stud_name: item.fname + ' ' + item.lname,
                 month: req.params.month,
                 day: req.params.day,
@@ -735,7 +735,7 @@ app.post('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(
             });
         }
         if (req.params.belt_group == 3){
-            res.render('store/good_job_testing_dragons_level3', {
+            res.render('store/good_job_testing_level3', {
                 stud_name: item.fname + ' ' + item.lname,
                 month: req.params.month,
                 day: req.params.day,
