@@ -464,7 +464,7 @@ app.get('/testing_signup_level1', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/testing_signup_level1');
     } else {
-        var query = 'select * from testing_signup where count < 20 and level = 1';
+        var query = 'select * from testing_signup where count < 20 and level = 1 order by id';
         db.any(query)
             .then(function(rows){
                 res.render('store/testing_signup_level1', {
