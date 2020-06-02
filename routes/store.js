@@ -920,7 +920,7 @@ function sendEmail(name, email_user, date, time){
         from: 'EMA_Testing@outlook.com',
         to: email_user,
         subject: 'Testing Confirmed for ' + name,
-        html: "<b>" + name + "</b>" + ' is confirmed for testing on ' + "<b>" + date + "</b>" + ' at ' + "<b>" + time + "</b>"
+        html: "<h2>" + 'Karate Belt Testing Confirmed' + "</h2><br>" + "<b>" + name + "</b>" + ' is confirmed for testing on ' + "<b>" + date + "</b>" + ' at ' + "<b>" + time + '.' + "</b><br>" + "Good luck and we'll see you at the school soon!"
     };
     transporter.sendMail(mailOptions, function(error, info){
         if (error){
