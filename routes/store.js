@@ -972,7 +972,7 @@ app.get('/instructor', function(req, res){
 });
 app.get('/testing_schedule', function(req, res){
     if (req.session.user == 'Instructor'){
-        var query = "select first_name, last_name, belt, cast(to_char(test_day, 'Mon DD, YYYY') as varchar) as test_day, test_time from people_testing order by test_day";
+        var query = "select first_name, last_name, belt, cast(to_char(test_day, 'Mon DD, YYYY') as varchar) as test_day, test_time from people_testing where test_day >= now() order by test_day";
         db.any(query)
             .then(function(rows){
                 res.render('store/testing_schedule', {
