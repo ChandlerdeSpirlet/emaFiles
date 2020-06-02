@@ -414,7 +414,7 @@ app.get('/testing_signup_dragons', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/testing_signup_dragons');
     } else {
-        var query = 'select * from testing_signup where count < 20 and level = -1';
+        var query = 'select * from testing_signup where count < 20 and level = -1 order by id';
         db.any(query)
             .then(function(rows){
                 res.render('store/testing_signup_dragons', {
@@ -439,7 +439,7 @@ app.get('/testing_signup_basic', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/testing_signup_basic');
     } else {
-        var query = 'select * from testing_signup where count < 20 and level = 0';
+        var query = 'select * from testing_signup where count < 20 and level = 0 order by id';
         db.any(query)
             .then(function(rows){
                 res.render('store/testing_signup_basic', {
@@ -489,7 +489,7 @@ app.get('/testing_signup_level2', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/testing_signup_level2');
     } else {
-        var query = 'select * from testing_signup where count < 20 and level = 2';
+        var query = 'select * from testing_signup where count < 20 and level = 2 order by id';
         db.any(query)
             .then(function(rows){
                 res.render('store/testing_signup_level2', {
@@ -514,7 +514,7 @@ app.get('/testing_signup_level3', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/testing_signup_level3');
     } else {
-        var query = 'select * from testing_signup where count < 20 and level = 3';
+        var query = 'select * from testing_signup where count < 20 and level = 3 order by id';
         db.any(query)
             .then(function(rows){
                 res.render('store/testing_signup_level3', {
