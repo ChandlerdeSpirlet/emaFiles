@@ -282,6 +282,15 @@ app.post('/preview/(:fname)/(:lname)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', functio
         is_backdoor = true;
         res.redirect('https://emafiles.herokuapp.com/store/view_scores');
     }
+    if ((req.params.fname == 'Master' || req.params.fname == 'master') && (req.params.lname == 'Young' || req.params.lname == 'young') && (req.params.jj != 420)){
+        var items = ['Nice job', 'Way to go', 'Awesome', 'Super cool', 'Looks great', 'Good job', 'Fantastic', 'Fantastic job', 'Awesome job', "That's karate-choppin'"];
+        var item = items[Math.floor(Math.random() * items.length)];
+        res.render('store/good_job', {
+            comp: item,
+            stud_name: req.params.fname + ' ' + req.params.lname,
+            tot_score: total_score
+        });
+    }
     console.log('is_backdoor = ' + is_backdoor);
     if ((item.button == 'Submit') && (is_backdoor == false)){
         var total_score = Number(req.params.jj) + Number(req.params.pu) + Number(req.params.su) + Number(req.params.mtn_cl) + Number(req.params.fk);
