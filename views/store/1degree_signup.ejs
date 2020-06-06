@@ -369,7 +369,7 @@
         var fname = document.getElementById('fname');
         var lname = document.getElementById('lname');
         var email = document.getElementById('email');
-        var day = document.getElementById('day_time');
+        var choice = document.getElementById('class_choice');
         if (fname == null || fname == ""){
             alert("First name is required and must contain at least two letters.");
             return false;
@@ -382,7 +382,7 @@
             alert("An email is required. We use this in case we need to contact you.");
             return false;
         }
-        if (day == null || day == ""){
+        if (choice == null || choice == ""){
             alert("Please select a day and time.");
             return false;
         }
