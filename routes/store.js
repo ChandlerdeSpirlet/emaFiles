@@ -1107,7 +1107,7 @@ app.post('/1degree_signup', function(req, res){
     }
     console.log('id is ' + item.class_choice);
     var count_query = 'update count set count = count + 1 where id = $1';
-    db.any(count_query, [item.class_choice])
+    db.query(count_query, [item.class_choice])
         .then(function(row){
             console.log("I did the count");
         })
@@ -1116,7 +1116,7 @@ app.post('/1degree_signup', function(req, res){
             res.redirect('1degree_signup');
         })
     var signup_query = "insert into class_signups (first_last, email, test_day, test_time, id_from_classes) values ($1, $2, $3, TO_TIMESTAMP($4, 'HH:MI PM'), $5"
-    db.any(signup_query, [item.fname + ' ' + item.lname, item.email, 'select class_date from class_times where id = ' + item.class_choice, 'to_timestamp((select class_time from class_times where id = ' + item.class_choice + "), 'HH:MM PM')", item.class_choice])
+    db.query(signup_query, [item.fname + ' ' + item.lname, item.email, 'select class_date from class_times where id = ' + item.class_choice, 'to_timestamp((select class_time from class_times where id = ' + item.class_choice + "), 'HH:MM PM')", item.class_choice])
         .then(function(row){
             console.log('I submitted the query.');
         })
@@ -1160,3 +1160,14 @@ function sendEmail_class(name, email_user){
         }
     });
 }
+
+app.get('/email_lookup', function(req, res){
+    res.render('store/email_lookup', {
+        email: ''
+    })
+});
+
+app.post('/email_lookup', function(req, res){
+    //search for their email
+    //display a page with their classes and the delete button.
+});
