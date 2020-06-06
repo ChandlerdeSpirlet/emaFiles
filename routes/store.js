@@ -1077,12 +1077,12 @@ app.post('/add_day', function(req, res){
 app.get('/1degree_signup', function(req, res){
     var query = "select cast(to_char(class_date, 'Mon DD, YYYY') as varchar) as test_date, id, class_time, count from class_times where count < 20 and level = 4 and class_date >= now()";
     db.any(query)
-        .then(function(rows){
+        .then(function(data){
             res.render('store/1degree_signup', {
                 fname: '',
                 lname: '',
                 email: '',
-                class_choice: rows
+                class_choice: data
             })
         })
         .catch(function(err){
