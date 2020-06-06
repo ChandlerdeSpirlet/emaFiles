@@ -1082,6 +1082,7 @@ app.get('/1degree_signup', function(req, res){
                 fname: '',
                 lname: '',
                 email: '',
+                class_choice: '',
                 data: rows
             })
         })
@@ -1091,6 +1092,7 @@ app.get('/1degree_signup', function(req, res){
                 fname: '',
                 lname: '',
                 email: '',
+                class_choice: '',
                 data: ''
             })
         })

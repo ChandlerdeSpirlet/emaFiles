@@ -355,13 +355,11 @@
             <label>Last Name: </label><input type="last name" name="lname" id="lname" pattern="[A-z]{1}[A-z ]+" value="<%= lname %>"><br>
             <label>Email: </label><input type="email" name="email" id="email" pattern="[A-z0-9.]+[@][A-z0-9]{1,}[.]+[A-z]{2,}" value="<%= email %>"><br>
             <label>Testing Days and Times:</label><br>
-            <select name="class_choice" id="class_choice"></select>
             <% if (data) {%>
                 <% data.forEach(function(item){ %>
-                    <pre>   <option value="<%= item.id %>"> <%= item.test_date %> at <%= item.class_time %> (<%= 20 - item.count %> spot(s) remaining).</option></pre>
+                    <pre>   <input type="radio" id="class_choice" name="class_choice" value="<%= item.id %>"> <%= item.test_date %> at <%= item.class_time %> (<%= 20 - item.count %> spot(s) remaining).</pre>
                 <% }) %>
             <% } %>
-                    </select>
             <input type="submit" name="Submit" value="Submit"/>
         </form>
     </body>
