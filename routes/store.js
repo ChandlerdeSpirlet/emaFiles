@@ -1107,23 +1107,9 @@ app.post('/1degree_signup', function(req, res){
     }
     console.log('id is ' + item.class_choice);
     var count_query = 'update class_times set count = count + 1 where id = $1';
-    db.query(count_query, [item.class_choice])
-        .then(function(row){
-            console.log("I did the count");
-        })
-        .catch(function(err){
-            req.flash('error', 'ERROR code: count1ds: ' + err);
-            res.redirect('1degree_signup');
-        })
+    db.query(count_query, [item.class_choice]);
     var signup_query = "insert into class_signups (first_last, email, test_day, test_time, id_from_classes) values ($1, $2, $3, TO_TIMESTAMP($4, 'HH:MI PM'), $5"
-    db.query(signup_query, [item.fname + ' ' + item.lname, item.email, 'select class_date from class_times where id = ' + item.class_choice, 'to_timestamp((select class_time from class_times where id = ' + item.class_choice + "), 'HH:MM PM')", item.class_choice])
-        .then(function(row){
-            console.log('I submitted the query.');
-        })
-        .catch(function(err){
-            req.flash('error', 'ERROR code: sign1ds: ' + err);
-            res.redirect('1degree_signup');
-        })
+    db.query(signup_query, [item.fname + ' ' + item.lname, item.email, 'select class_date from class_times where id = ' + item.class_choice, 'to_timestamp((select class_time from class_times where id = ' + item.class_choice + "), 'HH:MM PM')", item.class_choice]);
     sendEmail_class(item.fname + ' ' + item.lname, item.email);
     res.render('store/class_register_1degree', {
         stud_name: item.fname + ' ' + item.lname,
@@ -1168,6 +1154,24 @@ app.get('/email_lookup', function(req, res){
 });
 
 app.post('/email_lookup', function(req, res){
-    //search for their email
-    //display a page with their classes and the delete button.
+    var item = {
+        email: req.sanitize('email')
+    }
+    var query = "select id, first_last, cast(to_char(test_day, 'Mon DD, YYYY') as varchar) as class_date, cast(to_char(test_time, 'HH:MM) as varchar) as class_time, id_from_classes where email = $1";
+    db.query(query, [item.email])
+        .then(function(rows){
+            res.render('store/classes_email', {
+                data: rows
+            })
+        })
+        .catch(function(err){
+            req.flash('error', 'Cound not find any classes associated with the email ' + item.email);
+            res.render('store/email_lookup', {
+                email: ''
+            })
+        })
+});
+
+app.get('/classes_email', function(req, res){
+
 });
