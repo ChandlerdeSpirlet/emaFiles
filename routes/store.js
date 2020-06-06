@@ -1073,3 +1073,61 @@ app.post('/add_day', function(req, res){
             res.render('store/instructor',{})
         })
 });
+
+app.get('/1degree_signup', function(req, res){
+    var query = "select cast(to_char(class_date, 'Mon DD, YYYY') as varchar) as test_date, id, class_time, count from class_times where count < 20 and level = 4 and class_date >= now()";
+    db.any(query)
+        .then(function(rows){
+            res.render('store/1degree_signup', {
+                fname: '',
+                lname: '',
+                email: '',
+                class_choice: rows
+            })
+        })
+        .catch(function(err){
+            req.flash('error', 'ERROR. Please email EMA_Testing@outlook.com with a screenshot of this error. ERROR: ' + err + ').');
+            res.render('store/1degree_signup', {
+                fname: '',
+                lname: '',
+                email: '',
+                class_choice: ''
+            })
+        })
+});
+
+app.post('/1degree_signup', function(req, res){
+    var item = {
+        fname: req.sanitize('fname'),
+        lname: req.sanitize('lname'),
+        email: req.sanitize('email'),
+        class_choice: req.sanitize('class_choice')
+    }
+    var count_query = 'update count set count = count + 1 where id = $1';
+    db.none(count_query, [item.class_choice])
+        .then(function(row){
+        })
+        .catch(function(err){
+            req.flash('error', 'ERROR code: count1ds: ' + err);
+            res.redirect('1degree_signup');
+        })
+    var signup_query = "insert into class_signups (first_last, email, test_day, test_time, id_from_classes) values ($1, $2, $3, TO_TIMESTAMP($4, 'HH:MI PM'), $5"
+    db.none(signup_query, [item.fname + ' ' + item.lname, item.email, 'select class_date from class_times where id = ' + item.class_choice, 'to_timestamp((select class_time from class_times where id = ' + item.class_choice + "), 'HH:MM PM')", item.class_choice])
+        .then(function(row){
+        })
+        .catch(function(err){
+            req.flash('error', 'ERROR code: sign1ds: ' + err);
+            res.redirect('1degree_signup');
+        })
+    res.render('store/class_register_1degree', {
+        stud_name: item.fname + ' ' + item.lname,
+        email: item.email
+    })
+});
+
+app.get('/class_register_1degree', function(req, res){
+    res.render('store/class_register_1degree', {
+        stud_name: '',
+        email: ''
+    })
+});
