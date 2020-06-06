@@ -1106,7 +1106,7 @@ app.post('/1degree_signup', function(req, res){
         class_choice: req.sanitize('class_choice')
     }
     console.log('id is ' + item.class_choice);
-    var count_query = 'update count set count = count + 1 where id = $1';
+    var count_query = 'update class_times set count = count + 1 where id = $1';
     db.query(count_query, [item.class_choice])
         .then(function(row){
             console.log("I did the count");
