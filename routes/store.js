@@ -1249,25 +1249,7 @@ app.post('/email_lookup', function(req, res){
         email: req.sanitize('email')
     }
     console.log('email in lookup is ' + item.email);
-    var query = "select id, id_from_other, first_name, last_name, cast(to_char(test_day, 'Mon DD, YYYY') as varchar) as test_day_var, test_time from class_signups where email = $1 and test_day >= now() order by test_day";
-    db.query(query, [item.email])
-        .then(function(rows){
-            res.render('store/classes_email', {
-                data: rows
-            })
-        })
-        .catch(function(err){
-            req.flash('error', 'Cound not find any classes associated with the email ' + item.email + '. Err_No: (' + err + ')');
-            res.render('store/email_lookup', {
-                email: ''
-            })
-        })
-});
-
-app.get('/classes_email', function(req, res){
-    res.render('store/classes_email', {
-        data: ''
-    })
+    res.redirect('classes_email/' + item.email);
 });
 
 app.get('/delete/(:id)/(:id_from_other)/(:email)', function(req, res){
@@ -1275,7 +1257,7 @@ app.get('/delete/(:id)/(:id_from_other)/(:email)', function(req, res){
     db.query(query_count, [req.params.id_from_other]);
     var query_sched = "delete from class_signups where id = $1";
     db.query(query_sched, [req.params.id]);
-    res.redirect('classes_email' + req.params.email);
+    res.redirect('classes_email/' + req.params.email);
 });
 
 app.get('/classes_email/(:email)', function(req, res){
