@@ -1,0 +1,118 @@
+<html>
+    <style>
+        @media (min-width: 300px) {
+            th {
+                /* Since color is in min-width: 300px it will follow all the other sizes upwards */
+                padding-top: 5px;
+                padding-bottom: 5px;
+            }
+            th,td {
+                width: calc(598px /7);
+                text-align: center;
+                padding-top: 5px; 
+                padding-bottom: 5px;
+            }
+            th:first-child {
+                padding-left: 30px;
+                padding-right: 25px;
+            }
+        }
+        @media (min-width: 600px) {
+            th, td {
+                width: calc(768px / 6);
+            }
+        }
+
+        @media (min-width: 768px) {
+            th,td {
+                width: calc(768px / 6);
+            }
+        }
+        @media (min-width: 768.02px) {
+            th, td {
+                width: calc(1024px / 6);
+            }
+        }
+        @media (min-width: 1024px) {
+            th,td {
+                width: calc(1024px / 6);
+            }
+        }
+        @media (min-width: 1024.02px) {
+            th, td {
+                width: calc(1200px / 6);
+            }
+        }
+        @media (min-width: 1200px) {
+            th,td {
+                width: calc(1600px / 6);
+            }
+        }
+        @media (min-width: 1600.02px) {
+            th, td {
+                width: calc(2000px / 6);
+                /* Simple hack for screen larger than 1600 pixels but smaller than 2000 */
+            }
+        }
+        @media (min-width: 2000.02px) {
+            th, td {
+                width: calc(2400px / 6);
+            }
+        }
+        #page-container {
+            position: relative;
+            min-height: 90vh;
+        }
+        #content-wrap {
+            padding-bottom: 2.5rem;    /* Footer height */
+        }
+        @media (prefers-color-scheme: dark){
+            * {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                background-color: black;
+            }
+            h1 {
+                color: blue;
+            }
+            body {
+                background-color: black;
+                color: white;
+            }
+            #footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 2.5rem;            /* Footer height */
+            color: white;
+            background-color: black;
+            }
+        }
+    </style>
+    <head>
+        <h1>Classes registered with email <%= email %></h1>
+    </head>
+    <body>
+        <div id="page-container"></div>
+            <div id="content-wrap"></div>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Class</th>
+                        <th>Delete Class</th>
+                    </tr>
+                    <% if (data) { %>
+                        <% data.forEach(function(item){ %>
+                            <tr>
+                                <td><%= item.first_name %> <%= item.last_name %></td>
+                                <td><%= item.test_day_var %> at <%= item.test_time %></td>
+                                <td><a href="/store/delete/<%= item.id %>/<%= item.id_from_other %>/<%= email %>"> Drop Class</a></td>
+                            </tr>
+                        <% }) %>
+                    <% } %>
+                </table>
+    </body>
+    <footer id="footer">
+        Intellectual property of Chandler de Spirlet.<br>
+        Proof of concept and design provided by Matt Young.
+    </footer>
+</html>

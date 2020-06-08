@@ -1076,7 +1076,7 @@ app.get('/1degree_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/1degree_signup');
     } else {
-        var query = 'select * from class_times where count < 20 and level = 4 order by date_order';
+        var query = 'select * from class_times where count < 20 and level = 4 order and date_order >= now() by date_order';
         db.any(query)
             .then(function(rows){
                 res.render('store/1degree_signup', {
@@ -1244,7 +1244,7 @@ app.post('/email_lookup', function(req, res){
     var item = {
         email: req.sanitize('email')
     }
-    var query = "select * from class_signups where email = $1";
+    var query = "select id, id_from_other, first_name, last_name, cast(to_char(test_day, 'Mon DD, YYYY') as varchar) as test_day_var, test_time from class_signups where email = $1 order by test_day";
     db.query(query, [item.email])
         .then(function(rows){
             res.render('store/classes_email', {
@@ -1260,5 +1260,31 @@ app.post('/email_lookup', function(req, res){
 });
 
 app.get('/classes_email', function(req, res){
+    res.render('store/classes_email', {
+        data: ''
+    })
+});
 
+app.get('/delete/(:id)/(:id_from_other)/(:email)', function(req, res){
+    var query_count = "update class_times set count = count - 1 where id = $1";
+    db.query(query_count, [req.params.id_from_other]);
+    var query_sched = "delete from class_signups where id = $1";
+    db.query(query_count, [req.params.id]);
+    res.redirect('classes_email' + req.params.email);
+});
+
+app.get('/classes_email/(:email)', function(req, res){
+    var query = "select id, id_from_other, first_name, last_name, cast(to_char(test_day, 'Mon DD, YYYY') as varchar) as test_day_var, test_time from class_signups where email = $1 order by test_day";
+    db.query(query, [req.params.email])
+    .then(function(rows){
+        res.render('store/classes_email', {
+            data: rows
+        })
+    })
+    .catch(function(err){
+        req.flash('error', 'Cound not find any classes associated with the email ' + item.email);
+        res.render('store/email_lookup', {
+            email: ''
+        })
+    })
 });
