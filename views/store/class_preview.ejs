@@ -191,7 +191,7 @@
                 <h3>Date and Time: <label><%= month %> <%= day %> at <%= time %></label></h3>
                 <br>
                 <p>If this looks correct, click <i>Submit</i>, otherwise, click <i>Edit</i></p>
-                <form action="/store/testing_preview/<%= fname %>/<%= lname %>/<%= email %>/<%= belt_group %>/<%= month %>/<%= day %>/<%= time %>/<%= other_id %>" method="post">
+                <form action="/store/class_preview/<%= fname %>/<%= lname %>/<%= email %>/<%= belt_group %>/<%= month %>/<%= day %>/<%= time %>/<%= other_id %>" method="post">
                     <input type="hidden" name="fname" value="<%= fname %>"/>
                     <input type="hidden" name="lname" value="<%= lname %>"/>
                     <input type="hidden" name="email" value="<%= email %>"/>

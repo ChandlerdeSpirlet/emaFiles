@@ -1124,6 +1124,7 @@ app.get('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day)
     var day = req.params.day;
     var time = req.params.time;
     var other_id = req.params.other_id;
+    console.log('belt group in get preview is ' + belt_group);
     res.render('store/class_preview',{
         fname: fname,
         lname: lname,
@@ -1144,6 +1145,7 @@ app.post('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day
         belt_group: req.sanitize('belt_group'),
         button: req.sanitize('button')
     }
+    console.log("preview post belt_group = " + item.belt_group);
     if (item.button == 'Submit'){
         if (((item.fname == 'Master') || (item.fname == 'master')) && ((item.lname == 'Young') || (item.lname == 'young'))){
             if (req.params.belt_group == 'Black Belt'){
