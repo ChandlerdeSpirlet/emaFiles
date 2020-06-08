@@ -1111,7 +1111,7 @@ app.post('/1degree_signup', function(req, res){ //pass through to a page with th
     var time_num = getInfo[2];
     var other_id = getInfo[3];
     belt_group = 'Black Belt';
-    var redir_link = '/store/class_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + item.belt_group + '/' + month_input + '/' + day_num + '/' + time_num +'/' + other_id;
+    var redir_link = '/store/class_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + month_input + '/' + day_num + '/' + time_num +'/' + other_id;
     res.render(redir_link);
 });
 
