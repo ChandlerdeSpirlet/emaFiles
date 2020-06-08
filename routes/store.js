@@ -1266,7 +1266,7 @@ app.get('/classes_email/(:email)', function(req, res){
     .then(function(rows){
         if (rows.length == 0){
             req.flash('error', 'Unable to find classes with the email ' + req.params.email);
-            res.redirect('store/email_lookup');
+            res.redirect('https://emafiles.herokuapp.com/store/email_lookup');
         } else {
             res.render('store/classes_email', {
                 email: req.params.email,
