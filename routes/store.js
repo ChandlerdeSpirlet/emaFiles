@@ -1098,6 +1098,32 @@ app.get('/1degree_signup', function(req, res){
     }
 });
 
+app.get('/level1_signup', function(req, res){
+    if (req.headers['x-forwarded-proto'] != 'https'){
+        res.redirect('https://emafiles.herokuapp.com/store/level1_signup');
+    } else {
+        var query = 'select * from class_times where count < 20 and level = 1 and date_order >= now() order by date_order';
+        db.any(query)
+            .then(function(rows){
+                res.render('store/level1_signup', {
+                    fname: '',
+                    lname: '',
+                    email: '',
+                    data: rows
+                })
+            })
+            .catch(function(err){
+                req.flash('error', 'Unable to render class signup (ERROR: ' + err + ')');
+                res.render('store/level1_signup', {
+                    fname: '',
+                    lname: '',
+                    email: '',
+                    data: ''
+                })
+            })
+    }
+});
+
 app.post('/1degree_signup', function(req, res){ //pass through to a page with the info in the url
     var item = {
         fname: req.sanitize('fname'),
@@ -1115,6 +1141,23 @@ app.post('/1degree_signup', function(req, res){ //pass through to a page with th
     res.redirect(redir_link);
 });
 
+app.post('/level1_signup', function(req, res){ //pass through to a page with the info in the url
+    var item = {
+        fname: req.sanitize('fname'),
+        lname: req.sanitize('lname'),
+        email: req.sanitize('email'),
+        day_time: req.sanitize('day_time')
+    }
+    getInfo = parseClassInfo(item.day_time);
+    var month_input = getInfo[0];
+    var day_num = getInfo[1];
+    var time_num = getInfo[2];
+    var other_id = getInfo[3];
+    belt_group = 'Level 1';
+    var redir_link = '/store/class_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + month_input + '/' + day_num + '/' + time_num +'/' + other_id;
+    res.redirect(redir_link);
+});
+
 app.get('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day)/(:time)/(:other_id)', function(req, res){
     var fname = req.params.fname;
     var lname = req.params.lname;
@@ -1124,7 +1167,6 @@ app.get('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day)
     var day = req.params.day;
     var time = req.params.time;
     var other_id = req.params.other_id;
-    console.log('belt group in get preview is ' + belt_group);
     res.render('store/class_preview',{
         fname: fname,
         lname: lname,
@@ -1157,6 +1199,15 @@ app.post('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day
                     email: req.params.email
                 });
             }
+            if (req.params.belt_group == 'Level 1'){
+                res.render('store/good_job_class_level1', {
+                    stud_name: item.fname + ' ' + item.lname,
+                    month: req.params.month,
+                    day: req.params.day,
+                    time: req.params.time,
+                    email: req.params.email
+                });
+            }
         } else {
             var query_count = 'update class_times set count = count + 1 where id = $1';
             db.query(query_count, [req.params.other_id]);
@@ -1167,6 +1218,15 @@ app.post('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day
             sendEmail_class(temp_name, req.params.email, date_conversion, req.params.time);
             if (req.params.belt_group == 'Black Belt'){
                 res.render('store/good_job_class_1degree', {
+                    stud_name: temp_name,
+                    month: req.params.month,
+                    day: req.params.day,
+                    time: req.params.time,
+                    email: req.params.email
+                });
+            }
+            if (req.params.belt_group == 'Level 1'){
+                res.render('store/good_job_class_level1', {
                     stud_name: temp_name,
                     month: req.params.month,
                     day: req.params.day,
@@ -1198,11 +1258,42 @@ app.post('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day
                     })
                 })
         }
+        if (req.params.belt_group == 'Level 1'){
+            var query = 'select * from class_times where count < 20 and level = 1 order by date_order';
+            db.any(query)
+                .then(function(rows){
+                    res.render('store/level1_signup', {
+                        fname: item.fname,
+                        lname: item.lname,
+                        email: item.email,
+                        data: rows
+                    })
+                })
+                .catch(function(err){
+                    req.flash('error', 'Unable to render class signup (ERROR: ' + err + ')');
+                    res.render('store/level1_signup', {
+                        fname: '',
+                        lname: '',
+                        email: '',
+                        data: ''
+                    })
+                })
+        }
     }
 });
 
 app.get('/good_job_class_1degree', function(req, res){
-    res.render('/store/good_job_testing_level3', {
+    res.render('/store/good_job_class_1degree', {
+        stud_name: '',
+        month: '',
+        day: '',
+        time: '',
+        email: ''
+    })
+});
+
+app.get('/good_job_class_level1', function(req, res){
+    res.render('/store/good_job_class_level1', {
         stud_name: '',
         month: '',
         day: '',
