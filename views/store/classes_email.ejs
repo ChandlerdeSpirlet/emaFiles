@@ -111,6 +111,7 @@
                     </tr>
                     <% if (data) { %>
                         <% data.forEach(function(item){ %>
+                            <% console.log(item) %>
                             <tr>
                                 <td><%= item.first_name %> <%= item.last_name %></td>
                                 <td><%= item.test_day_var %> at <%= item.test_time %></td>

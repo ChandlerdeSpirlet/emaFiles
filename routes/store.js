@@ -1264,13 +1264,17 @@ app.get('/classes_email/(:email)', function(req, res){
     var query = "select id, id_from_other, first_name, last_name, cast(to_char(test_day, 'Mon DD, YYYY') as varchar) as test_day_var, test_time from class_signups where email = $1 and test_day >= now() order by test_day";
     db.query(query, [req.params.email])
     .then(function(rows){
+        if (rows.length = 0){
+            req.flash('error', 'Unable to find classes with the email ' + req.params.email);
+            res.redirect('store/email_lookup');
+        }
         res.render('store/classes_email', {
             email: req.params.email,
             data: rows
         })
     })
     .catch(function(err){
-        req.flash('error', 'Cound not find any classes associated with the email ' + item.email);
+        req.flash('error', 'Cound not render any classes associated with the email ' + item.email + '. ERR_no: ' + err);
         res.render('store/email_lookup', {
             email: ''
         })
