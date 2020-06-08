@@ -208,29 +208,7 @@ app.get('/temp', function(req, res){
     })
 });
 
-/*
-app.post('/student_progress_check', function(req, res){
-    var item = {
-        fname: req.sanitize('fname'),
-        lname: req.sanitize('lname'),
-        jj: req.sanitize('jj').trim(),
-        pu: req.sanitize('pu').trim(),
-        mtn_cl: req.sanitize('mtn_cl').trim(),
-        su: req.sanitize('su').trim(),
-        fk: req.sanitize('fk').trim()
-    }
-    res.render('store/preview', {
-        fname: item.fname,
-        lname: item.lname,
-        jj: item.jj,
-        pu: item.pu,
-        su: item.su,
-        mtn_cl: item.mtn_cl,
-        fk: item.fk,
-        button: ''
-    })
-});
-*/
+
 app.post('/student_progress_check', function(req, res){
     var item = {
         fname: req.sanitize('fname'),
@@ -547,7 +525,7 @@ app.get('/testing_signup_level3', function(req, res){
 });
 
 function parseDateInfo(day_time){
-    day_time_str = String(day_time)
+    day_time_str = String(day_time);
     var n = day_time_str.indexOf(" ");
     var month = day_time_str.substring(0,n);
     var newStr = day_time_str.substring(n + 1, day_time.length);
@@ -559,6 +537,26 @@ function parseDateInfo(day_time){
     x.push(month);
     x.push(day);
     x.push(time);
+    return x;
+}
+
+function parseClassInfo(day_time){
+    day_time_str = String(day_time);
+    var i = day_time_str.indexOf(" ");
+    var id = day_time_str.substring(0, i);
+    var temp_str = day_time_str.substring(i + 1, day_time_str.length);
+    var n = temp_str.indexOf(" ");
+    var month = temp_str.substring(0,n);
+    var newStr = temp_str.substring(n + 1, temp_str.length);
+    var temp = newStr.indexOf(" ");
+    var day = newStr.substring(0,temp);
+    var finalStr = newStr.substring(temp + 4, newStr.length);
+    var time = finalStr;
+    var x = [];
+    x.push(month);
+    x.push(day);
+    x.push(time);
+    x.push(id);
     return x;
 }
 
@@ -1075,56 +1073,143 @@ app.post('/add_day', function(req, res){
 });
 
 app.get('/1degree_signup', function(req, res){
-    var query = "select cast(to_char(class_date, 'Mon DD, YYYY') as varchar) as test_date, id, class_time, count from class_times where count < 20 and level = 4 and class_date >= now()";
-    db.any(query)
-        .then(function(rows){
-            res.render('store/1degree_signup', {
-                fname: '',
-                lname: '',
-                email: '',
-                class_choice: '',
-                data: rows
+    if (req.headers['x-forwarded-proto'] != 'https'){
+        res.redirect('https://emafiles.herokuapp.com/store/1degree_signup');
+    } else {
+        var query = 'select * from class_times where count < 20 and level = 4 order by date_order';
+        db.any(query)
+            .then(function(rows){
+                res.render('store/1degree_signup', {
+                    fname: '',
+                    lname: '',
+                    email: '',
+                    data: rows
+                })
             })
-        })
-        .catch(function(err){
-            req.flash('error', 'ERROR. Please email EMA_Testing@outlook.com with a screenshot of this error. ERROR: ' + err + ').');
-            res.render('store/1degree_signup', {
-                fname: '',
-                lname: '',
-                email: '',
-                class_choice: '',
-                data: ''
+            .catch(function(err){
+                req.flash('error', 'Unable to render class signup (ERROR: ' + err + ')');
+                res.render('store/1degree_signup', {
+                    fname: '',
+                    lname: '',
+                    email: '',
+                    data: ''
+                })
             })
-        })
+    }
 });
 
-app.post('/1degree_signup', function(req, res){
+app.post('/1degree_signup', function(req, res){ //pass through to a page with the info in the url
     var item = {
         fname: req.sanitize('fname'),
         lname: req.sanitize('lname'),
         email: req.sanitize('email'),
-        class_choice: req.sanitize('class_choice')
+        day_time: req.sanitize('day_time')
     }
-    console.log('id is ' + item.class_choice);
-    var count_query = 'update class_times set count = count + 1 where id = $1';
-    db.query(count_query, [item.class_choice]);
-    var signup_query = "insert into class_signups (first_last, email, test_day, test_time, id_from_classes) values ($1, $2, $3, TO_TIMESTAMP($4, 'HH:MI PM'), $5"
-    db.query(signup_query, [item.fname + ' ' + item.lname, item.email, 'select class_date from class_times where id = ' + item.class_choice, 'to_timestamp((select class_time from class_times where id = ' + item.class_choice + "), 'HH:MM PM')", item.class_choice]);
-    sendEmail_class(item.fname + ' ' + item.lname, item.email);
-    res.render('store/class_register_1degree', {
-        stud_name: item.fname + ' ' + item.lname,
-        email: item.email
+    getInfo = parseClassInfo(item.day_time);
+    var month_input = getInfo[0];
+    var day_num = getInfo[1];
+    var time_num = getInfo[2];
+    var other_id = getInfo[3];
+    belt_group = 'Black Belt';
+    var redir_link = '/store/class_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + item.belt_group + '/' + month_input + '/' + day_num + '/' + time_num +'/' + other_id;
+    res.render(redir_link);
+});
+
+app.get('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day)/(:time)/(:other_id)', function(req, res){
+    var fname = req.params.fname;
+    var lname = req.params.lname;
+    var email = req.params.email;
+    var belt_group = req.params.belt_group;
+    var month = req.params.month;
+    var day = req.params.day;
+    var time = req.params.time;
+    var other_id = req.params.other_id;
+    res.render('store/class_preview',{
+        fname: fname,
+        lname: lname,
+        email: email,
+        belt_group: belt_group,
+        month: month,
+        day: day,
+        time: time,
+        other_id: other_id
     })
 });
 
-app.get('/class_register_1degree', function(req, res){
-    res.render('store/class_register_1degree', {
+app.post('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day)/(:time)/(:other_id)', function(req, res){
+    var item = {
+        fname: req.sanitize('fname'),
+        lname: req.sanitize('lname'),
+        email: req.sanitize('fname'),
+        belt_group: req.sanitize('lname'),
+        button: req.sanitize('button')
+    }
+    if (item.button == 'Submit'){
+        if (((item.fname == 'Master') || (item.fname == 'master')) && ((item.lname == 'Young') || (item.lname == 'young'))){
+            if (req.params.belt_group == 'Black Belt'){
+                res.render('store/good_job_class_1degree', {
+                    stud_name: item.fname + ' ' + item.lname,
+                    month: req.params.month,
+                    day: req.params.day,
+                    time: req.params.time,
+                    email: req.params.email
+                });
+            }
+        } else {
+            var query_count = 'update class_times set count = count + 1 where id = $1';
+            db.query(query_count, [req.params.other_id]);
+            var date_conversion = req.params.month + ' ' + req.params.day + ' 2020';
+            var query_sched = "insert into class_signups (first_name, last_name, belt, email, test_day, test_time, id_from_other) values ($1, $2, $3, $4, to_date($5, 'Month DD YYYY'), $6, $7)";
+            db.query(query_sched, [req.params.fname, req.params.lname, req.params.belt_group, req.params.email, date_conversion, req.params.time, req.params.other_id]);
+            var temp_name = item.fname + ' ' + item.lname;
+            sendEmail_class(temp_name, req.params.email, date_conversion, req.params.time);
+            if (req.params.belt_group == 'Black Belt'){
+                res.render('store/good_job_class_1degree', {
+                    stud_name: temp_name,
+                    month: req.params.month,
+                    day: req.params.day,
+                    time: req.params.time,
+                    email: req.params.email
+                });
+            }
+        }
+    }
+    if (item.button == 'Edit'){
+        if (req.params.belt_group == 'Black Belt'){
+            var query = 'select * from class_times where count < 20 and level = 4 order by date_order';
+            db.any(query)
+                .then(function(rows){
+                    res.render('store/1degree_signup', {
+                        fname: item.fname,
+                        lname: item.lname,
+                        email: item.email,
+                        data: rows
+                    })
+                })
+                .catch(function(err){
+                    req.flash('error', 'Unable to render class signup (ERROR: ' + err + ')');
+                    res.render('store/1degree_signup', {
+                        fname: '',
+                        lname: '',
+                        email: '',
+                        data: ''
+                    })
+                })
+        }
+    }
+});
+
+app.get('/good_job_class_1degree', function(req, res){
+    res.render('/store/good_job_testing_level3', {
         stud_name: '',
+        month: '',
+        day: '',
+        time: '',
         email: ''
     })
 });
 
-function sendEmail_class(name, email_user){
+function sendEmail_class(name, email_user, date_conv, time){
     var transporter = nodemailer.createTransport({
         service: 'outlook',
         auth: {
@@ -1136,7 +1221,7 @@ function sendEmail_class(name, email_user){
         from: 'EMA_Testing@outlook.com',
         to: email_user,
         subject: 'Class Confirmed for ' + name,
-        html: "<h2>" + 'Karate Belt Testing Confirmed' + "</h2><br>" + "<b>" + name + "</b>" + " is confirmed for class. We'll see you at the school soon!" + "<br>" + "<p>*Please be aware of the following rules for in-person class:</p><ul><li>You must already be in your uniform when you arrive at the school.</li><li>Use of the restrooms is currently prohibited.</li><li>Shoes must be taken off and placed on the shoe rack by the door.</li><li>Hand sanitizer must be used before and after class.</li><li>Parents must remain outside the class and can watch the class from Zoom.</li><li>Mingling will not be allowed after class.</li></ul>"
+        html: "<h2>" + 'Karate Belt Testing Confirmed' + "</h2><br>" + "<b>" + name + "</b>" + " is confirmed for class on <b> " + date_conv + "</b> at <b> " + time + "</b>. We'll see you at the school soon!" + "<br>" + "<p>*Please be aware of the following rules for in-person class:</p><ul><li>You must already be in your uniform when you arrive at the school.</li><li>Use of the restrooms is currently prohibited.</li><li>Shoes must be taken off and placed on the shoe rack by the door.</li><li>Hand sanitizer must be used before and after class.</li><li>Parents must remain outside the class and can watch the class from Zoom.</li><li>Mingling will not be allowed after class.</li></ul>"
     };
     transporter.sendMail(mailOptions, function(error, info){
         if (error){
@@ -1157,7 +1242,7 @@ app.post('/email_lookup', function(req, res){
     var item = {
         email: req.sanitize('email')
     }
-    var query = "select id, first_last, cast(to_char(test_day, 'Mon DD, YYYY') as varchar) as class_date, cast(to_char(test_time, 'HH:MM) as varchar) as class_time, id_from_classes where email = $1";
+    var query = "select * from class_signups where email = $1";
     db.query(query, [item.email])
         .then(function(rows){
             res.render('store/classes_email', {
