@@ -1257,7 +1257,7 @@ app.get('/delete/(:id)/(:id_from_other)/(:email)', function(req, res){
     db.query(query_count, [req.params.id_from_other]);
     var query_sched = "delete from class_signups where id = $1";
     db.query(query_sched, [req.params.id]);
-    res.redirect('classes_email/' + req.params.email);
+    res.redirect('https://emafiles.herokuapp.com/store/classes_email/' + req.params.email);
 });
 
 app.get('/classes_email/(:email)', function(req, res){
