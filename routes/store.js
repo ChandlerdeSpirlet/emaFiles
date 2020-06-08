@@ -1076,7 +1076,7 @@ app.get('/1degree_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/1degree_signup');
     } else {
-        var query = 'select * from class_times where count < 20 and level = 4 order and date_order >= now() by date_order';
+        var query = 'select * from class_times where count < 20 and level = 4 and date_order >= now() order by date_order';
         db.any(query)
             .then(function(rows){
                 res.render('store/1degree_signup', {
