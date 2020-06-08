@@ -1112,7 +1112,7 @@ app.post('/1degree_signup', function(req, res){ //pass through to a page with th
     var other_id = getInfo[3];
     belt_group = 'Black Belt';
     var redir_link = '/store/class_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + month_input + '/' + day_num + '/' + time_num +'/' + other_id;
-    res.render(redir_link);
+    res.redirect(redir_link);
 });
 
 app.get('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day)/(:time)/(:other_id)', function(req, res){
