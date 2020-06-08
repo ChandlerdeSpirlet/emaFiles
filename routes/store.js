@@ -1265,6 +1265,7 @@ app.get('/classes_email/(:email)', function(req, res){
     db.query(query, [req.params.email])
     .then(function(rows){
         res.render('store/classes_email', {
+            email: req.params.email,
             data: rows
         })
     })
