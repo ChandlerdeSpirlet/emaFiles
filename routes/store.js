@@ -1140,8 +1140,8 @@ app.post('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day
     var item = {
         fname: req.sanitize('fname'),
         lname: req.sanitize('lname'),
-        email: req.sanitize('fname'),
-        belt_group: req.sanitize('lname'),
+        email: req.sanitize('email'),
+        belt_group: req.sanitize('belt_group'),
         button: req.sanitize('button')
     }
     if (item.button == 'Submit'){
