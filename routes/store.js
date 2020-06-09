@@ -1076,7 +1076,7 @@ app.get('/1degree_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/1degree_signup');
     } else {
-        var query = 'select * from class_times where count < 20 and level = 4 and date_order >= now() order by date_order';
+        var query = 'select * from class_times where count < 20 and level = 4 order by date_order';
         db.any(query)
             .then(function(rows){
                 res.render('store/1degree_signup', {
@@ -1102,7 +1102,7 @@ app.get('/dragons_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/dragons_signup');
     } else {
-        var query = 'select * from class_times where count < 20 and level = 0 and date_order >= now() order by date_order';
+        var query = 'select * from class_times where count < 20 and level = 0 order by date_order';
         db.any(query)
             .then(function(rows){
                 res.render('store/dragons_signup', {
@@ -1128,7 +1128,7 @@ app.get('/basic_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/basic_signup');
     } else {
-        var query = 'select * from class_times where count < 20 and level = 0.5 and date_order >= now() order by date_order';
+        var query = 'select * from class_times where count < 20 and level = 0.5 order by date_order';
         db.any(query)
             .then(function(rows){
                 res.render('store/basic_signup', {
@@ -1154,7 +1154,7 @@ app.get('/level1_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/level1_signup');
     } else {
-        var query = 'select * from class_times where count < 20 and level = 1 and date_order >= now() order by date_order';
+        var query = 'select * from class_times where count < 20 and level = 1 order by date_order';
         db.any(query)
             .then(function(rows){
                 res.render('store/level1_signup', {
@@ -1180,7 +1180,7 @@ app.get('/level2_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/level2_signup');
     } else {
-        var query = 'select * from class_times where count < 20 and level = 2 and date_order >= now() order by date_order';
+        var query = 'select * from class_times where count < 20 and level = 2 order by date_order';
         db.any(query)
             .then(function(rows){
                 res.render('store/level2_signup', {
@@ -1206,7 +1206,7 @@ app.get('/level3_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/level3_signup');
     } else {
-        var query = 'select * from class_times where count < 20 and level = 3 and date_order >= now() order by date_order';
+        var query = 'select * from class_times where count < 20 and level = 3 order by date_order';
         db.any(query)
             .then(function(rows){
                 res.render('store/level3_signup', {
@@ -1232,7 +1232,7 @@ app.get('/prep_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/prep_signup');
     } else {
-        var query = 'select * from class_times where count < 20 and level = 3.5 and date_order >= now() order by date_order';
+        var query = 'select * from class_times where count < 20 and level = 3.5 order by date_order';
         db.any(query)
             .then(function(rows){
                 res.render('store/prep_signup', {
