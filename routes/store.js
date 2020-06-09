@@ -1228,6 +1228,32 @@ app.get('/level3_signup', function(req, res){
     }
 });
 
+app.get('/prep_signup', function(req, res){
+    if (req.headers['x-forwarded-proto'] != 'https'){
+        res.redirect('https://emafiles.herokuapp.com/store/prep_signup');
+    } else {
+        var query = 'select * from class_times where count < 20 and level = 3.5 and date_order >= now() order by date_order';
+        db.any(query)
+            .then(function(rows){
+                res.render('store/prep_signup', {
+                    fname: '',
+                    lname: '',
+                    email: '',
+                    data: rows
+                })
+            })
+            .catch(function(err){
+                req.flash('error', 'Unable to render class signup (ERROR: ' + err + ')');
+                res.render('store/prep_signup', {
+                    fname: '',
+                    lname: '',
+                    email: '',
+                    data: ''
+                })
+            })
+    }
+});
+
 app.post('/1degree_signup', function(req, res){ //pass through to a page with the info in the url
     var item = {
         fname: req.sanitize('fname'),
@@ -1330,6 +1356,23 @@ app.post('/level3_signup', function(req, res){ //pass through to a page with the
     res.redirect(redir_link);
 });
 
+app.post('/prep_signup', function(req, res){ //pass through to a page with the info in the url
+    var item = {
+        fname: req.sanitize('fname'),
+        lname: req.sanitize('lname'),
+        email: req.sanitize('email'),
+        day_time: req.sanitize('day_time')
+    }
+    getInfo = parseClassInfo(item.day_time);
+    var month_input = getInfo[0];
+    var day_num = getInfo[1];
+    var time_num = getInfo[2];
+    var other_id = getInfo[3];
+    belt_group = 'Prep Cycle';
+    var redir_link = '/store/class_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + month_input + '/' + day_num + '/' + time_num +'/' + other_id;
+    res.redirect(redir_link);
+});
+
 app.get('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day)/(:time)/(:other_id)', function(req, res){
     var fname = req.params.fname;
     var lname = req.params.lname;
@@ -1416,6 +1459,15 @@ app.post('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day
                     email: req.params.email
                 });
             }
+            if (req.params.belt_group == 'Prep Cycle'){
+                res.render('store/good_job_class_prep', {
+                    stud_name: item.fname + ' ' + item.lname,
+                    month: req.params.month,
+                    day: req.params.day,
+                    time: req.params.time,
+                    email: req.params.email
+                });
+            }
         } else {
             var query_count = 'update class_times set count = count + 1 where id = $1';
             db.query(query_count, [req.params.other_id]);
@@ -1471,6 +1523,15 @@ app.post('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day
             }
             if (req.params.belt_group == 'Level 3'){
                 res.render('store/good_job_class_level3', {
+                    stud_name: temp_name,
+                    month: req.params.month,
+                    day: req.params.day,
+                    time: req.params.time,
+                    email: req.params.email
+                });
+            }
+            if (req.params.belt_group == 'Prep Cycle'){
+                res.render('store/good_job_class_prep', {
                     stud_name: temp_name,
                     month: req.params.month,
                     day: req.params.day,
@@ -1607,6 +1668,27 @@ app.post('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day
                     })
                 })
         }
+        if (req.params.belt_group == 'Prep Cycle'){
+            var query = 'select * from class_times where count < 20 and level = 3.5 order by date_order';
+            db.any(query)
+                .then(function(rows){
+                    res.render('store/prep_signup', {
+                        fname: item.fname,
+                        lname: item.lname,
+                        email: item.email,
+                        data: rows
+                    })
+                })
+                .catch(function(err){
+                    req.flash('error', 'Unable to render class signup (ERROR: ' + err + ')');
+                    res.render('store/prep_signup', {
+                        fname: '',
+                        lname: '',
+                        email: '',
+                        data: ''
+                    })
+                })
+        }
     }
 });
 
@@ -1662,6 +1744,16 @@ app.get('/good_job_class_level2', function(req, res){
 
 app.get('/good_job_class_level3', function(req, res){
     res.render('/store/good_job_class_level3', {
+        stud_name: '',
+        month: '',
+        day: '',
+        time: '',
+        email: ''
+    })
+});
+
+app.get('/good_job_class_prep', function(req, res){
+    res.render('/store/good_job_class_prep', {
         stud_name: '',
         month: '',
         day: '',
