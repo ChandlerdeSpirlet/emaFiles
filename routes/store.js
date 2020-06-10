@@ -1904,7 +1904,7 @@ app.get('/delete/(:id)/(:id_from_other)/(:email)', function(req, res){
 });
 
 app.get('/classes_email/(:email)', function(req, res){
-    var query = "select id, id_from_other, first_name, last_name, cast(to_char(test_day, 'Mon DD, YYYY') as varchar) as test_day_var, test_time from class_signups where email = $1 and test_day >= now() order by test_day";
+    var query = "select id, id_from_other, first_name, last_name, cast(to_char(test_day, 'Mon DD, YYYY') as varchar) as test_day_var, test_time from class_signups where email = $1 and test_day >= (CURRENT_DATE - INTERVAL '2 day')::date order by test_day";
     db.query(query, [req.params.email])
     .then(function(rows){
         if (rows.length == 0){
