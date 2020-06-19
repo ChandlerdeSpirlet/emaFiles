@@ -1858,12 +1858,12 @@ function sendEmail_class(name, email_user, date_conv, time){
     var transporter = nodemailer.createTransport({
         service: 'outlook',
         auth: {
-            user: 'EMA_Testing@outlook.com',
-            pass: 'bigfeK-qyxzof-kezvi3'
+            user: 'EMA_Classes@outlook.com',
+            pass: 'zickit-5dibwa-Jajhir'
         }
     });
     var mailOptions = {
-        from: 'EMA_Testing@outlook.com',
+        from: 'EMA_Classes@outlook.com',
         to: email_user,
         subject: 'Class Confirmed for ' + name,
         html: "<h2>" + 'Karate Class Confirmed' + "</h2><br>" + "<b>" + name + "</b>" + " is confirmed for class on <b> " + date_conv + "</b> at <b> " + time +"</b><br>You are able to view and edit your reserved classes " + "<a href='https://emafiles.herokuapp.com/store/email_lookup'>here</a>" + ". We'll see you at the school soon!" + "<br>" + "<p>*Please be aware of the following rules for in-person class:</p><ul><li>You must already be in your uniform when you arrive at the school.</li><li>Use of the restrooms is currently prohibited.</li><li>Shoes must be taken off and placed on the shoe rack by the door.</li><li>Hand sanitizer must be used before and after class.</li><li>Parents must remain outside the class and can watch the class from Zoom.</li><li>Mingling will not be allowed after class.</li></ul>"
