@@ -1077,15 +1077,21 @@ app.get('/1degree_signup', function(req, res){
         res.redirect('https://emafiles.herokuapp.com/store/1degree_signup');
     } else {
         //res.redirect('temp_classes');
-        var query = "select * from class_times where count < 20 and level = 4 and date_order >= (CURRENT_DATE - INTERVAL '2 day')::date order by date_order";
+        var query = "select * from class_times where count < 20 and level = 4 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
         db.any(query)
             .then(function(rows){
-                res.render('store/1degree_signup', {
-                    fname: '',
-                    lname: '',
-                    email: '',
-                    data: rows
-                })
+                if (rows.length == 0){
+                    res.render('store/temp_classes', {
+                        level: 'black belt'
+                    })
+                } else {
+                    res.render('store/1degree_signup', {
+                        fname: '',
+                        lname: '',
+                        email: '',
+                        data: rows
+                    })
+                }
             })
             .catch(function(err){
                 req.flash('error', 'Unable to render class signup (ERROR: ' + err + ')');
@@ -1104,15 +1110,21 @@ app.get('/dragons_signup', function(req, res){
         res.redirect('https://emafiles.herokuapp.com/store/dragons_signup');
     } else {
         //res.redirect('temp_classes');
-        var query = "select * from class_times where count < 20 and level = 0 and date_order >= (CURRENT_DATE - INTERVAL '2 day')::date order by date_order";
+        var query = "select * from class_times where count < 20 and level = 0 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
         db.any(query)
             .then(function(rows){
-                res.render('store/dragons_signup', {
-                    fname: '',
-                    lname: '',
-                    email: '',
-                    data: rows
-                })
+                if (rows.length == 0){
+                    res.render('store/temp_classes', {
+                        level: 'little dragons'
+                    })
+                } else {
+                    res.render('store/dragons_signup', {
+                        fname: '',
+                        lname: '',
+                        email: '',
+                        data: rows
+                    })
+                }
             })
             .catch(function(err){
                 req.flash('error', 'Unable to render class signup (ERROR: ' + err + ')');
@@ -1131,15 +1143,21 @@ app.get('/basic_signup', function(req, res){
         res.redirect('https://emafiles.herokuapp.com/store/basic_signup');
     } else {
         //res.redirect('temp_classes');
-        var query = "select * from class_times where count < 20 and level = 0.5 and date_order >= (CURRENT_DATE - INTERVAL '2 day')::date order by date_order";
+        var query = "select * from class_times where count < 20 and level = 0.5 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
         db.any(query)
             .then(function(rows){
-                res.render('store/basic_signup', {
-                    fname: '',
-                    lname: '',
-                    email: '',
-                    data: rows
-                })
+                if (rows.length == 0){
+                    res.render('store/temp_classes', {
+                        level: 'basic'
+                    })
+                } else {
+                    res.render('store/basic_signup', {
+                        fname: '',
+                        lname: '',
+                        email: '',
+                        data: rows
+                    })
+                }
             })
             .catch(function(err){
                 req.flash('error', 'Unable to render class signup (ERROR: ' + err + ')');
@@ -1158,11 +1176,13 @@ app.get('/level1_signup', function(req, res){
         res.redirect('https://emafiles.herokuapp.com/store/level1_signup');
     } else {
         //res.redirect('temp_classes');
-        var query = "select * from class_times where count < 20 and level = 1 and date_order >= (CURRENT_DATE - INTERVAL '2 day')::date order by date_order";
+        var query = "select * from class_times where count < 20 and level = 1 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
         db.any(query)
             .then(function(rows){
                 if (rows.length == 0){
-                    res.redirect('temp_classes');
+                    res.render('store/temp_classes', {
+                        level: 'level 1'
+                    })
                 } else {
                     res.render('store/level1_signup', {
                         fname: '',
@@ -1189,15 +1209,21 @@ app.get('/level2_signup', function(req, res){
         res.redirect('https://emafiles.herokuapp.com/store/level2_signup');
     } else {
         //res.redirect('temp_classes');
-        var query = "select * from class_times where count < 20 and level = 2 and date_order >= (CURRENT_DATE - INTERVAL '2 day')::date order by date_order";
+        var query = "select * from class_times where count < 20 and level = 2 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
         db.any(query)
             .then(function(rows){
-                res.render('store/level2_signup', {
-                    fname: '',
-                    lname: '',
-                    email: '',
-                    data: rows
-                })
+                if (rows.length == 0){
+                    res.render('store/temp_classes', {
+                        level: 'level 2'
+                    })
+                } else {
+                    res.render('store/level2_signup', {
+                        fname: '',
+                        lname: '',
+                        email: '',
+                        data: rows
+                    })
+                }
             })
             .catch(function(err){
                 req.flash('error', 'Unable to render class signup (ERROR: ' + err + ')');
@@ -1216,15 +1242,21 @@ app.get('/level3_signup', function(req, res){
         res.redirect('https://emafiles.herokuapp.com/store/level3_signup');
     } else {
         //res.redirect('temp_classes');
-        var query = "select * from class_times where count < 20 and level = 3 and date_order >= (CURRENT_DATE - INTERVAL '2 day')::date order by date_order";
+        var query = "select * from class_times where count < 20 and level = 3 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
         db.any(query)
             .then(function(rows){
-                res.render('store/level3_signup', {
-                    fname: '',
-                    lname: '',
-                    email: '',
-                    data: rows
-                })
+                if (rows.length == 0){
+                    res.render('store/temp_classes', {
+                        level: 'level3'
+                    })
+                } else {
+                    res.render('store/level3_signup', {
+                        fname: '',
+                        lname: '',
+                        email: '',
+                        data: rows
+                    })
+                }
             })
             .catch(function(err){
                 req.flash('error', 'Unable to render class signup (ERROR: ' + err + ')');
@@ -1243,15 +1275,21 @@ app.get('/prep_signup', function(req, res){
         res.redirect('https://emafiles.herokuapp.com/store/prep_signup');
     } else {
         //res.redirect('temp_classes');
-        var query = "select * from class_times where count < 20 and level = 3.5 and date_order >= (CURRENT_DATE - INTERVAL '2 day')::date order by date_order";
+        var query = "select * from class_times where count < 20 and level = 3.5 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
         db.any(query)
             .then(function(rows){
-                res.render('store/prep_signup', {
-                    fname: '',
-                    lname: '',
-                    email: '',
-                    data: rows
-                })
+                if (rows.length == 0){
+                    res.render('store/temp_classes', {
+                        level: 'prep cycle'
+                    })
+                } else {
+                    res.render('store/prep_signup', {
+                        fname: '',
+                        lname: '',
+                        email: '',
+                        data: rows
+                    })
+                }
             })
             .catch(function(err){
                 req.flash('error', 'Unable to render class signup (ERROR: ' + err + ')');
@@ -1270,15 +1308,21 @@ app.get('/weapons_signup', function(req, res){
         res.redirect('https://emafiles.herokuapp.com/store/weapons_signup');
     } else {
         //res.redirect('temp_classes');
-        var query = "select * from class_times where count < 20 and level = 6 and date_order >= (CURRENT_DATE - INTERVAL '2 day')::date order by date_order";
+        var query = "select * from class_times where count < 20 and level = 6 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
         db.any(query)
             .then(function(rows){
-                res.render('store/weapons_signup', {
-                    fname: '',
-                    lname: '',
-                    email: '',
-                    data: rows
-                })
+                if (rows.length == 0){
+                    res.render('store/temp_classes', {
+                        level: 'weapons'
+                    })
+                } else {
+                    res.render('store/weapons_signup', {
+                        fname: '',
+                        lname: '',
+                        email: '',
+                        data: rows
+                    })
+                }
             })
             .catch(function(err){
                 req.flash('error', 'Unable to render class signup (ERROR: ' + err + ')');
@@ -2021,5 +2065,7 @@ app.get('/test_email', function(req, res){
 });
 
 app.get('/temp_classes', function(req, res){
-    res.render('store/temp_classes', {})
+    res.render('store/temp_classes', {
+        classes: ''
+    })
 });
