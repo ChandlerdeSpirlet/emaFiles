@@ -1,0 +1,182 @@
+<meta http-equiv="refresh" content="10">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<html>
+    <style>
+        * {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        table{
+            width: 90%;
+            align-content: center;
+            border-collapse: collapse;
+        }
+        th, h1 {
+            color: blue;
+        }
+        .content td{
+            border: 1px grey;
+            border-left: 1px grey;
+            border-bottom: 1px grey;
+            border-right: 1px grey;
+            border-top: 1px grey;
+        }
+        @media (prefers-color-scheme: dark){
+            *{
+                background-color: black;
+            }
+            table{
+                background-color: black;
+            }
+            td {
+                color: white;
+            }
+            #footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                height: 2.5rem;            /* Footer height */
+                color: white;
+                background-color: black;
+            }
+        }
+        @media (prefers-color-scheme: light){
+            *{
+                background-color: white;
+            }
+            table{
+                background-color: white;
+            }
+            td {
+                color: black;
+            }
+            #footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                height: 2.5rem;            /* Footer height */
+                color: black;
+                background-color: white;
+            }
+        }
+        @media (prefers-color-scheme: no-preference){
+            *{
+                background-color: white;
+            }
+            table{
+                background-color: white;
+            }
+            td {
+                color: black;
+            }
+            #footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                height: 2.5rem;            /* Footer height */
+                color: black;
+                background-color: white;
+            }
+        }
+        @media (min-width: 300px) {
+        th {
+            /* Since color is in min-width: 300px it will follow all the other sizes upwards */
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+        th,td {
+            width: calc(598px /3);
+            text-align: center;
+            padding-top: 5px; 
+            padding-bottom: 5px;
+        }
+        th:first-child {
+            padding-left: 30px;
+            padding-right: 25px;
+        }
+        tr:nth-child(even) {
+            background-color: #9b9b9b;
+        }
+    }
+    @media (min-width: 600px) {
+        th, td {
+            width: calc(768px / 3);
+        }
+    }
+
+    @media (min-width: 768px) {
+        th,td {
+            width: calc(768px / 3);
+        }
+    }
+    @media (min-width: 768.02px) {
+        th, td {
+            width: calc(1024px / 3);
+        }
+    }
+    @media (min-width: 1024px) {
+        th,td {
+            width: calc(1024px / 3);
+        }
+    }
+    @media (min-width: 1024.02px) {
+        th, td {
+            width: calc(1200px / 3);
+        }
+    }
+    @media (min-width: 1200px) {
+        th,td {
+            width: calc(1600px / 3);
+        }
+    }
+    @media (min-width: 1600.02px) {
+        th, td {
+            width: calc(2000px / 3);
+            /* Simple hack for screen larger than 1600 pixels but smaller than 2000 */
+        }
+    }
+    @media (min-width: 2000.02px) {
+        th, td {
+            width: calc(2400px / 3);
+        }
+    #page-container {
+        position: relative;
+        min-height: 90vh;
+    }
+
+    #content-wrap {
+        padding-bottom: 2.5rem;    /* Footer height */
+    }
+}
+    </style>
+    <head>
+        <h1>Tests Associated with <%= email %></h1>
+    </head>
+    <body>
+        <div id="page-container">
+            <div id="content-wrap">
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Test</th>
+                        <th>Drop Test</th>
+                    </tr>
+                </table>
+                <table class="content">
+                    <% if (data) { %>
+                        <% data.forEach(function(item){ %>
+                            <tr>
+                                <td><%= item.first_name %> <%= item.last_name %></td>
+                                <td><%= item.test_day_var %> at <%= item.test_time %></td>
+                                <td><a href="https://emafiles.herokuapp.com/store/delete_test/<%= item.id %>/<%= email %>/<%= item.test_day %>/<%= item.test_time %>">Drop This Test</a></td>
+                            </tr>
+                        <% }) %>
+                    <% } %>
+                </table>
+                </div>
+                <footer id="footer">
+                    Intellectual property of Chandler de Spirlet.<br>
+                    Proof of concept and design provided by Matt Young.
+                </footer>
+        </div>
+    </body>
+</html>

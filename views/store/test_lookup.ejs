@@ -1,0 +1,168 @@
+<% if (messages.error) { %>
+    <p style="color:red"><%- messages.error %></p>
+<% } %>
+<% if (messages.success) { %>
+    <p style="color:green"><%- messages.success %></p>
+<% } %>
+<html>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        @media (prefers-color-scheme: dark){
+            body{
+                background-color: black;
+                color: white;
+            }
+            head{
+                background-color: black;
+                color: white;
+            }
+            label {
+                color: white;
+                font-size: 20px;
+                padding-left: 10px;
+                padding-bottom: 10px;
+            }
+            h1 {
+                text-align: center;
+                color: blue;
+                background-color: black;
+            }
+            input[type=email] {
+                width: 160px;
+                box-sizing: border-box;
+                border: 2px solid #ccc;
+                border-radius: 4px;
+                font-size: 16px;
+                background-color: white;
+                background-position: 10px 10px; 
+                background-repeat: no-repeat;
+                padding: 12px 20px 12px 40px;
+                -webkit-transition: width 0.4s ease-in-out;
+                transition: width 0.4s ease-in-out;
+            }
+            input[type=submit] {
+                background-color: blue; /* Green */
+                border: none;
+                color: black;
+                padding: 16px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                -webkit-transition-duration: 0.4s; /* Safari */
+                transition-duration: 0.4s;
+                cursor: pointer;
+            }
+        }
+        @media (prefers-color-scheme: light){
+            body{
+                background-color: white;
+                color: black;
+            }
+            head{
+                background-color: white;
+                color: black;
+            }
+            label {
+                color: black;
+                font-size: 20px;
+                padding-left: 10px;
+                padding-bottom: 10px;
+            }
+            h1 {
+                text-align: center;
+                color: blue;
+                background-color: white;
+            }
+            input[type=email] {
+                width: 160px;
+                box-sizing: border-box;
+                border: 2px solid #ccc;
+                border-radius: 4px;
+                font-size: 16px;
+                background-color: white;
+                background-position: 10px 10px; 
+                background-repeat: no-repeat;
+                padding: 12px 20px 12px 40px;
+                -webkit-transition: width 0.4s ease-in-out;
+                transition: width 0.4s ease-in-out;
+            }
+            input[type=submit] {
+                background-color: blue; /* Green */
+                border: none;
+                color: white;
+                padding: 16px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                -webkit-transition-duration: 0.4s; /* Safari */
+                transition-duration: 0.4s;
+                cursor: pointer;
+            }
+        }
+        @media (prefers-color-scheme: no-preference){
+            body{
+                background-color: white;
+                color: black;
+            }
+            head{
+                background-color: white;
+                color: black;
+            }
+            label {
+                color: black;
+                font-size: 20px;
+                padding-left: 10px;
+                padding-bottom: 10px;
+            }
+            h1 {
+                text-align: center;
+                color: blue;
+                background-color: white;
+            }
+            input[type=email] {
+                width: 160px;
+                box-sizing: border-box;
+                border: 2px solid #ccc;
+                border-radius: 4px;
+                font-size: 16px;
+                background-color: white;
+                background-position: 10px 10px; 
+                background-repeat: no-repeat;
+                padding: 12px 20px 12px 40px;
+                -webkit-transition: width 0.4s ease-in-out;
+                transition: width 0.4s ease-in-out;
+            }
+            input[type=submit] {
+                background-color: blue; /* Green */
+                border: none;
+                color: white;
+                padding: 16px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                -webkit-transition-duration: 0.4s; /* Safari */
+                transition-duration: 0.4s;
+                cursor: pointer;
+            }
+        }
+    </style>
+    <head>
+        <h1>Class Lookup</h1>
+    </head>
+    <body>
+        <p>Enter your email to lookup your testing time.</p>
+        <form action="/store/test_lookup" method="post">
+            <label>Email: </label><input type="email" name="email" id="email" pattern="[A-z0-9.]+[@][A-z0-9]{1,}[.]+[A-z]{2,}" value="<%= email %>"><br>
+            <input type="submit" name="Preview" value="Lookup"/>
+        </form>
+    </body>
+</html>

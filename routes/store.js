@@ -1887,12 +1887,29 @@ app.get('/email_lookup', function(req, res){
     }
 });
 
+app.get('/test_lookup', function(req, res){
+    if (req.headers['x-forwarded-proto'] != 'https'){
+        res.redirect('https://emafiles.herokuapp.com/store/test_lookup');
+    } else {
+        res.render('store/test_lookup', {
+            email: ''
+        })
+    }
+});
+
 app.post('/email_lookup', function(req, res){
     var item = {
         email: req.sanitize('email')
     }
     console.log('email in lookup is ' + item.email);
     res.redirect('classes_email/' + item.email);
+});
+
+app.post('/test_lookup', function(req, res){
+    var item = {
+        email: req.sanitize('email')
+    }
+    res.redirect('test_email/' + item.email);
 });
 
 app.get('/delete/(:id)/(:id_from_other)/(:email)', function(req, res){
@@ -1902,6 +1919,36 @@ app.get('/delete/(:id)/(:id_from_other)/(:email)', function(req, res){
     db.query(query_sched, [req.params.id]);
     res.redirect('https://emafiles.herokuapp.com/store/classes_email/' + req.params.email);
 });
+
+app.get('/delete_test/(:id)/(:email)/(:test_day)/(:test_time)', function(req, res){
+    var query_sched = "delete from people_testing where id = $1";
+    db.query(query_sched, [req.params.id]);
+    clearCount(req.params.test_day, req.params.test_time);
+    res.redirect('https://emafiles.herokuapp.com/store/test_email/' + req.params.email);
+});
+
+function clearCount(test_day, test_time){
+    var transporter = nodemailer.createTransport({
+        service: 'outlook',
+        auth: {
+            user: 'EMA_Classes@outlook.com',
+            pass: 'zickit-5dibwa-Jajhir'
+        }
+    });
+    var mailOptions = {
+        from: 'EMA_Classes@outlook.com',
+        to: 'EMA_Testing@outlook.com',
+        subject: 'Class Confirmed for ' + name,
+        html: "<h2>" + 'Karate Test Cancelled' + "</h2><br>" + "<b>" + test_day + "</b>" + " at <b> " + test_time + "</b>"
+    };
+    transporter.sendMail(mailOptions, function(error, info){
+        if (error){
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+    });
+}
 
 app.get('/classes_email/(:email)', function(req, res){
     var query = "select id, id_from_other, first_name, last_name, cast(to_char(test_day, 'Mon DD, YYYY') as varchar) as test_day_var, test_time from class_signups where email = $1 and test_day >= (CURRENT_DATE - INTERVAL '2 day')::date order by test_day";
@@ -1925,7 +1972,36 @@ app.get('/classes_email/(:email)', function(req, res){
     })
 });
 
+app.get('/test_email/(:email)', function(req, res){
+    var query = "select id, first_name, last_name, cast(to_char(test_day, 'Mon DD, YYYY') as varchar) as test_day_var, test_time from people_testing where email = $1";
+    db.query(query, [req.params.email])
+    .then(function(rows){
+        if (rows.length == 0){
+            req.flash('error', 'There are no tests associated with the email ' + req.params.email);
+            res.redirect('https://emafiles.herokuapp.com/store/test_lookup');
+        } else {
+            res.render('store/test_email', {
+                email: req.params.email,
+                data: rows
+            })
+        }
+    })
+    .catch(function(err){
+        req.flash('error', 'Cound not render any tests associated with the email ' + item.email + '. ERR_no: ' + err);
+        res.render('store/test_lookup', {
+            email: ''
+        })
+    })
+});
+
 app.get('/classes_email', function(req, res){
+    res.render('store/classes_email', {
+        email: '',
+        data: ''
+    })
+});
+
+app.get('/test_email', function(req, res){
     res.render('store/classes_email', {
         email: '',
         data: ''
