@@ -1938,7 +1938,7 @@ function clearCount(test_day, test_time){
     var mailOptions = {
         from: 'EMA_Classes@outlook.com',
         to: 'EMA_Testing@outlook.com',
-        subject: 'Class Confirmed for ' + name,
+        subject: 'Test Cancelled',
         html: "<h2>" + 'Karate Test Cancelled' + "</h2><br>" + "<b>" + test_day + "</b>" + " at <b> " + test_time + "</b>"
     };
     transporter.sendMail(mailOptions, function(error, info){
