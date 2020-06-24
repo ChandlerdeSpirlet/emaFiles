@@ -1076,7 +1076,9 @@ app.get('/1degree_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/1degree_signup');
     } else {
-        res.redirect('temp_classes');
+        res.render('store/temp_classes', {
+                        level: 'weapons'
+                    });
         var query = "select * from class_times where count < 20 and level = 4 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
         db.any(query)
             .then(function(rows){
@@ -1109,7 +1111,9 @@ app.get('/dragons_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/dragons_signup');
     } else {
-        res.redirect('temp_classes');
+        res.render('store/temp_classes', {
+                        level: 'weapons'
+                    });
         var query = "select * from class_times where count < 20 and level = 0 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
         db.any(query)
             .then(function(rows){
@@ -1142,7 +1146,9 @@ app.get('/basic_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/basic_signup');
     } else {
-        res.redirect('temp_classes');
+        res.render('store/temp_classes', {
+                        level: 'weapons'
+                    });
         var query = "select * from class_times where count < 20 and level = 0.5 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
         db.any(query)
             .then(function(rows){
@@ -1175,7 +1181,9 @@ app.get('/level1_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/level1_signup');
     } else {
-        res.redirect('temp_classes');
+        res.render('store/temp_classes', {
+                        level: 'weapons'
+                    });
         var query = "select * from class_times where count < 20 and level = 1 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
         db.any(query)
             .then(function(rows){
@@ -1208,7 +1216,9 @@ app.get('/level2_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/level2_signup');
     } else {
-        res.redirect('temp_classes');
+        res.render('store/temp_classes', {
+                        level: 'weapons'
+                    });
         var query = "select * from class_times where count < 20 and level = 2 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
         db.any(query)
             .then(function(rows){
@@ -1241,7 +1251,9 @@ app.get('/level3_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/level3_signup');
     } else {
-        res.redirect('temp_classes');
+        res.render('store/temp_classes', {
+                        level: 'weapons'
+                    });
         var query = "select * from class_times where count < 20 and level = 3 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
         db.any(query)
             .then(function(rows){
@@ -1274,7 +1286,9 @@ app.get('/prep_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/prep_signup');
     } else {
-        res.redirect('temp_classes');
+        res.render('store/temp_classes', {
+                        level: 'weapons'
+                    });
         var query = "select * from class_times where count < 20 and level = 3.5 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
         db.any(query)
             .then(function(rows){
@@ -1307,14 +1321,16 @@ app.get('/weapons_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/weapons_signup');
     } else {
-        res.redirect('temp_classes');
+        res.render('store/temp_classes', {
+                        level: 'weapons'
+                    });
         var query = "select * from class_times where count < 20 and level = 6 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
         db.any(query)
             .then(function(rows){
                 if (rows.length == 0){
                     res.render('store/temp_classes', {
                         level: 'weapons'
-                    })
+                    });
                 } else {
                     res.render('store/weapons_signup', {
                         fname: '',
