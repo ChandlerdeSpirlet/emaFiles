@@ -402,7 +402,7 @@ app.get('/testing_signup_dragons', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/testing_signup_dragons');
     } else {
-        var query = 'select * from testing_signup where count < 20 and level = -1 order by id';
+        var query = 'select * from testing_signup where count < 19 and level = -1 order by id';
         db.any(query)
             .then(function(rows){
                 res.render('store/testing_signup_dragons', {
@@ -427,7 +427,7 @@ app.get('/testing_signup_basic', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/testing_signup_basic');
     } else {
-        var query = 'select * from testing_signup where count < 20 and level = 0 order by id';
+        var query = 'select * from testing_signup where count < 19 and level = 0 order by id';
         db.any(query)
             .then(function(rows){
                 res.render('store/testing_signup_basic', {
@@ -452,7 +452,7 @@ app.get('/testing_signup_level1', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/testing_signup_level1');
     } else {
-        var query = 'select * from testing_signup where count < 20 and level = 1 order by id';
+        var query = 'select * from testing_signup where count < 19 and level = 1 order by id';
         db.any(query)
             .then(function(rows){
                 res.render('store/testing_signup_level1', {
@@ -477,7 +477,7 @@ app.get('/testing_signup_level2', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/testing_signup_level2');
     } else {
-        var query = 'select * from testing_signup where count < 20 and level = 2 order by id';
+        var query = 'select * from testing_signup where count < 19 and level = 2 order by id';
         db.any(query)
             .then(function(rows){
                 res.render('store/testing_signup_level2', {
@@ -502,7 +502,7 @@ app.get('/testing_signup_level3', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/testing_signup_level3');
     } else {
-        var query = 'select * from testing_signup where count < 20 and level = 3 order by id';
+        var query = 'select * from testing_signup where count < 19 and level = 3 order by id';
         db.any(query)
             .then(function(rows){
                 res.render('store/testing_signup_level3', {
@@ -802,7 +802,7 @@ app.post('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(
     }
     if (item.button == 'Edit'){
         if (req.params.belt_group == -1){
-            var query = 'select * from testing_signup where count < 20 and level = -1';
+            var query = 'select * from testing_signup where count < 19 and level = -1';
             db.any(query)
                 .then(function(rows){
                     res.render('store/testing_signup_dragons', {
@@ -825,7 +825,7 @@ app.post('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(
                 })
         }
         if (req.params.belt_group == 0){
-            var query = 'select * from testing_signup where count < 20 and level = 0';
+            var query = 'select * from testing_signup where count < 19 and level = 0';
             db.any(query)
                 .then(function(rows){
                     res.render('store/testing_signup_basic', {
@@ -848,7 +848,7 @@ app.post('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(
                 })
         }
         if (req.params.belt_group == 1){
-            var query = 'select * from testing_signup where count < 20 and level = 1';
+            var query = 'select * from testing_signup where count < 19 and level = 1';
             db.any(query)
                 .then(function(rows){
                     res.render('store/testing_signup_level1', {
@@ -871,7 +871,7 @@ app.post('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(
                 })
         }
         if (req.params.belt_group == 2){
-            var query = 'select * from testing_signup where count < 20 and level = 2';
+            var query = 'select * from testing_signup where count < 19 and level = 2';
             db.any(query)
                 .then(function(rows){
                     res.render('store/testing_signup_level2', {
@@ -894,7 +894,7 @@ app.post('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(
                 })
         }
         if (req.params.belt_group == 3){
-            var query = 'select * from testing_signup where count < 20 and level = 3';
+            var query = 'select * from testing_signup where count < 19 and level = 3';
             db.any(query)
                 .then(function(rows){
                     res.render('store/testing_signup_level3', {
@@ -1028,7 +1028,7 @@ app.get('/instructor', function(req, res){
 });
 app.get('/testing_schedule', function(req, res){
     if (req.session.user == 'Instructor'){
-        var query = "select first_name, last_name, belt, cast(to_char(test_day, 'Mon DD, YYYY') as varchar) as test_day, test_time from people_testing where test_day >= (CURRENT_DATE - INTERVAL '2 day')::date order by test_day";
+        var query = "select first_name, last_name, belt, cast(to_char(test_day, 'Mon DD, YYYY') as varchar) as test_day, test_time from people_testing where test_day >= (CURRENT_DATE - INTERVAL '1 day')::date order by test_day";
         db.any(query)
             .then(function(rows){
                 res.render('store/testing_schedule', {
@@ -1079,7 +1079,7 @@ app.get('/1degree_signup', function(req, res){
         res.render('store/temp_classes', {
                         level: 'weapons'
                     });
-        var query = "select * from class_times where count < 20 and level = 4 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
+        var query = "select * from class_times where count < 19 and level = 4 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
         db.any(query)
             .then(function(rows){
                 if (rows.length == 0){
@@ -1114,7 +1114,7 @@ app.get('/dragons_signup', function(req, res){
         res.render('store/temp_classes', {
                         level: 'weapons'
                     });
-        var query = "select * from class_times where count < 20 and level = 0 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
+        var query = "select * from class_times where count < 19 and level = 0 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
         db.any(query)
             .then(function(rows){
                 if (rows.length == 0){
@@ -1149,7 +1149,7 @@ app.get('/basic_signup', function(req, res){
         res.render('store/temp_classes', {
                         level: 'weapons'
                     });
-        var query = "select * from class_times where count < 20 and level = 0.5 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
+        var query = "select * from class_times where count < 19 and level = 0.5 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
         db.any(query)
             .then(function(rows){
                 if (rows.length == 0){
@@ -1184,7 +1184,7 @@ app.get('/level1_signup', function(req, res){
         res.render('store/temp_classes', {
                         level: 'weapons'
                     });
-        var query = "select * from class_times where count < 20 and level = 1 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
+        var query = "select * from class_times where count < 19 and level = 1 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
         db.any(query)
             .then(function(rows){
                 if (rows.length == 0){
@@ -1219,7 +1219,7 @@ app.get('/level2_signup', function(req, res){
         res.render('store/temp_classes', {
                         level: 'weapons'
                     });
-        var query = "select * from class_times where count < 20 and level = 2 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
+        var query = "select * from class_times where count < 19 and level = 2 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
         db.any(query)
             .then(function(rows){
                 if (rows.length == 0){
@@ -1254,7 +1254,7 @@ app.get('/level3_signup', function(req, res){
         res.render('store/temp_classes', {
                         level: 'weapons'
                     });
-        var query = "select * from class_times where count < 20 and level = 3 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
+        var query = "select * from class_times where count < 19 and level = 3 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
         db.any(query)
             .then(function(rows){
                 if (rows.length == 0){
@@ -1289,7 +1289,7 @@ app.get('/prep_signup', function(req, res){
         res.render('store/temp_classes', {
                         level: 'weapons'
                     });
-        var query = "select * from class_times where count < 20 and level = 3.5 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
+        var query = "select * from class_times where count < 19 and level = 3.5 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
         db.any(query)
             .then(function(rows){
                 if (rows.length == 0){
@@ -1324,7 +1324,7 @@ app.get('/weapons_signup', function(req, res){
         res.render('store/temp_classes', {
                         level: 'weapons'
                     });
-        var query = "select * from class_times where count < 20 and level = 6 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
+        var query = "select * from class_times where count < 19 and level = 6 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
         db.any(query)
             .then(function(rows){
                 if (rows.length == 0){
@@ -1676,7 +1676,7 @@ app.post('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day
     }
     if (item.button == 'Edit'){
         if (req.params.belt_group == 'Black Belt'){
-            var query = "select * from class_times where count < 20 and level = 4 and date_order date_order >= (CURRENT_DATE - INTERVAL '2 day')::date order by date_order";
+            var query = "select * from class_times where count < 19 and level = 4 and date_order date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
             db.any(query)
                 .then(function(rows){
                     res.render('store/1degree_signup', {
@@ -1697,7 +1697,7 @@ app.post('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day
                 })
         }
         if (req.params.belt_group == 'Little Dragons'){
-            var query = "select * from class_times where count < 20 and level = 0 and date_order date_order >= (CURRENT_DATE - INTERVAL '2 day')::date order by date_order";
+            var query = "select * from class_times where count < 19 and level = 0 and date_order date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
             db.any(query)
                 .then(function(rows){
                     res.render('store/dragons_signup', {
@@ -1718,7 +1718,7 @@ app.post('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day
                 })
         }
         if (req.params.belt_group == 'Basic'){
-            var query = "select * from class_times where count < 20 and level = 0.5 and date_order date_order >= (CURRENT_DATE - INTERVAL '2 day')::date order by date_order";
+            var query = "select * from class_times where count < 19 and level = 0.5 and date_order date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
             db.any(query)
                 .then(function(rows){
                     res.render('store/basic_signup', {
@@ -1739,7 +1739,7 @@ app.post('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day
                 })
         }
         if (req.params.belt_group == 'Level 1'){
-            var query = "select * from class_times where count < 20 and level = 1 and date_order date_order >= (CURRENT_DATE - INTERVAL '2 day')::date order by date_order";
+            var query = "select * from class_times where count < 19 and level = 1 and date_order date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
             db.any(query)
                 .then(function(rows){
                     res.render('store/level1_signup', {
@@ -1760,7 +1760,7 @@ app.post('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day
                 })
         }
         if (req.params.belt_group == 'Level 2'){
-            var query = "select * from class_times where count < 20 and level = 2 and date_order date_order >= (CURRENT_DATE - INTERVAL '2 day')::date order by date_order";
+            var query = "select * from class_times where count < 19 and level = 2 and date_order date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
             db.any(query)
                 .then(function(rows){
                     res.render('store/level2_signup', {
@@ -1781,7 +1781,7 @@ app.post('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day
                 })
         }
         if (req.params.belt_group == 'Level 1'){
-            var query = "select * from class_times where count < 20 and level = 3 and date_order date_order >= (CURRENT_DATE - INTERVAL '2 day')::date order by date_order";
+            var query = "select * from class_times where count < 19 and level = 3 and date_order date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
             db.any(query)
                 .then(function(rows){
                     res.render('store/level3_signup', {
@@ -1802,7 +1802,7 @@ app.post('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day
                 })
         }
         if (req.params.belt_group == 'Prep Cycle'){
-            var query = "select * from class_times where count < 20 and level = 3.5 and date_order date_order >= (CURRENT_DATE - INTERVAL '2 day')::date order by date_order";
+            var query = "select * from class_times where count < 19 and level = 3.5 and date_order date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
             db.any(query)
                 .then(function(rows){
                     res.render('store/prep_signup', {
@@ -1823,7 +1823,7 @@ app.post('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day
                 })
         }
         if (req.params.belt_group == 'Weapons'){
-            var query = "select * from class_times where count < 20 and level = 6 and date_order date_order >= (CURRENT_DATE - INTERVAL '2 day')::date order by date_order";
+            var query = "select * from class_times where count < 19 and level = 6 and date_order date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
             db.any(query)
                 .then(function(rows){
                     res.render('store/weapons_signup', {
@@ -2023,7 +2023,7 @@ function clearCount(test_day, test_time){
 }
 
 app.get('/classes_email/(:email)', function(req, res){
-    var query = "select id, id_from_other, first_name, last_name, cast(to_char(test_day, 'Mon DD, YYYY') as varchar) as test_day_var, test_time from class_signups where email = $1 and test_day >= (CURRENT_DATE - INTERVAL '2 day')::date order by test_day";
+    var query = "select id, id_from_other, first_name, last_name, cast(to_char(test_day, 'Mon DD, YYYY') as varchar) as test_day_var, test_time from class_signups where email = $1 and test_day >= (CURRENT_DATE - INTERVAL '1 day')::date order by test_day";
     db.query(query, [req.params.email])
     .then(function(rows){
         if (rows.length == 0){
