@@ -1992,14 +1992,14 @@ app.get('/delete/(:id)/(:id_from_other)/(:email)', function(req, res){
     res.redirect('https://emafiles.herokuapp.com/store/classes_email/' + req.params.email);
 });
 
-app.get('/delete_test/(:id)/(:email)/(:test_day)/(:test_time)', function(req, res){
+app.get('/delete_test/(:id)/(:email)/(:test_day)/(:test_time)/(:first_name)/(:last_name)', function(req, res){
     var query_sched = "delete from people_testing where id = $1";
     db.query(query_sched, [req.params.id]);
-    clearCount(req.params.test_day, req.params.test_time);
+    clearCount(req.params.test_day, req.params.test_time, req.params.first_name, req.params.last_name);
     res.redirect('https://emafiles.herokuapp.com/store/test_email/' + req.params.email);
 });
 
-function clearCount(test_day, test_time){
+function clearCount(test_day, test_time, fname, lname){
     var transporter = nodemailer.createTransport({
         service: 'outlook',
         auth: {
@@ -2011,7 +2011,7 @@ function clearCount(test_day, test_time){
         from: 'EMA_Classes@outlook.com',
         to: 'EMA_Testing@outlook.com',
         subject: 'Test Cancelled',
-        html: "<h2>" + 'Karate Test Cancelled' + "</h2><br>" + "<b>" + test_day + "</b>" + " at <b> " + test_time + "</b>"
+        html: "<h2>" + 'Karate Test Cancelled' + "</h2><br>" + "<b>" + test_day + "</b>" + " at <b> " + test_time + "</b>" + " for " + "<b> " + fname + " " + lname + ".</b>" 
     };
     transporter.sendMail(mailOptions, function(error, info){
         if (error){
