@@ -220,7 +220,6 @@ app.post('/student_progress_check', function(req, res){
         fk: req.sanitize('fk').trim()
     }
     var redir_link = '/store/preview/' + item.fname + '/' + item.lname + '/' + item.jj + '/' + item.pu + '/' + item.mtn_cl + '/' + item.su + '/' + item.fk;
-    console.log('redir_link = ' + redir_link);
     res.redirect(redir_link);
 });
 
@@ -273,8 +272,8 @@ app.post('/preview/(:fname)/(:lname)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', functio
     console.log('is_backdoor = ' + is_backdoor);
     if ((item.button == 'Submit') && (is_backdoor == false)){
         var total_score = Number(req.params.jj) + Number(req.params.pu) + Number(req.params.su) + Number(req.params.mtn_cl) + Number(req.params.fk);
-        var query = 'insert into progress_check (student_name, jumping_jacks, pushups, situps, mtn_climbers, front_kicks, total_score) values ($1, $2, $3, $4, $5, $6, $7)';
-        db.none(query, [req.params.fname + ' ' + req.params.lname, req.params.jj, req.params.pu, req.params.su, req.params.mtn_cl, req.params.fk, total_score])
+        var query = 'insert into progress_check (first_name, last_name, jumping_jacks, pushups, situps, mtn_climbers, front_kicks, total_score) values ($1, $2, $3, $4, $5, $6, $7, $8)';
+        db.none(query, [req.params.fname, req.params.lname, req.params.jj, req.params.pu, req.params.su, req.params.mtn_cl, req.params.fk, total_score])
             .then(function(row){
                 console.log('in .then');
                 var items = ['Nice job', 'Way to go', 'Awesome', 'Super cool', 'Looks great', 'Good job', 'Fantastic', 'Fantastic job', 'Awesome job', "That's karate-choppin'"];
