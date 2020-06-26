@@ -92,6 +92,12 @@
             color: blue;
             background-color: black;
         }
+        h4 {
+            text-align: center;
+            color: blue;
+            background-color: black;
+            font-size: 16px;
+        }
         head {
             background-color: black;
         }
@@ -206,6 +212,12 @@
                 text-align: center;
                 color: blue;
                 background-color: white;
+            }
+            h4 {
+                text-align: center;
+                color: blue;
+                background-color: white;
+                font-size: 16px;
             }
             head {
                 background-color: white;
@@ -322,6 +334,12 @@
                 color: blue;
                 background-color: white;
             }
+            h4 {
+                text-align: center;
+                color: blue;
+                background-color: white;
+                font-size: 16px;
+            }
             head {
                 background-color: white;
             }
@@ -353,9 +371,9 @@
     </style>
     <head>
         <h1>Student Progess Check Month 2</h1>
+        <h4>Look for your name in the dropdown menu. If your name is not in the dropdown, enter your first and last name in the fields provided.</h4>
     </head>
     <body>
-        <p>Look for your name in the dropdown menu. If your name is not in the dropdown, enter your first and last name in the fields provided.</p>
         <div id="page-container">
             <div id="content-wrap">
                 <div class="row">
@@ -374,6 +392,7 @@
                             <input type="submit" name="Preview" value="Preview"/>
                         </div>
                         <div class="column">
+                            <br>
                             <label>Last Name: </label><input type="last name" name="lname" id="lname" value="<%= lname %>"/><br>
                             <label>Push-ups: </label><input inputmode="numeric" type="number" name="pu" id="pu" pattern="\b[0-9]+\b" value="<%= pu %>"/><br>
                             <label>Mountain Climbers: </label><input inputmode="numeric" type="number" name="mtn_cl" id="mtn_cl" pattern="\b[0-9]+\b" value="<%= mtn_cl %>"/><br>
@@ -388,19 +407,11 @@
     </body>
 </html>
 <script>
-    var fname = document.getElementById('fname');
-    var lname = document.getElementById('lname');
     var jj = document.getElementById('jj');
     var mtn_cl = document.getElementById('mtn_cl');
     var fk = document.getElementById('fk');
     var pu = document.getElementById('pu');
     var su = document.getElementById('su');
-    fname.oninvalid = function(event) {
-        event.target.setCustomValidity('Firstname should only include letters.');
-    }
-    lname.oninvalid = function(event) {
-        event.target.setCustomValidity('Lastname should only include letters.');
-    }
     jj.oninvalid = function(event){
         event.target.setCustomValidity('Jumping Jacks can only be numbers.');
     }
@@ -420,17 +431,18 @@
     function ValidateForm(){
         var fname = document.forms["Form"]["fname"].value;
         var lname = document.forms["Form"]["lname"].value;
+        var stud_name = document.getElementById('stud_name');
         var jj = document.forms["Form"]["jj"].value;
         var pu = document.forms["Form"]["pu"].value;
         var su = document.forms["Form"]["su"].value;
         var mtn_cl = document.forms["Form"]["mtn_cl"].value;
         var fk = document.forms["Form"]["fk"].value;
-        if (fname == null || fname == ""){
-            alert("First Name is required and can only contain letters amd spaces.");
+        if (fname == null || fname == "" || stud_name == ""){
+            alert("First Name is required or select your name from the dropdown menu.");
             return false;
         }
-        if (lname == null || lname == ""){
-            alert("Last Name is required and can only contain letters and spaces.");
+        if (lname == null || lname == "" || stud_name == ""){
+            alert("Last Name is required or select your name from the dropdown menu.");
             return false;
         }
         if (jj == null || jj == ""){
