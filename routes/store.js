@@ -398,7 +398,15 @@ app.post('/preview_month2b/(:fname)/(:lname)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)',
                 console.log("In .catch");
                 console.log('error is ' + err);
                 req.flash('error', 'Unable to add progress check data. This may be because your name is already in the dropdown list. (ERROR: ' + err + ')');
-                res.redirect('student_progress_check_month2')
+                res.render('store/student_progress_check_month2', {
+                    fname: item.fname,
+                    lname: item.lname,
+                    jj: item.jj,
+                    pu: item.pu,
+                    mtn_cl: item.mtn_cl,
+                    su: item.su,
+                    fk: item.fk
+                })
             })
     }
     if (item.button == 'Edit'){
