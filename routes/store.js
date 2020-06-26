@@ -224,7 +224,7 @@ app.get('/student_progress_check_month2', function(req, res){
     }
 });
 
-app.post('/student_progess_check_month2', function(req, res){
+app.post('/student_progress_check_month2', function(req, res){
     var item = {
         stud_name: req.sanitize('stud_name'),
         fname: req.sanitize('fname'),
