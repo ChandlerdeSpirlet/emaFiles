@@ -325,12 +325,12 @@ app.post('/preview_month2a/(:stud_name)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', func
                 can_redir = false;
                 console.log("In .catch");
                 console.log('error is ' + err);
-                req.flash('error', 'Unable to add progress check data (ERROR: ' + err + ')');
-                res.redirect('student_progress_check_month2a')
+                req.flash('error', 'Unable to add progress check data. (ERROR: ' + err + ')');
+                res.redirect('student_progress_check_month2')
             })
     }
     if (item.button == 'Edit'){
-        res.render('store/student_progress_check_month2a', {
+        res.render('store/student_progress_check_month2', {
             stud_name: item.stud_name,
             jj: item.jj,
             pu: item.pu,
@@ -386,12 +386,12 @@ app.post('/preview_month2b/(:fname)/(:lname)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)',
                 can_redir = false;
                 console.log("In .catch");
                 console.log('error is ' + err);
-                req.flash('error', 'Unable to add progress check data (ERROR: ' + err + ')');
-                res.redirect('student_progress_check')
+                req.flash('error', 'Unable to add progress check data. This may be because your name is already in the dropdown list. (ERROR: ' + err + ')');
+                res.redirect('student_progress_check_month2')
             })
     }
     if (item.button == 'Edit'){
-        res.render('store/student_progress_check_month2b', {
+        res.render('store/student_progress_check_month2', {
             fname: item.fname,
             lname: item.lname,
             jj: item.jj,
