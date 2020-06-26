@@ -437,11 +437,11 @@
         var su = document.forms["Form"]["su"].value;
         var mtn_cl = document.forms["Form"]["mtn_cl"].value;
         var fk = document.forms["Form"]["fk"].value;
-        if (fname == null || fname == "" || stud_name == ""){
+        if (fname == null || fname == "" && stud_name == ""){
             alert("First Name is required or select your name from the dropdown menu.");
             return false;
         }
-        if (lname == null || lname == "" || stud_name == ""){
+        if (lname == null || lname == "" && stud_name == ""){
             alert("Last Name is required or select your name from the dropdown menu.");
             return false;
         }
