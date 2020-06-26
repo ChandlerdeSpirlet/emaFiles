@@ -326,12 +326,23 @@ app.post('/preview_month2a/(:stud_name)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', func
                 console.log("In .catch");
                 console.log('error is ' + err);
                 req.flash('error', 'Unable to add progress check data. (ERROR: ' + err + ')');
-                res.redirect('student_progress_check_month2')
+                res.render('store/student_progress_check_month2', {
+                    stud_name: item.stud_name,
+                    fname: '',
+                    lname: '',
+                    jj: item.jj,
+                    pu: item.pu,
+                    mtn_cl: item.mtn_cl,
+                    su: item.su,
+                    fk: item.fk
+                })
             })
     }
     if (item.button == 'Edit'){
         res.render('store/student_progress_check_month2', {
             stud_name: item.stud_name,
+            fname: '',
+            lname: '',
             jj: item.jj,
             pu: item.pu,
             mtn_cl: item.mtn_cl,
