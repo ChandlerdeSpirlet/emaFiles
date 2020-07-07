@@ -207,7 +207,7 @@ app.get('/student_progress_check_month2', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/student_progress_check')
     } else {
-        var query = 'select * from get_names()';
+        var query = 'select * from get_name()';
         db.query(query)
             .then(function(rows){
                 res.render('store/student_progress_check_month2', {

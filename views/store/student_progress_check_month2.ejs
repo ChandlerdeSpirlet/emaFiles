@@ -380,20 +380,20 @@
                     <form onsubmit="return ValidateForm()" name="Form" action="/store/student_progress_check_month2" method="post">
                         <label>Your Name: </label><select name="stud_name">
                             <option value = "">Select Your Name from the List</option>
+                            <%= console.log(data); %>
                             <% for (var i = 0; i < data.length; i++) { %>
+                                <%= console.log(data[1]); %>
                                 <option value="<%= data[i].get_names %>"><%= data[i].get_names %></option>
                             <% } %>
                         </select><br>
                         <label>First Name: </label><input type="first name" name="fname" id="fname" value="<%= fname %>"><br>
                         <label>Last Name: </label><input type="last name" name="lname" id="lname" value="<%= lname %>"/><br>
                         <div class="column">
-                            <!--
                             <label>Your Name: </label><select name="stud_name">
                                 <option value = "">Select Your Name from the List</option>
                                 <% for (var i = 0; i < data.length; i++) { %>
                                     <option value="<%= data[i].get_names %>"><%= data[i].get_names %></option>
                                 <% } %>
-                                -->
                             </select><br>
                             <!--<label>First Name: </label><input type="first name" name="fname" id="fname" value="<%= fname %>"><br>-->
                             <label>Jumping Jacks: </label><input inputmode="numeric" type="number" name="jj" id="jj" pattern="\b[0-9]+\b" value="<%= jj %>"/><br>
