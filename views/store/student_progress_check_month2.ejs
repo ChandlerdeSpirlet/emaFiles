@@ -378,23 +378,14 @@
             <div id="content-wrap">
                 <div class="row">
                     <form onsubmit="return ValidateForm()" name="Form" action="/store/student_progress_check_month2" method="post">
-                        <label>Your Name: </label><select name="stud_name">
+                        <label>Your Name: </label><select name="stud_name" id="dropdown">
                             <option value = "">Select Your Name from the List</option>
-                            <%= console.log(data); %>
                             <% for (var i = 0; i < data.length; i++) { %>
-                                <%= console.log(data[1]); %>
                                 <option value="<%= data[i].get_names %>"><%= data[i].get_names %></option>
                             <% } %>
                         </select><br>
-                        <label>First Name: </label><input type="first name" name="fname" id="fname" value="<%= fname %>"><br>
-                        <label>Last Name: </label><input type="last name" name="lname" id="lname" value="<%= lname %>"/><br>
+                        <label>First and Last Name: </label><input type="name" name="full_name" id="full_name" value="<%= full_name %>"/><br>
                         <div class="column">
-                            <label>Your Name: </label><select name="stud_name">
-                                <option value = "">Select Your Name from the List</option>
-                                <% for (var i = 0; i < data.length; i++) { %>
-                                    <option value="<%= data[i].get_names %>"><%= data[i].get_names %></option>
-                                <% } %>
-                            </select><br>
                             <!--<label>First Name: </label><input type="first name" name="fname" id="fname" value="<%= fname %>"><br>-->
                             <label>Jumping Jacks: </label><input inputmode="numeric" type="number" name="jj" id="jj" pattern="\b[0-9]+\b" value="<%= jj %>"/><br>
                             <label>Sit-ups: </label><input inputmode="numeric" type="number" name="su" id="su" pattern="\b[0-9]+\b" value="<%= su %>"/><br>
@@ -476,5 +467,13 @@
             return false;
         }
         return true;
+    }
+</script>
+<script type="text/javascript">
+    var mytextbox = document.getElementById('full_name');
+    var mydropdown = document.getElementById('dropdown');
+
+    mydropdown.onchange = function(){
+        mytextbox.value = mytextbox.value  + this.value;
     }
 </script>

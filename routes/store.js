@@ -207,13 +207,12 @@ app.get('/student_progress_check_month2', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/student_progress_check')
     } else {
-        var query = 'select * from get_name()';
+        var query = 'select * from get_names()';
         db.query(query)
             .then(function(rows){
                 res.render('store/student_progress_check_month2', {
                     data: rows,
-                    fname: '',
-                    lname: '',
+                    full_name: '',
                     jj: '',
                     pu: '',
                     mtn_cl: '',
@@ -226,32 +225,26 @@ app.get('/student_progress_check_month2', function(req, res){
 
 app.post('/student_progress_check_month2', function(req, res){
     var item = {
-        stud_name: req.sanitize('stud_name'),
-        fname: req.sanitize('fname'),
-        lname: req.sanitize('lname'),
+        full_name: req.sanitize('lname'),
         jj: req.sanitize('jj').trim(),
         pu: req.sanitize('pu').trim(),
         mtn_cl: req.sanitize('mtn_cl').trim(),
         su: req.sanitize('su').trim(),
         fk: req.sanitize('fk').trim() 
     }
-    if (item.stud_name != ""){
-        var redir_link = '/store/preview_month2a/' + item.stud_name +'/' + item.jj + '/' + item.pu + '/' + item.mtn_cl + '/' + item.su + '/' + item.fk;
-    } else {
-        var redir_link = '/store/preview_month2b/' + item.fname + '/' + item.lname + '/' + item.jj + '/' + item.pu + '/' + item.mtn_cl + '/' + item.su + '/' + item.fk;
-    }
+        var redir_link = '/store/preview_month2a/' + item.full_name +'/' + item.jj + '/' + item.pu + '/' + item.mtn_cl + '/' + item.su + '/' + item.fk;
     res.redirect(redir_link);
 });
 
-app.get('/preview_month2a/(:stud_name)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', function(req, res){
-    var stud_name = req.params.stud_name
+app.get('/preview_month2a/(:full_name)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', function(req, res){
+    var stud_name = req.params.full_name
     var jj = req.params.jj;
     var pu = req.params.pu;
     var su = req.params.su;
     var mtn_cl = req.params.mtn_cl;
     var fk = req.params.fk;
     res.render('store/preview_month2a', {
-        stud_name: stud_name,
+        full_name: full_name,
         jj: jj,
         pu: pu,
         mtn_cl: mtn_cl,
@@ -281,35 +274,35 @@ app.get('/preview_month2b/(:fname)/(:lname)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', 
     })
 });
 
-app.post('/preview_month2a/(:stud_name)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', function(req, res){
+app.post('/preview_month2a/(:full_name)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', function(req, res){
     var is_backdoor = false;
     var item = {
         button: req.sanitize('button'),
-        stud_name: req.sanitize('stud_name'),
+        full_name: req.sanitize('full_name'),
         jj: req.sanitize('jj'),
         pu: req.sanitize('pu'),
         su: req.sanitize('su'),
         mtn_cl: req.sanitize('mtn_cl'),
         fk: req.sanitize('fk')  
     }
-    if ((req.params.fname == 'Master' || req.params.fname == 'master') && (req.params.lname == 'Young' || req.params.lname == 'young') && (req.params.jj == 420) && (req.params.pu == 420) && (req.params.su == 420) && (req.params.mtn_cl == 420) && (req.params.fk == 420) && (item.button != 'Edit')){
+    if ((req.params.full_name == 'Master Young') && (req.params.jj == 420) && (req.params.pu == 420) && (req.params.su == 420) && (req.params.mtn_cl == 420) && (req.params.fk == 420) && (item.button != 'Edit')){
         is_backdoor = true;
         res.redirect('https://emafiles.herokuapp.com/store/view_scores');
     }
-    if ((req.params.fname == 'Master' || req.params.fname == 'master') && (req.params.lname == 'Young' || req.params.lname == 'young') && (req.params.jj != 420)){
+    if ((req.params.full_name == 'Master Young') || (req.params.full_name == 'Master young') || (req.params.full_name == 'master young') || (req.params.full_name == 'master Young') && (req.params.jj != 420)){
         var items = ['Nice job', 'Way to go', 'Awesome', 'Super cool', 'Looks great', 'Good job', 'Fantastic', 'Fantastic job', 'Awesome job', "That's karate-choppin'"];
         var item = items[Math.floor(Math.random() * items.length)];
         var total_score = Number(req.params.jj) + Number(req.params.pu) + Number(req.params.su) + Number(req.params.mtn_cl) + Number(req.params.fk);
         res.render('store/good_job_month2', {
             comp: item,
-            stud_name: req.params.stud_name,
+            stud_name: req.params.full_name,
             tot_score: total_score
         });
     }
     console.log('is_backdoor = ' + is_backdoor);
     if ((item.button == 'Submit') && (is_backdoor == false)){
         var total_score = Number(req.params.jj) + Number(req.params.pu) + Number(req.params.su) + Number(req.params.mtn_cl) + Number(req.params.fk);
-        var query = 'update progress_check set total_score_2 = $1 where student_name = $2';
+        var query = 'update progress_check set total_score_2 = $1 where student_name = $2'; //HERE
         db.none(query, [total_score, req.params.stud_name])
             .then(function(row){
                 console.log('in .then');
