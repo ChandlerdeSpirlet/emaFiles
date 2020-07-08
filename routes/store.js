@@ -254,26 +254,6 @@ app.get('/preview_month2a/(:full_name)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', funct
     })
 });
 
-app.get('/preview_month2b/(:fname)/(:lname)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', function(req, res){
-    var fname = req.params.fname;
-    var lname = req.params.lname;
-    var jj = req.params.jj;
-    var pu = req.params.pu;
-    var su = req.params.su;
-    var mtn_cl = req.params.mtn_cl;
-    var fk = req.params.fk;
-    res.render('store/preview_month2b', {
-        fname: fname,
-        lname: lname,
-        jj: jj,
-        pu: pu,
-        mtn_cl: mtn_cl,
-        su: su,
-        fk: fk,
-        button: ''
-    })
-});
-
 app.post('/preview_month2a/(:full_name)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', function(req, res){
     var is_backdoor = false;
     var item = {
@@ -353,84 +333,6 @@ app.post('/preview_month2a/(:full_name)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', func
                     fk: item.fk
                 })
             })
-    }
-});
-
-app.post('/preview_month2b/(:fname)/(:lname)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', function(req, res){
-    var is_backdoor = false;
-    var item = {
-        button: req.sanitize('button'),
-        fname: req.sanitize('fname'),
-        lname: req.sanitize('lname'),
-        jj: req.sanitize('jj'),
-        pu: req.sanitize('pu'),
-        su: req.sanitize('su'),
-        mtn_cl: req.sanitize('mtn_cl'),
-        fk: req.sanitize('fk')  
-    }
-    if ((req.params.fname == 'Master' || req.params.fname == 'master') && (req.params.lname == 'Young' || req.params.lname == 'young') && (req.params.jj == 420) && (req.params.pu == 420) && (req.params.su == 420) && (req.params.mtn_cl == 420) && (req.params.fk == 420) && (item.button != 'Edit')){
-        is_backdoor = true;
-        res.redirect('https://emafiles.herokuapp.com/store/view_scores');
-    }
-    if ((req.params.fname == 'Master' || req.params.fname == 'master') && (req.params.lname == 'Young' || req.params.lname == 'young') && (req.params.jj != 420)){
-        var items = ['Nice job', 'Way to go', 'Awesome', 'Super cool', 'Looks great', 'Good job', 'Fantastic', 'Fantastic job', 'Awesome job', "That's karate-choppin'"];
-        var item = items[Math.floor(Math.random() * items.length)];
-        var total_score = Number(req.params.jj) + Number(req.params.pu) + Number(req.params.su) + Number(req.params.mtn_cl) + Number(req.params.fk);
-        res.render('store/good_job_month2', {
-            comp: item,
-            stud_name: req.params.fname + ' ' + req.params.lname,
-            tot_score: total_score
-        });
-    }
-    console.log('is_backdoor = ' + is_backdoor);
-    if ((item.button == 'Submit') && (is_backdoor == false)){
-        var total_score = Number(req.params.jj) + Number(req.params.pu) + Number(req.params.su) + Number(req.params.mtn_cl) + Number(req.params.fk);
-        var query = 'insert into progress_check (first_name, last_name, total_score_2) values ($1, $2, $3);';
-        db.none(query, [req.params.fname, req.params.lname, total_score])
-            .then(function(row){
-                console.log('in .then');
-                var items = ['Nice job', 'Way to go', 'Awesome', 'Super cool', 'Looks great', 'Good job', 'Fantastic', 'Fantastic job', 'Awesome job', "That's karate-choppin'"];
-                var item = items[Math.floor(Math.random() * items.length)];
-                res.render('store/good_job_month2', {
-                    comp: item,
-                    stud_name: req.params.fname + ' ' + req.params.lname,
-                    tot_score: total_score
-                });
-            })
-            .catch(function(err){
-                can_redir = false;
-                console.log("In .catch");
-                console.log('error is ' + err);
-                req.flash('error', 'Unable to add progress check data. This may be because your name is already in the dropdown list. (ERROR: ' + err + ')');
-                db.query(query)
-                    .then(function(rows){
-                        res.render('store/student_progress_check_month2', {
-                            data: rows,
-                            fname: item.fname,
-                            lname: item.lname,
-                            jj: item.jj,
-                            pu: item.pu,
-                            mtn_cl: item.mtn_cl,
-                            su: item.su,
-                            fk: item.fk
-                        })
-                    })
-                    .catch(function(err){
-                        req.flash('error', 'Could not get names for dropdown.' + ' Error: ' + err);
-                        res.redirect('student_progress_check_month2');
-                    })
-            })
-    }
-    if (item.button == 'Edit'){
-        res.render('store/student_progress_check_month2', {
-            fname: item.fname,
-            lname: item.lname,
-            jj: item.jj,
-            pu: item.pu,
-            mtn_cl: item.mtn_cl,
-            su: item.su,
-            fk: item.fk
-        })
     }
 });
 
