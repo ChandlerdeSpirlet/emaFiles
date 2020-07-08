@@ -496,8 +496,8 @@ app.post('/preview/(:fname)/(:lname)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', functio
     console.log('is_backdoor = ' + is_backdoor);
     if ((item.button == 'Submit') && (is_backdoor == false)){
         var total_score = Number(req.params.jj) + Number(req.params.pu) + Number(req.params.su) + Number(req.params.mtn_cl) + Number(req.params.fk);
-        var query = 'insert into progress_check (first_name, last_name, total_score_1) values ($1, $2, $3)';
-        db.none(query, [req.params.fname, req.params.lname, total_score])
+        var query = 'insert into progress_check (first_name, last_name, student_name, total_score_1) values ($1, $2, $3, $4)';
+        db.none(query, [req.params.fname, req.params.lname, req.params.fname + ' ' + req.params.lname, total_score])
             .then(function(row){
                 console.log('in .then');
                 var items = ['Nice job', 'Way to go', 'Awesome', 'Super cool', 'Looks great', 'Good job', 'Fantastic', 'Fantastic job', 'Awesome job', "That's karate-choppin'"];
