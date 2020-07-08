@@ -302,8 +302,8 @@ app.post('/preview_month2a/(:full_name)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', func
     console.log('is_backdoor = ' + is_backdoor);
     if ((item.button == 'Submit') && (is_backdoor == false)){
         var total_score = Number(req.params.jj) + Number(req.params.pu) + Number(req.params.su) + Number(req.params.mtn_cl) + Number(req.params.fk);
-        var query = 'update progress_check set total_score_2 = $1 where student_name = $2'; //HERE
-        db.none(query, [total_score, req.params.stud_name])
+        var query = "insert into progress_check (first_name, last_name, student_name, total_score_1, total_score_2) values ('', '', $1, 0, $2) on conflict (student_name) do update set total_score_2 = $3";
+        db.none(query, [req.params.stud_name, total_score, total_score])
             .then(function(row){
                 console.log('in .then');
                 var items = ['Nice job', 'Way to go', 'Awesome', 'Super cool', 'Looks great', 'Good job', 'Fantastic', 'Fantastic job', 'Awesome job', "That's karate-choppin'"];
@@ -324,9 +324,7 @@ app.post('/preview_month2a/(:full_name)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', func
                     .then(function(rows){
                         res.render('store/student_progress_check_month2', {
                             data: rows,
-                            stud_name: item.stud_name,
-                            fname: '',
-                            lname: '',
+                            full_name: item.stud_name,
                             jj: item.jj,
                             pu: item.pu,
                             mtn_cl: item.mtn_cl,
@@ -342,9 +340,7 @@ app.post('/preview_month2a/(:full_name)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', func
     }
     if (item.button == 'Edit'){
         res.render('store/student_progress_check_month2', {
-            stud_name: item.stud_name,
-            fname: '',
-            lname: '',
+            full_name: item.stud_name,
             jj: item.jj,
             pu: item.pu,
             mtn_cl: item.mtn_cl,
