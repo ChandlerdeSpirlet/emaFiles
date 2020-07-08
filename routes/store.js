@@ -237,7 +237,7 @@ app.post('/student_progress_check_month2', function(req, res){
 });
 
 app.get('/preview_month2a/(:full_name)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', function(req, res){
-    var stud_name = req.params.full_name
+    var full_name = req.params.full_name
     var jj = req.params.jj;
     var pu = req.params.pu;
     var su = req.params.su;
