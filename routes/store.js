@@ -225,7 +225,7 @@ app.get('/student_progress_check_month2', function(req, res){
 
 app.post('/student_progress_check_month2', function(req, res){
     var item = {
-        full_name: req.sanitize('lname'),
+        full_name: req.sanitize('full_name'),
         jj: req.sanitize('jj').trim(),
         pu: req.sanitize('pu').trim(),
         mtn_cl: req.sanitize('mtn_cl').trim(),
@@ -339,14 +339,19 @@ app.post('/preview_month2a/(:full_name)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', func
             })
     }
     if (item.button == 'Edit'){
-        res.render('store/student_progress_check_month2', {
-            full_name: item.stud_name,
-            jj: item.jj,
-            pu: item.pu,
-            mtn_cl: item.mtn_cl,
-            su: item.su,
-            fk: item.fk
-        })
+        var query = 'select * from get_names()';
+        db.query(query)
+            .then(function(rows){
+                res.render('store/student_progress_check_month2', {
+                    data: rows,
+                    full_name: item.full_name,
+                    jj: item.jj,
+                    pu: item.pu,
+                    mtn_cl: item.mtn_cl,
+                    su: item.su,
+                    fk: item.fk
+                })
+            })
     }
 });
 
