@@ -302,6 +302,7 @@ app.post('/preview_month2a/(:full_name)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', func
     console.log('is_backdoor = ' + is_backdoor);
     if ((item.button == 'Submit') && (is_backdoor == false)){
         var total_score = Number(req.params.jj) + Number(req.params.pu) + Number(req.params.su) + Number(req.params.mtn_cl) + Number(req.params.fk);
+        console.log("Full name is " + item.full_name);
         var query = "insert into progress_check (first_name, last_name, student_name, total_score_1, total_score_2) values ('', '', $1, 0, $2) on conflict (student_name) do update set total_score_2 = $3";
         db.none(query, [req.params.stud_name, total_score, total_score])
             .then(function(row){
