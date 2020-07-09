@@ -1,6 +1,6 @@
 {
     "name": "EMA_Files_and_Signups",
-    "version": "3.5.5",
+    "version": "3.5.8",
     "description": "",
     "main": "index.js",
     "scripts": {
@@ -14,7 +14,7 @@
     "author": "Chandler de Spirlet",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/ChandlerdeSpirlet/classcounts/issues"
+        "url": "https://github.com/ChandlerdeSpirlet/emaFiles/issues"
     },
     "homepage": "https://github.com/ChandlerdeSpirlet/emaFiles#readme",
     "dependencies": {
