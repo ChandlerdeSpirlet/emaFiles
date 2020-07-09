@@ -1903,7 +1903,7 @@ app.post('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day
                     })
                 })
         }
-        if (req.params.belt_group == 'Level 1'){
+        if (req.params.belt_group == 'Level 3'){
             var query = "select * from class_times where count < 19 and level = 3 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
             db.any(query)
                 .then(function(rows){
