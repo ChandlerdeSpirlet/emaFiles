@@ -325,7 +325,7 @@
     <head>
         <h1>Level 1 Class Signup</h1>
         <p>One person per signup please.</p>
-        <p>Level 1 class times are available at the school at the below times. There are only 20 spots available for each class slot, so only class times with available slots are shown.</p>
+        <p>Level 1 class times are available at the school at the below times. There are only 25 spots available for each class slot, so only class times with available slots are shown.</p>
         <p>*If you are not comfortable with attending class at the school, Virtual Karate will be held from during the same times via Zoom.</p>
         <p>*Please be aware of the following rules for in-person class:</p>
         <ul>
@@ -334,7 +334,7 @@
             <li>Shoes must be taken off and placed on the shoe rack by the door.</li>
             <li>Hand sanitizer must be used before and after class.</li>
             <li>Parents must remain outside the class and can watch the class from Zoom.</li>
-            <li>Mingling will not be allowed after class.</li>
+            <li>Masks must be worn on the way into and out of the school.</li>
         </ul>
         <p><strong>Level 1 CLASS TIMES</strong></p>
         <ul>
@@ -360,7 +360,7 @@
             </li>
         </ul>
         <p><strong>** Class at the Park **</strong></p>
-        <p>July 17th and 31st from 5:30 PM to 6:00 PM. Signup is not necessary.</p>
+        <p>July 31st from 5:30 PM to 6:00 PM. Signup is not necessary.</p>
     </head>
     <body>
         <form onsubmit="return ValidateForm()" name="Form" action="/store/level1_signup" method="POST">
@@ -370,7 +370,7 @@
             <label>Class Days and Times:</label><br>
             <% if (data) {%>
                 <% data.forEach(function(item){ %>
-                    <pre>   <input type="radio" id="day_time" name="day_time" value="<%= item.id %> <%= item.month_name %> <%= item.day_number %> at <%= item.time_num %>"> <%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> (<%= 20 - item.count %> spot(s) remaining).</pre>
+                    <pre>   <input type="radio" id="day_time" name="day_time" value="<%= item.id %> <%= item.month_name %> <%= item.day_number %> at <%= item.time_num %>"> <%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> (<%= 25 - item.count %> spot(s) remaining).</pre>
                 <% }) %>
             <% } %>
             <input type="submit" name="Submit" value="Submit"/>

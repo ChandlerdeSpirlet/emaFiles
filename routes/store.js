@@ -1319,7 +1319,7 @@ app.get('/level1_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/level1_signup');
     } else {
-        var query = "select * from class_times where count < 19 and level = 1 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
+        var query = "select * from class_times where count < 24 and level = 1 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
         db.any(query)
             .then(function(rows){
                 if (rows.length == 0){
@@ -1862,7 +1862,7 @@ app.post('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day
                 })
         }
         if (req.params.belt_group == 'Level 1'){
-            var query = "select * from class_times where count < 19 and level = 1 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
+            var query = "select * from class_times where count < 24 and level = 1 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
             db.any(query)
                 .then(function(rows){
                     res.render('store/level1_signup', {
@@ -2061,7 +2061,7 @@ function sendEmail_class(name, email_user, date_conv, time){
         from: 'EMA_Classes@outlook.com',
         to: email_user,
         subject: 'Class Confirmed for ' + name,
-        html: "<h2>" + 'Karate Class Confirmed' + "</h2><br>" + "<b>" + name + "</b>" + " is confirmed for class on <b> " + date_conv + "</b> at <b> " + time +"</b><br>You are able to delete your reserved classes " + "<a href='https://emafiles.herokuapp.com/store/email_lookup'>using this tool</a>" + ". We'll see you at the school soon!" + "<br>" + "<p>*Please be aware of the following rules for in-person class:</p><ul><li>You must already be in your uniform when you arrive at the school.</li><li>Use of the restrooms is currently prohibited.</li><li>Shoes must be taken off and placed on the shoe rack by the door.</li><li>Hand sanitizer must be used before and after class.</li><li>Parents must remain outside the class and can watch the class from Zoom.</li><li>Mingling will not be allowed after class.</li></ul>"
+        html: "<h2>" + 'Karate Class Confirmed' + "</h2><br>" + "<b>" + name + "</b>" + " is confirmed for class on <b> " + date_conv + "</b> at <b> " + time +"</b><br>You are able to delete your reserved classes " + "<a href='https://emafiles.herokuapp.com/store/email_lookup'>using this tool</a>" + ". We'll see you at the school soon!" + "<br>" + "<p>*Please be aware of the following rules for in-person class:</p><ul><li>You must already be in your uniform when you arrive at the school.</li><li>Use of the restrooms is currently prohibited.</li><li>Shoes must be taken off and placed on the shoe rack by the door.</li><li>Hand sanitizer must be used before and after class.</li><li>Parents must remain outside the class and can watch the class from Zoom.</li><li>Masks must be worn on the way into and out of the school.</li></ul>"
     };
     transporter.sendMail(mailOptions, function(error, info){
         if (error){
