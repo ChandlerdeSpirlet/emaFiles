@@ -2230,6 +2230,9 @@ app.post('/board_breaking', function(req, res){
         level: req.sanitize('level'),
         buddy: req.sanitize('buddy')
     }
+    console.log('item.student ' + item.student);
+    console.log('item.level ' + item.level);
+    console.log('item.buddy ' + item.buddy);
     var hasBuddy = false;
     if (item.buddy != ''){
         var student_name = item.student + ' and ' + item.buddy + ' are ';
