@@ -2282,5 +2282,8 @@ app.post('/board_breaking', function(req, res){
 });
 
 app.get('/board_confirmed', function(req, res){
-
-})
+    res.render('store/board_confirmed', {
+        student_name: '',
+        class_time: ''
+    })
+});
