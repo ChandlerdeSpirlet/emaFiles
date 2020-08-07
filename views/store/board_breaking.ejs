@@ -74,21 +74,22 @@
             width: 60%;
             margin: 0 auto;
         }
-        .cenh3, ul{
-            text-align: center;
+        label{
+            font-weight: bold;
+        }
+        p {
+            font-size: 16px;
         }
     </style>
     <head>
         <h1>Board Breaking Signup</h1>
         <h3>
-            <div class="cenh3">
-                <ul>
-                    <li>$25 per person</li>
-                    <li>Bring a friend (non sibling) for <strong>FREE!!</strong></li>
-                    <li>5 boards per person are included</li>
-                    <li>Waiver must be signed for friend at the door</li>
-                </ul>
-            </div>
+            <ul style="text-align: center;">
+                <li>$25 per person</li>
+                <li>Bring a friend (non sibling) for <strong>FREE!!</strong></li>
+                <li>5 boards per person are included</li>
+                <li>Waiver must be signed for friend at the door</li>
+            </ul>
         </h3>
     </head>
     <body>
@@ -103,6 +104,7 @@
                 <label for="student">Student:</label>
                 <input type="text" id="student" name="student" required placeholder="Student's name">
             </div>
+            <br>
             <div>
                 <% if (classes) {%>
                 <label for="select">Select time:</label>
@@ -115,9 +117,14 @@
                 <h2>No more board breaking time slots available.</h2>
             <% } %>
             </div>
+            <br>
             <div>
                 <label for="buddy">Buddy:</label>
                 <input type="text" id="buddy" name="buddy" placeholder="Leave blank if no buddy">
+            </div>
+            <br>
+            <div>
+                <button type="submit">Sign Up</button>
             </div>
         </form>
     </body>
