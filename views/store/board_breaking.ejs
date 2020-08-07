@@ -99,10 +99,10 @@
                 <input type="text" id="student" name="student" required placeholder="Student's name">
             </div>
             <div>
-                <% if (data) {%>
+                <% if (classes) {%>
                 <label for="select">Select time:</label>
                 <div class="select-wrapper"><select id="select" name="level" required placeholder="Student's level">
-                        <% data.forEach(function(item){ %>
+                        <% classes.forEach(function(item){ %>
                             <option value="<%= item.class_time %>"><%= item.class_time %> &mdash; <%= item.class_name %></option>
                         <% }) %>
                 </select>
