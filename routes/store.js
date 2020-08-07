@@ -2208,3 +2208,79 @@ app.get('/temp_classes', function(req, res){
         classes: ''
     })
 });
+
+app.get('/board_breaking', function(req, res){
+    const query = 'select * from board_breaking_times where count < 30';
+    db.any(query)
+        .then(function(rows){
+            res.render('store/board_breaking', {
+                classes: rows
+            });
+        })
+        .catch(function(err){
+            res.render('store/board_breaking', {
+                classes: ''
+            });
+        })
+});
+
+app.post('/board_breaking', function(req, res){
+    var item = {
+        student: req.sanitize('student'),
+        level: req.sanitize('level'),
+        buddy: req.sanitize('buddy')
+    }
+    var hasBuddy = false;
+    if (item.buddy != ''){
+        var student_name = item.student + ' and ' + item.buddy + ' are ';
+        hasBuddy = true;
+    } else {
+        var student_name = item.student + ' is ';
+        hasBuddy = false;
+    }
+    const signup_query = 'insert into board_breaking (student_name, buddy_name, class_time) values ($1, $2, $3)';
+    if (hasBuddy == true){
+        db.any(signup_query, [item.student, item.buddy, item.level])
+            .then(function(rows){
+                const inc_count_query = 'update board_breaking_times set count = count + 2 where class_time = $1';
+                db.any(inc_count_query, [item.level])
+                    .then(function(rows){
+                        res.render('store/board_confirmed', {
+                            student_name: student_name,
+                            class_time: item.level
+                        })
+                    })
+                    .catch(function(err){
+                        req.flash('error', 'Unable to increase count for class. Take a screenshot and contact a system admin. Error: ' + err);
+                        res.redirect('board_breaking');
+                    })
+            })
+            .catch(function(err){
+                req.flash('Unable to signup for given time. Take a screenshot and contact a system admin. Error: ' + err);
+                res.redirect('board_breaking');
+            })
+    } else {
+        db.any(signup_query, [item.student, 'NONE', item.level])
+            .then(function(rows){
+                const inc_count_query = 'update board_breaking_times set count = count + 1 where class_time = $1';
+                db.any(inc_count_query, [item.level])
+                    .then(function(rows){
+                        res.render('store/board_confirmed', {
+                            student_name: student_name,
+                            class_time: item.level
+                        })
+                    })
+                    .catch(function(err){
+                        req.flash('error', 'Unable to increase count for class. Take a screenshot and contact a system admin. Error: ' + err);
+                    })
+            })
+            .catch(function(err){
+                req.flash('Unable to signup for given time. Take a screenshot and contact a system admin. Error: ' + err);
+                res.redirect('board_breaking');
+            })
+    }
+});
+
+app.get('/board_confirmed', function(req, res){
+
+})

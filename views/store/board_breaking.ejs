@@ -1,0 +1,119 @@
+<% if (messages.error) { %>
+    <p style="color:red"><%- messages.error %></p>
+<% } %>
+<% if (messages.success) { %>
+    <p style="color:green"><%- messages.success %></p>
+<% } %>
+<html>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        html {
+            height: 100%;
+            background-image: linear-gradient(#0095ff, #9ed7ff);
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+        h1, h3 {
+            text-align: center;
+        }
+        p {
+            color: black;
+            font-size: 14px;
+        }
+        li {
+            font-size: 14px;
+        }
+        form > div {
+            margin-bottom: 20px;
+        }
+
+        button, label, input, select, progress, meter {
+            display: block;
+            font-size: 100%;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            width: 100%;
+            padding: 5px;
+            height: 30px;
+        }
+
+        select {
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .select-wrapper {
+            position: relative;
+        }
+
+        .select-wrapper::after {
+            content: "▼";
+            font-size: 1rem;
+            top: 6px;
+            right: 10px;
+            position: absolute;
+        }
+
+        input[type="text"], select {
+            box-shadow: inset 1px 1px 3px #ccc;
+            border-radius: 5px;
+        }
+
+        label {
+            margin-bottom: 5px;
+        }
+
+        button {
+            width: 60%;
+            margin: 0 auto;
+        }
+    </style>
+    <head>
+        <h1>Board Breaking Signup</h1>
+        <h3>
+            <ul>
+                <li>$25 per person</li>
+                <li>Bring a friend (non sibling) for <strong>FREE!!</strong></li>
+                <li>5 boards per person are included</li>
+                <li>Waiver must be signed for friend at the door</li>
+            </ul>
+        </h3>
+    </head>
+    <body>
+        <p><strong>Board Breaking Workshop Times</strong></p>
+        <ul>
+            <li>5:00 PM - Little Dragons / Basic / Level 1</li>
+            <li>7:00 PM - Level 1 / Level 2 / Level 3 / Black Belt</li>
+        </ul>
+        <br>
+        <form action="/store/board_breaking" method="POST">
+            <div>
+                <label for="student">Student:</label>
+                <input type="text" id="student" name="student" required placeholder="Student's name">
+            </div>
+            <div>
+                <% if (data) {%>
+                <label for="select">Select time:</label>
+                <div class="select-wrapper"><select id="select" name="level" required placeholder="Student's level">
+                        <% data.forEach(function(item){ %>
+                            <option value="<%= item.class_time %>"><%= item.class_time %> &mdash; <%= item.class_name %></option>
+                        <% }) %>
+                </select>
+            <% } else { %>
+                <h2>No more board breaking time slots available.</h2>
+            <% } %>
+            </div>
+            <div>
+                <label for="buddy">Buddy:</label>
+                <input type="text" id="buddy" name="buddy" placeholder="Leave blank if no buddy">
+            </div>
+        </form>
+    </body>
+</html>
