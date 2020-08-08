@@ -2241,18 +2241,26 @@ app.post('/board_breaking_post', function(req, res){
         var student_name = item.student + ' is ';
         hasBuddy = false;
     }
-    const signup_query = 'insert into board_breaking (student_name, buddy_name, class_time) values ($1, $2, $3)';
     if (hasBuddy == true){
-        console.log('hasBuddy ' + hasBuddy);
-        db.any(signup_query, [item.student, item.buddy, item.level])
+        var redir_link = '/store/board_confirmed_processing/' + item.student + '/' + item.buddy + '/' + item.level + '/' + student_name;
+    } else {
+        var redir_link = '/store/board_confirmed_processing/' + item.student + '/NONE/' + item.level + '/' + student_name;
+    }
+    res.redirect(redir_link);
+});
+
+app.post('/board_confirmed_processing/(:student_name)/(:buddy_name)/(:time)/(:combined)', function(req, res){
+    const signup_query = 'insert into board_breaking (student_name, buddy_name, class_time) values ($1, $2, $3)';
+    if (req.params.buddy_name == 'NONE'){
+        db.any(signup_query, [req.params.student_name, req.params.buddy_name, req.params.time])
             .then(function(rows){
                 console.log('in .then for signup');
                 const inc_count_query = 'update board_breaking_times set count = count + 2 where class_time = $1';
-                db.any(inc_count_query, [item.level])
+                db.any(inc_count_query, [req.params.time])
                     .then(function(rows){
                         res.render('store/board_confirmed', {
-                            student_name: student_name,
-                            class_time: item.level
+                            student_name: req.params.combined,
+                            class_time: req.params.time
                         })
                     })
                     .catch(function(err){
@@ -2267,16 +2275,15 @@ app.post('/board_breaking_post', function(req, res){
                 res.redirect('board_breaking');
             })
     } else {
-        console.log('hasBuddy ' + hasBuddy);
-        db.any(signup_query, [item.student, 'NONE', item.level])
+        db.any(signup_query, [req.params.student_name, 'NONE', req.params.time])
             .then(function(rows){
                 console.log('in .then for signup');
                 const inc_count_query = 'update board_breaking_times set count = count + 1 where class_time = $1';
-                db.any(inc_count_query, [item.level])
+                db.any(inc_count_query, [req.params.time])
                     .then(function(rows){
                         res.render('store/board_confirmed', {
-                            student_name: student_name,
-                            class_time: item.level
+                            student_name: req.params.combined,
+                            class_time: req.params.level
                         })
                     })
                     .catch(function(err){
