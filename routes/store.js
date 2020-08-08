@@ -2280,7 +2280,7 @@ app.get('/board_confirmed_processing/(:student_name)/(:buddy_name)/(:time)/(:com
                     .then(function(rows){
                         res.render('store/board_confirmed', {
                             student_name: req.params.combined,
-                            class_time: req.params.level
+                            class_time: req.params.time
                         })
                     })
                     .catch(function(err){
