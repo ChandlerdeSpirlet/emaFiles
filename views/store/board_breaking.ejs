@@ -99,7 +99,7 @@
             <li>7:00 PM - Level 1 / Level 2 / Level 3 / Black Belt</li> (<%= 30 - classes[1].count %> spaces remaining)
         </ul>
         <br>
-        <form action="/store/board_breaking" name="form" method="POST">
+        <form action="/store/board_breaking_post" name="form" method="POST">
             <div>
                 <label for="student">Student:</label>
                 <input type="text" id="student" name="student" required placeholder="Student's name">
@@ -124,7 +124,7 @@
             </div>
             <br>
             <div>
-                <input type="submit" name="Submit" value="Submit"/>
+                <input type="submit" name="Submit" value="Sign Up"/>
             </div>
         </form>
     </body>

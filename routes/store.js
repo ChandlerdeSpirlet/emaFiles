@@ -2224,7 +2224,7 @@ app.get('/board_breaking', function(req, res){
         })
 });
 
-app.post('/board_breaking', function(req, res){
+app.post('/board_breaking_post', function(req, res){
     var item = {
         student: req.sanitize('student'),
         level: req.sanitize('level'),
