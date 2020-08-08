@@ -95,24 +95,22 @@
     <body>
         <p><strong>Board Breaking Workshop Times</strong></p>
         <ul>
-            <% if (classes[0]) { %>
+            <% if ((classes[0]) and (classes[1])) { %>
+                <li>Little Dragons / Basic / Level 1 &mdash; 5:00 PM (<%= 30 - classes[0].count %> spaces remaining)</li>
+                <li>Level 1 / Level 2 / Level 3 / Black Belt &mdash; 7:00 PM (<%= 30 - classes[1].count %> spaces remaining)</li>
+            <% } %>
+            <% if ((classes[0]) and (not classes[1])) { %>
                 <% if (classes[0].class_time == '5:00 PM') { %>
                     <li>Little Dragons / Basic / Level 1 &mdash; 5:00 PM (<%= 30 - classes[0].count %> spaces remaining)</li>
+                    <li>Level 1 / Level 2 / Level 3 / Black Belt &mdash; 7:00 PM (0 spaces remaining)</li>
                 <% } %>
                 <% if (classes[0].class_time == '7:00 PM') { %>
-                    <li>Level 1 / Level 2 / Level 3 / Black Belt $mdash; 7:00 PM (<%= 30 - classes[0].count %> spaces remaining)</li>
+                    <li>Little Dragons / Basic / Level 1 &mdash; 5:00 PM (0 spaces remaining)</li>
+                    <li>Level 1 / Level 2 / Level 3 / Black Belt &mdash; 7:00 PM (<%= 30 - classes[0].count %> spaces remaining)</li>
                 <% } %>
-            <% } else {%>
-                <li>Little Dragons / Basic / Level 1 &mdash; 5:00 PM (0 spaces remaining)</li>
             <% } %>
-            <% if (classes[1]) { %>
-                <% if (classes[1].class_time == '5:00 PM') { %>
-                    <li>Little Dragons / Basic / Level 1 &mdash; 5:00 PM (<%= 30 - classes[1].count %> spaces remaining)</li>
-                <% } %>
-                <% if (classes[1].class_time == '7:00 PM') { %>
-                    <li>Level 1 / Level 2 / Level 3 / Black Belt &mdash; 7:00 PM (<%= 30 - classes[1].count %> spaces remaining)</li>
-                <% } %>
-            <% } else {%>
+            <% if ((not classes[0]) and (not classes[1])){ %>
+                <li>Little Dragons / Basic / Level 1 &mdash; 5:00 PM (0 spaces remaining)</li>
                 <li>Level 1 / Level 2 / Level 3 / Black Belt &mdash; 7:00 PM (0 spaces remaining)</li>
             <% } %>
         </ul>
