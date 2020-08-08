@@ -2210,7 +2210,7 @@ app.get('/temp_classes', function(req, res){
 });
 
 app.get('/board_breaking', function(req, res){
-    const query = 'select * from board_breaking_times where count < 30';
+    const query = 'select * from board_breaking_times where count < 30 order by class_time';
     db.any(query)
         .then(function(rows){
             res.render('store/board_breaking', {
