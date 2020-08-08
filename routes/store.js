@@ -2230,9 +2230,6 @@ app.post('/board_breaking_post', function(req, res){
         level: req.sanitize('level'),
         buddy: req.sanitize('buddy')
     }
-    console.log('item.student ' + item.student);
-    console.log('item.level ' + item.level);
-    console.log('item.buddy ' + item.buddy);
     var hasBuddy = false;
     if (item.buddy != ''){
         var student_name = item.student + ' and ' + item.buddy + ' are ';
@@ -2251,7 +2248,7 @@ app.post('/board_breaking_post', function(req, res){
 
 app.get('/board_confirmed_processing/(:student_name)/(:buddy_name)/(:time)/(:combined)', function(req, res){
     const signup_query = 'insert into board_breaking (student_name, buddy_name, class_time) values ($1, $2, $3)';
-    if (req.params.buddy_name == 'NONE'){
+    if (req.params.buddy_name != 'NONE'){
         db.any(signup_query, [req.params.student_name, req.params.buddy_name, req.params.time])
             .then(function(rows){
                 console.log('in .then for signup');
