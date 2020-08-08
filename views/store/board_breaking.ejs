@@ -122,13 +122,16 @@
             </div>
             <br>
             <div>
-                <% if (classes) { console.log(classes);%>
                 <label for="select">Select time:</label>
+                <% if (classes) { %>
                 <div class="select-wrapper"><select id="select" name="level" required placeholder="Student's level">
                         <% classes.forEach(function(item){ %>
                             <option value="<%= item.class_time %>"><%= item.class_time %> &mdash; <%= item.class_name %></option>
                         <% }) %>
                 </select>
+                <% } else { %>
+                    <h2>No classes available. Keep checking back as more spaces could be added. </h2>
+                <% } %>
             </div>
             <br>
             <div>
