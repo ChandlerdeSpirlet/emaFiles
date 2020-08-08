@@ -95,8 +95,12 @@
     <body>
         <p><strong>Board Breaking Workshop Times</strong></p>
         <ul>
+            <% if (classes[0].count) { %>
             <li>5:00 PM - Little Dragons / Basic / Level 1</li> (<%= 30 - classes[0].count %> spaces remaining)
+            <% } %>
+            <% if (classes[1].count) { %>
             <li>7:00 PM - Level 1 / Level 2 / Level 3 / Black Belt</li> (<%= 30 - classes[1].count %> spaces remaining)
+            <% } %>
         </ul>
         <br>
         <form action="/store/board_breaking_post" name="form" method="POST">
