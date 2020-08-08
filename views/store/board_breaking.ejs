@@ -122,16 +122,13 @@
             </div>
             <br>
             <div>
-                <% if (classes) {%>
+                <% if (classes) { console.log(classes);%>
                 <label for="select">Select time:</label>
                 <div class="select-wrapper"><select id="select" name="level" required placeholder="Student's level">
                         <% classes.forEach(function(item){ %>
                             <option value="<%= item.class_time %>"><%= item.class_time %> &mdash; <%= item.class_name %></option>
                         <% }) %>
                 </select>
-            <% } else { %>
-                <h2>No more board breaking time slots available.</h2>
-            <% } %>
             </div>
             <br>
             <div>
