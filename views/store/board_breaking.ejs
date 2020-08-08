@@ -125,6 +125,7 @@
                 <label for="select">Select time:</label>
                 <% if (classes) { %>
                 <div class="select-wrapper"><select id="select" name="level" required placeholder="Student's level">
+                        <%= console.log(classes); %>
                         <% classes.forEach(function(item){ %>
                             <option value="<%= item.class_time %>"><%= item.class_time %> &mdash; <%= item.class_name %></option>
                         <% }) %>
