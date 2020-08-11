@@ -165,6 +165,11 @@ app.get('/SWAT1Tasks', function(req, res){
     res.contentType("application/pdf");
     res.send(data);
 });
+app.get('/september_2020.pdf', function(req, res){
+    var data = fs.readFileSync(__dirname + '/storedFiles/september_2020.pdf');
+    res.contentType("application/pdf");
+    res.send(data);
+});
 app.get('/CardioKiller', function(req, res){
     var data = fs.readFileSync(__dirname + '/workoutFiles/CardioKiller.pdf');
     res.contentType("application/pdf");
@@ -201,6 +206,12 @@ app.get('/student_progress_check', function(req, res){
             fk: ''
         })
     }
+});
+
+app.get('/announcement', function(req, res){
+    res.render('store/announcement', {
+
+    })
 });
 
 app.get('/student_progress_check_month2', function(req, res){
