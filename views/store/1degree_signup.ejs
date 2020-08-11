@@ -341,22 +341,42 @@
         <ul>
             <li>Tuesdays
             <ul>
-            <li>7:00 PM - 7:30 PM</li>
+                <li>7:00 PM - 7:30 PM</li>
             </ul>
             </li>
             <li>Wednesdays
             <ul>
-            <li>7:00 PM - 7:30 PM</li>
+                <li>7:00 PM - 7:30 PM</li>
             </ul>
             </li>
             <li>Thursdays <b>(Sparring Night, Bring Your Gear)</b>
             <ul>
-            <li>7:00 PM - 7:30 PM</li>
+                <li>7:00 PM - 7:30 PM</li>
             </ul>
             </li>
         </ul>
         <p><strong>** Class at the Park **</strong></p>
-        <p>July 31st from 6:15 PM to 6:45 PM. Signup is not necessary.</p>
+        <p>August 21st from 6:15 PM to 6:45 PM. Signup is not necessary.</p>
+        <p><strong>** Board Breaking Workshop **</strong></p>
+        <p>August 27th at 7:00 PM. Signup <a href="/store/board_breaking">here</a> or on the app!</p><br>
+        <p><strong>BLACK BELT CLASS TIMES (STARTS SEPTEMBER 8TH)</strong></p>
+        <ul>
+            <li>Mondays
+            <ul>
+                <li>7:30 PM - 8:15 PM</li>
+            </ul>
+            </li>
+            <li>Wednesdays
+            <ul>
+                <li>7:30 PM - 8:00 PM</li>
+            </ul>
+            </li>
+            <li>Fridays <b>(Sparring Night, Bring Your Gear)</b>
+            <ul>
+                <li>7:30 PM - 8:15 PM</li>
+            </ul>
+            </li>
+        </ul>
     </head>
     <body>
         <form onsubmit="return ValidateForm()" name="Form" action="/store/1degree_signup" method="POST">
@@ -366,7 +386,7 @@
             <label>Class Days and Times:</label><br>
             <% if (data) {%>
                 <% data.forEach(function(item){ %>
-                    <pre>   <input type="radio" id="day_time" name="day_time" value="<%= item.id %> <%= item.month_name %> <%= item.day_number %> at <%= item.time_num %>"> <%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> (<%= 20 - item.count %> spot(s) remaining).</pre>
+                    <pre>   <input type="radio" id="day_time" name="day_time" value="<%= item.id %> <%= item.month_name %> <%= item.day_number %> at <%= item.time_num %>"> <%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> (<%= 25 - item.count %> spot(s) remaining).</pre>
                 <% }) %>
             <% } %>
             <input type="submit" name="Submit" value="Submit"/>

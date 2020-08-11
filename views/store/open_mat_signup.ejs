@@ -323,10 +323,9 @@
         }
     </style>
     <head>
-        <h1>Basic Class Signup</h1>
+        <h1>Open Mat Class Signup</h1>
         <p>One person per signup please.</p>
-        <p>Basic class times are available at the school at the below times. There are only 20 spots available for each class slot, so only class times with available slots are shown.</p>
-        <p>*If you are not comfortable with attending class at the school, Virtual Karate will be held from during the same times via Zoom.</p>
+        <p>Open mat class times are available at the school at the below times. There are only 25 spots available for each class slot, so only class times with available slots are shown.</p>
         <p>*Please be aware of the following rules for in-person class:</p>
         <ul>
             <li>You must already be in your uniform when you arrive at the school.</li>
@@ -336,56 +335,24 @@
             <li>Parents must remain outside the class and can watch the class from Zoom.</li>
             <li>Masks must be worn on the way into and out of the school.</li>
         </ul>
-        <p><strong>BASIC CLASS TIMES</strong></p>
+        <p><strong>OPEN MAT CLASS TIMES</strong></p>
         <ul>
-            <li>Monday
+            <li>Saturdays
             <ul>
-                <li>5:00 PM - 5:30 PM</li>
-            </ul>
-            </li>
-            <li>Wednesday
-            <ul>
-                <li>5:00 PM - 5:30 PM</li>
-            </ul>
-            </li>
-            <li>Friday
-            <ul>
-                <li>5:00 PM - 5:30 PM</li>
-            </ul>
-            </li>
-        </ul>
-        <p><strong>** Class at the Park **</strong></p>
-        <p>August 21st from 5:30 PM to 6:00 PM. Signup is not necessary.</p>
-        <p><strong>** Board Breaking Workshop **</strong></p>
-        <p>August 27th at 5:00 PM. Signup <a href="/store/board_breaking">here</a> or on the app!</p><br>
-        <p><strong>BASIC CLASS TIMES (STARTS SEPTEMBER 8TH)</strong></p>
-        <ul>
-            <li>Monday
-            <ul>
-                <li>5:30 PM - 6:00 PM</li>
-            </ul>
-            </li>
-            <li>Wednesday
-            <ul>
-                <li>5:30 PM - 6:00 PM</li>
-            </ul>
-            </li>
-            <li>Friday
-            <ul>
-                <li>5:30 PM - 6:00 PM</li>
+            <li>9:00 AM - 9:30 AM</li>
             </ul>
             </li>
         </ul>
     </head>
     <body>
-        <form onsubmit="return ValidateForm()" name="Form" action="/store/basic_signup" method="POST">
+        <form onsubmit="return ValidateForm()" name="Form" action="/store/open_mat_signup" method="POST">
             <label>First Name: </label><input type="first name" name="fname" id="fname" pattern="[A-z]{1}[A-z ]+" value="<%= fname %>"><br>
             <label>Last Name: </label><input type="last name" name="lname" id="lname" pattern="[A-z]{1}[A-z ]+" value="<%= lname %>"><br>
             <label>Email: </label><input type="email" name="email" id="email" pattern="[A-z0-9.]+[@][A-z0-9]{1,}[.]+[A-z]{2,}" value="<%= email %>"><br>
             <label>Class Days and Times:</label><br>
             <% if (data) {%>
                 <% data.forEach(function(item){ %>
-                    <pre>   <input type="radio" id="day_time" name="day_time" value="<%= item.id %> <%= item.month_name %> <%= item.day_number %> at <%= item.time_num %>"> <%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> (<%= 20 - item.count %> spot(s) remaining).</pre>
+                    <pre>   <input type="radio" id="day_time" name="day_time" value="<%= item.id %> <%= item.month_name %> <%= item.day_number %> at <%= item.time_num %>"> <%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> (<%= 25 - item.count %> spot(s) remaining).</pre>
                 <% }) %>
             <% } %>
             <input type="submit" name="Submit" value="Submit"/>
