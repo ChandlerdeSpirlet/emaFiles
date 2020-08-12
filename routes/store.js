@@ -9,6 +9,7 @@ var nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 var db = require('../database');
 const cors = require('cors');
+const { to } = require('pg-copy-streams');
 app.use(cors())
 
 module.exports = app;
@@ -1639,8 +1640,18 @@ app.get('/process_classes/(:fname)/(:lname)/(:email)/(:belt_group)/(:id_set)', f
                 console.log('Err: with element ' + element + '. Err: ' + err);
             })
     }); 
-    console.log('Done with forEach');
-    res.redirect('2degree_signup');
+    var end_query = "select to_char(test_day, 'Month') as class_month, to_char('day', test_day) as class_day, test_time from class_signups where id_from_other in ($1, $2, $3, $4);";
+    db.any(end_query, [id_set[0], id_set[1], id_set[2], id_set[3]])
+        .then(function(rows){
+            //use belt_group to redirect to correct good_job_class page
+            res.render('store/good_job_class_2degree', {
+                data: '',
+                email: req.params.email,
+                name: req.params.fname + ' ' + req.params.lname
+            })
+        })
+    //send email
+
 });
 
 app.post('/dragons_signup', function(req, res){ //pass through to a page with the info in the url
