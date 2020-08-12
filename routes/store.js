@@ -1234,7 +1234,7 @@ app.get('/2degree_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/2degree_signup');
     } else {
-        var query = "select * from class_times where count < 24 and level = 4 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
+        var query = "select * from class_times where count < 24 and level = 10 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
         db.any(query)
             .then(function(rows){
                 if (rows.length == 0){
@@ -1602,8 +1602,9 @@ function parseID(id_set){
 app.get('/update_count/(:fname)/(:lname)/(:email)/(:belt_group)/(:class_id)', function(req, res){
     const query = 'update class_times set count = count + 1 where id = $1;';
     var id_set = parseID(req.params.class_id);
+    console.log('id_set is ' + id_set);
     id_set.forEach(element => {
-        db.any(query, req.params.class_id)
+        db.any(query, element)
         .then(function(rows){
             //run to a new page to update the signups
             console.log('Updated count with element ' + element);
