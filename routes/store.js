@@ -1645,7 +1645,6 @@ app.get('/process_classes/(:fname)/(:lname)/(:email)/(:belt_group)/(:id_set)', f
     db.any(end_query, [id_set[0], id_set[1], id_set[2], id_set[3]])
         .then(function(rows){
             //use belt_group to redirect to correct good_job_class page
-            res.redirect('loading');
             res.render('store/good_job_class_2degree', {
                 data: rows,
                 email: req.params.email,
