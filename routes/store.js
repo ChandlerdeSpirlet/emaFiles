@@ -1594,24 +1594,27 @@ function parseID(id_set){
         var id_idx = id_set.indexOf(",");
         var id = id_set.substring(0, id_idx);
         id_set = id_set.substring(id_idx + 1, id_set.length);
-        set_id.push(id);
+        set_id.push(Number(id));
     }
     return set_id;
 }
 
 app.get('/update_count/(:fname)/(:lname)/(:email)/(:belt_group)/(:class_id)', function(req, res){
-    const query = 'update class_times set count = count + 1 where id in ($1);';
-    db.any(query, req.params.class_id)
+    const query = 'update class_times set count = count + 1 where id = $1;';
+    var id_set = parseID(req.params.class_id);
+    id_set.forEach(element => {
+        db.any(query, req.params.class_id)
         .then(function(rows){
             //run to a new page to update the signups
-            var id_set = parseID(req.params.class_id);
-            const redir_link = '/store/process_classes/' + req.params.fname + '/' + req.params.lname + '/' + req.params.email + '/' + req.params.belt_group + '/' + id_set;
-            res.redirect(redir_link);
+            console.log('Updated count with element ' + element);
         })
         .catch(function(err){
             console.log('ERROR in update_count. Err: ' + err);
             res.redirect('/');
         })
+    });
+    const redir_link = '/store/process_classes/' + req.params.fname + '/' + req.params.lname + '/' + req.params.email + '/' + req.params.belt_group + '/' + id_set;
+    res.redirect(redir_link);
 });
 
 app.get('/process_classes/(:fname)/(:lname)/(:email)/(:belt_group)/(:id_set)', function(req, res){
