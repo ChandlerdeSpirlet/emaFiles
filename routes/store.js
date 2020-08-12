@@ -1596,6 +1596,10 @@ function parseID(id_set){
         id_set = id_set.substring(id_idx + 1, id_set.length);
         set_id.push(Number(id));
     }
+    if ((id_set.indexOf(",") == -1) && (id_set !== '')){
+        set_id.push(Number(id_set));
+        id_set = '';
+    }
     return set_id;
 }
 
