@@ -98,7 +98,7 @@
             <div id="content-wrap">
                 <h2><%= name %> is signed up for the following classes: </h2>
                 <ul>
-                    <% data.forEach(class => {
+                    <% data.forEach(class => { %>
                         <li><%= class.class_month %> <%= class.class_day %> at <%= class.test_time %></li>
                     <% }) %>
                 </ul>
