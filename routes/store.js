@@ -1230,6 +1230,38 @@ app.post('/add_day', function(req, res){
         })
 });
 
+app.get('/2degree_signup', function(req, res){
+    if (req.headers['x-forwarded-proto'] != 'https'){
+        res.redirect('https://emafiles.herokuapp.com/store/2degree_signup');
+    } else {
+        var query = "select * from class_times where count < 24 and level = 4 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
+        db.any(query)
+            .then(function(rows){
+                if (rows.length == 0){
+                    res.render('store/temp_classes', {
+                        level: 'black belt'
+                    })
+                } else {
+                    res.render('store/2degree_signup', {
+                        fname: '',
+                        lname: '',
+                        email: '',
+                        data: rows
+                    })
+                }
+            })
+            .catch(function(err){
+                req.flash('error', 'Unable to render class signup (ERROR: ' + err + ')');
+                res.render('store/2degree_signup', {
+                    fname: '',
+                    lname: '',
+                    email: '',
+                    data: ''
+                })
+            })
+    }
+})
+
 app.get('/1degree_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/1degree_signup');
@@ -1533,6 +1565,27 @@ app.post('/1degree_signup', function(req, res){ //pass through to a page with th
     belt_group = 'Black Belt';
     var redir_link = '/store/class_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + month_input + '/' + day_num + '/' + time_num +'/' + other_id;
     res.redirect(redir_link);
+});
+
+app.post('/1degree_signup', function(req, res){ //pass through to a page with the info in the url
+    var item = {
+        fname: req.sanitize('fname'),
+        lname: req.sanitize('lname'),
+        email: req.sanitize('email'),
+        day_time: req.sanitize('day_time')
+    }
+    console.log('day_time = ' + item.day_time);
+    res.redirect('home');
+    /*
+    getInfo = parseClassInfo(item.day_time);
+    var month_input = getInfo[0];
+    var day_num = getInfo[1];
+    var time_num = getInfo[2];
+    var other_id = getInfo[3];
+    belt_group = 'Black Belt';
+    var redir_link = '/store/class_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + month_input + '/' + day_num + '/' + time_num +'/' + other_id;
+    res.redirect(redir_link);
+    */
 });
 
 app.post('/dragons_signup', function(req, res){ //pass through to a page with the info in the url
