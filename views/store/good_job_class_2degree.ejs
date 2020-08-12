@@ -98,9 +98,11 @@
             <div id="content-wrap">
                 <h2><%= name %> is signed up for the following classes: </h2>
                 <ul>
-                    <% data.forEach(function(class) { %>
-                        <li><%= class.class_month %> <%= class.class_day %> at <%= class.test_time %></li>
-                    <% }) %>
+                    <% if (data) { %>
+                        <% data.forEach(function(item) { %>
+                            <li><%= item.class_month %> <%= item.class_day %> at <%= item.test_time %></li>
+                        <% }) %>
+                    <% } %>
                 </ul>
                 <p>An email will be sent to <%= email %> confirming these dates and times.</p>
                 <p>If you need to take your name off of the list for any particular class, please use the tool on the app under the in-person class signup tab.</p>
