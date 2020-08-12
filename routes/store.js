@@ -1631,7 +1631,7 @@ app.get('/process_classes/(:fname)/(:lname)/(:email)/(:belt_group)/(:id_set)', f
     var id_set = parseID(req.params.id_set);
     console.log('id_set after parse in process is ' + id_set);
     id_set.forEach(element => { 
-        db.none(query, [req.params.fname, req.params.lname, req.params.belt_group, element, element, element])
+        db.none(query, [req.params.fname, req.params.lname, req.params.belt_group, req.params.email, element, element, element])
             .then(function(row){
                 console.log('Added class with id ' + element);
             })
