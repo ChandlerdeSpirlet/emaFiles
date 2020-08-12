@@ -1574,8 +1574,8 @@ app.post('/2degree_signup', function(req, res){ //pass through to a page with th
         email: req.sanitize('email'),
         day_time: req.sanitize('day_time')
     }
-    console.log('day_time = ' + item.day_time);
-    res.redirect('home');
+    var redir_link = '/store/update_count/' + item.fname + '/' + item.lname + '/' + item.email + '/Black Belt/' + item.day_time;
+    res.redirect(redir_link);
     /*
     getInfo = parseClassInfo(item.day_time);
     var month_input = getInfo[0];
@@ -1586,6 +1586,51 @@ app.post('/2degree_signup', function(req, res){ //pass through to a page with th
     var redir_link = '/store/class_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + month_input + '/' + day_num + '/' + time_num +'/' + other_id;
     res.redirect(redir_link);
     */
+});
+
+function parseID(id_set){
+    var set_id = [];
+    while (id_set.indexOf(",") != -1){
+        var id_idx = id_set.indexOf(",");
+        var id = id_set.substring(0, id_idx);
+        id_set = id_set.substring(id_idx + 1, id_set.length);
+        set_id.push(id);
+    }
+    return set_id;
+}
+
+app.get('/update_count/(:fname)/(:lname)/(:email)/(:belt_group)/(:class_id)', function(req, res){
+    const query = 'update class_times set count = count + 1 where id in ($1);';
+    db.any(query, req.params.class_id)
+        .then(function(rows){
+            //run to a new page to update the signups
+            var id_set = parseID(req.params.class_id);
+            const redir_link = '/store/process_classes/' + req.params.fname + '/' + req.params.lname + '/' + req.params.email + '/' + req.params.belt_group + '/' + id_set;
+            res.redirect(redir_link);
+        })
+        .catch(function(err){
+            console.log('ERROR in update_count. Err: ' + err);
+            res.redirect('/');
+        })
+});
+
+app.get('/process_classes/(:fname)/(:lname)/(:email)/(:belt_group)/(:id_set)', function(req, res){
+    res.render('store/process_classes', {
+
+    });
+    const query = 'insert into class_signups (first_name, last_name, belt, email, test_day, test_time, id_from_other) values ($1, $2, $3, (select date_order from class_times where id = $4), (select time_num from class_times where id = $5), $6)';
+    
+    req.params.id_set.forEach(element => { 
+        db.none(query, [req.params.fname, req.params.lname, req.params.belt_group, element, element, element])
+            .then(function(row){
+                console.log('Added class with id ' + element);
+            })
+            .catch(function(err){
+                console.log('Err: with element ' + element + '. Err: ' + err);
+            })
+    }); 
+    console.log('Done with forEach');
+    res.redirect('2degree_signup');
 });
 
 app.post('/dragons_signup', function(req, res){ //pass through to a page with the info in the url
