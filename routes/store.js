@@ -1627,8 +1627,10 @@ app.get('/process_classes/(:fname)/(:lname)/(:email)/(:belt_group)/(:id_set)', f
 
     });
     const query = 'insert into class_signups (first_name, last_name, belt, email, test_day, test_time, id_from_other) values ($1, $2, $3, (select date_order from class_times where id = $4), (select time_num from class_times where id = $5), $6)';
-    
-    req.params.id_set.forEach(element => { 
+    console.log('id_set in process_classes is ' + req.params.id_set);
+    var id_set = parseID(req.params.id_set);
+    console.log('id_set after parse in process is ' + id_set);
+    id_set.forEach(element => { 
         db.none(query, [req.params.fname, req.params.lname, req.params.belt_group, element, element, element])
             .then(function(row){
                 console.log('Added class with id ' + element);
