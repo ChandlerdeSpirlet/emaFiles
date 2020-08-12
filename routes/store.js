@@ -1567,7 +1567,7 @@ app.post('/1degree_signup', function(req, res){ //pass through to a page with th
     res.redirect(redir_link);
 });
 
-app.post('/1degree_signup', function(req, res){ //pass through to a page with the info in the url
+app.post('/2degree_signup', function(req, res){ //pass through to a page with the info in the url
     var item = {
         fname: req.sanitize('fname'),
         lname: req.sanitize('lname'),

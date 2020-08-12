@@ -479,6 +479,7 @@
     function selectiveCheck (event) {
         var checkedChecks = document.querySelectorAll(".check:checked");
         if (checkedChecks.length >= max + 1){
+            alert('Maximum of 4 classes per signup please.');
             return false;
         }
     }
