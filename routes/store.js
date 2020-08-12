@@ -1646,10 +1646,15 @@ app.get('/process_classes/(:fname)/(:lname)/(:email)/(:belt_group)/(:id_set)', f
         .then(function(rows){
             //use belt_group to redirect to correct good_job_class page
             res.render('store/good_job_class_2degree', {
-                data: '',
+                data: rows,
                 email: req.params.email,
                 name: req.params.fname + ' ' + req.params.lname
             })
+        })
+        .catch(function(err){
+            console.log('Err: ' + err);
+            req.flash('error', 'Unable to render classes signed up for.');
+            res.redirect('2degree_signup');
         })
     //send email
 
