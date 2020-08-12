@@ -1624,9 +1624,9 @@ app.get('/update_count/(:fname)/(:lname)/(:email)/(:belt_group)/(:class_id)', fu
 });
 
 app.get('/process_classes/(:fname)/(:lname)/(:email)/(:belt_group)/(:id_set)', function(req, res){
-    res.render('store/process_classes', {
+    //res.render('store/process_classes', {
 
-    });
+    //});
     const query_classes = 'insert into class_signups (first_name, last_name, belt, email, test_day, test_time, id_from_other) values ($1, $2, $3, $4, (select date_order from class_times where id = $5), (select time_num from class_times where id = $6), $7)';
     console.log('id_set in process_classes is ' + req.params.id_set);
     var id_set = parseID(req.params.id_set);
@@ -1662,7 +1662,7 @@ app.get('/process_classes/(:fname)/(:lname)/(:email)/(:belt_group)/(:id_set)', f
 
 app.get('/loading', function(req, res){
     res.render('store/loading', {
-        
+
     })
 });
 
