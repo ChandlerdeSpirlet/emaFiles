@@ -1618,8 +1618,8 @@ app.get('/update_count/(:fname)/(:lname)/(:email)/(:belt_group)/(:class_id)', fu
     console.log('id_set is ' + id_set);
     if (id_set == NaN){
         req.flash('error', 'Make sure to select at least one class.');
-        var query = "select * from class_times where count < 24 and level = 10 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
-        db.any(query)
+        var redir_query = "select * from class_times where count < 24 and level = 10 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
+        db.any(redir_query)
             .then(function(rows){
                 if (rows.length == 0){
                     res.render('store/temp_classes', {
