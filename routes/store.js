@@ -1558,8 +1558,13 @@ app.post('/1degree_signup', function(req, res){ //pass through to a page with th
         email: req.sanitize('email'),
         day_time: req.sanitize('day_time')
     }
+    getInfo = parseClassInfo(item.day_time);
+    var month_input = getInfo[0];
+    var day_num = getInfo[1];
+    var time_num = getInfo[2];
+    var other_id = getInfo[3];
     belt_group = 'Black Belt';
-    var redir_link = '/store/update_count/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + item.day_time;
+    var redir_link = '/store/class_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + month_input + '/' + day_num + '/' + time_num +'/' + other_id;
     res.redirect(redir_link);
 });
 
@@ -1619,6 +1624,9 @@ app.get('/update_count/(:fname)/(:lname)/(:email)/(:belt_group)/(:class_id)', fu
 });
 
 app.get('/process_classes/(:fname)/(:lname)/(:email)/(:belt_group)/(:id_set)', function(req, res){
+    //res.render('store/process_classes', {
+
+    //});
     const query_classes = 'insert into class_signups (first_name, last_name, belt, email, test_day, test_time, id_from_other) values ($1, $2, $3, $4, (select date_order from class_times where id = $5), (select time_num from class_times where id = $6), $7)';
     console.log('id_set in process_classes is ' + req.params.id_set);
     var id_set = parseID(req.params.id_set);
@@ -1632,102 +1640,30 @@ app.get('/process_classes/(:fname)/(:lname)/(:email)/(:belt_group)/(:id_set)', f
                 console.log('Err: with element ' + element + '. Err: ' + err);
             })
     }); 
-    
-    /* TODO
-     * Create switch statement for different number of class ids
-     * Run data from preview page to update_count
-     * Redesign good job pages to have one color (also, announce no emails)
-     * Add <title> to signup, preview, and good job pages
-     */
-
-    switch(id_set.length){
-        case 1:
-            var end_query = "select to_char(test_day, 'Month') as class_month, to_char(test_day, 'd') as class_day, test_time from class_signups where id_from_other = $1;";
-            db.any(end_query, [id_set[0]])
-            .then(function(rows){
-                //use belt_group to redirect to correct good_job_class page
-                res.render('store/class_confirmed', {
-                    data: rows,
-                    email: req.params.email,
-                    name: req.params.fname + ' ' + req.params.lname,
-                    belt_group: req.params.belt_group
-                })
+    var end_query = "select to_char(test_day, 'Month') as class_month, to_char(test_day, 'd') as class_day, test_time from class_signups where id_from_other in ($1, $2, $3, $4);";
+    //update to allow for different lengths of id_set with switch statement
+    db.any(end_query, [id_set[0], id_set[1], id_set[2], id_set[3]])
+        .then(function(rows){
+            //use belt_group to redirect to correct good_job_class page
+            res.render('store/good_job_class_2degree', {
+                data: rows,
+                email: req.params.email,
+                name: req.params.fname + ' ' + req.params.lname
             })
-            .catch(function(err){
-                console.log('Err: ' + err);
-                req.flash('error', 'Unable to render classes signed up for.');
-                res.redirect('class_confirmed');
-            })
-            break;
-        case 2:
-            var end_query = "select to_char(test_day, 'Month') as class_month, to_char(test_day, 'd') as class_day, test_time from class_signups where id_from_other in ($1, $2);";
-            db.any(end_query, [id_set[0], id_set[1]])
-            .then(function(rows){
-                //use belt_group to redirect to correct good_job_class page
-                res.render('store/class_confirmed', {
-                    data: rows,
-                    email: req.params.email,
-                    name: req.params.fname + ' ' + req.params.lname,
-                    belt_group: req.params.belt_group
-                })
-            })
-            .catch(function(err){
-                console.log('Err: ' + err);
-                req.flash('error', 'Unable to render classes signed up for.');
-                res.redirect('class_confirmed');
-            })
-            break;
-        case 3:
-            var end_query = "select to_char(test_day, 'Month') as class_month, to_char(test_day, 'd') as class_day, test_time from class_signups where id_from_other in ($1, $2, $3);";
-            db.any(end_query, [id_set[0], id_set[1], id_set[2]])
-            .then(function(rows){
-                //use belt_group to redirect to correct good_job_class page
-                res.render('store/class_confirmed', {
-                    data: rows,
-                    email: req.params.email,
-                    name: req.params.fname + ' ' + req.params.lname,
-                    belt_group: req.params.belt_group
-                })
-            })
-            .catch(function(err){
-                console.log('Err: ' + err);
-                req.flash('error', 'Unable to render classes signed up for.');
-                res.redirect('class_confirmed');
-            })
-            break;
-        case 4:
-            var end_query = "select to_char(test_day, 'Month') as class_month, to_char(test_day, 'd') as class_day, test_time from class_signups where id_from_other in ($1, $2, $3, $4);";
-            db.any(end_query, [id_set[0], id_set[1], id_set[2], id_set[3]])
-            .then(function(rows){
-                //use belt_group to redirect to correct good_job_class page
-                res.render('store/class_confirmed', {
-                    data: rows,
-                    email: req.params.email,
-                    name: req.params.fname + ' ' + req.params.lname,
-                    belt_group: req.params.belt_group
-                })
-            })
-            .catch(function(err){
-                console.log('Err: ' + err);
-                req.flash('error', 'Unable to render classes signed up for.');
-                res.redirect('class_confirmed');
-            })
-            break;
-        default:
-            console.log('Length of id_set not within [1, 4]. id_set is ' + id_set + ' with length of ' + id_set.length);
-            res.redirect('class_confirmed');
-            break;
-    }
+        })
+        .catch(function(err){
+            console.log('Err: ' + err);
+            req.flash('error', 'Unable to render classes signed up for.');
+            res.redirect('2degree_signup');
+        })
+    //send email
 });
 
-app.get('/class_confirmed', function(req, res){
-    res.render('store/class_confirmed', {
-        data: '',
-        email: '',
-        name: '',
-        belt_group: ''
+app.get('/loading', function(req, res){
+    res.render('store/loading', {
+
     })
-})
+});
 
 app.post('/dragons_signup', function(req, res){ //pass through to a page with the info in the url
     var item = {
@@ -1736,8 +1672,13 @@ app.post('/dragons_signup', function(req, res){ //pass through to a page with th
         email: req.sanitize('email'),
         day_time: req.sanitize('day_time')
     }
+    getInfo = parseClassInfo(item.day_time);
+    var month_input = getInfo[0];
+    var day_num = getInfo[1];
+    var time_num = getInfo[2];
+    var other_id = getInfo[3];
     belt_group = 'Little Dragons';
-    var redir_link = '/store/update_count/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + item.day_time;
+    var redir_link = '/store/class_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + month_input + '/' + day_num + '/' + time_num +'/' + other_id;
     res.redirect(redir_link);
 });
 
@@ -1748,7 +1689,13 @@ app.post('/basic_signup', function(req, res){ //pass through to a page with the 
         email: req.sanitize('email'),
         day_time: req.sanitize('day_time')
     }
-    var redir_link = '/store/update_count/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + item.day_time;
+    getInfo = parseClassInfo(item.day_time);
+    var month_input = getInfo[0];
+    var day_num = getInfo[1];
+    var time_num = getInfo[2];
+    var other_id = getInfo[3];
+    belt_group = 'Basic';
+    var redir_link = '/store/class_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + month_input + '/' + day_num + '/' + time_num +'/' + other_id;
     res.redirect(redir_link);
 });
 
@@ -1759,8 +1706,13 @@ app.post('/level1_signup', function(req, res){ //pass through to a page with the
         email: req.sanitize('email'),
         day_time: req.sanitize('day_time')
     }
+    getInfo = parseClassInfo(item.day_time);
+    var month_input = getInfo[0];
+    var day_num = getInfo[1];
+    var time_num = getInfo[2];
+    var other_id = getInfo[3];
     belt_group = 'Level 1';
-    var redir_link = '/store/update_count/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + item.day_time;
+    var redir_link = '/store/class_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + month_input + '/' + day_num + '/' + time_num +'/' + other_id;
     res.redirect(redir_link);
 });
 
@@ -1771,8 +1723,13 @@ app.post('/level2_signup', function(req, res){ //pass through to a page with the
         email: req.sanitize('email'),
         day_time: req.sanitize('day_time')
     }
+    getInfo = parseClassInfo(item.day_time);
+    var month_input = getInfo[0];
+    var day_num = getInfo[1];
+    var time_num = getInfo[2];
+    var other_id = getInfo[3];
     belt_group = 'Level 2';
-    var redir_link = '/store/update_count/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + item.day_time;
+    var redir_link = '/store/class_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + month_input + '/' + day_num + '/' + time_num +'/' + other_id;
     res.redirect(redir_link);
 });
 
@@ -1783,8 +1740,13 @@ app.post('/level3_signup', function(req, res){ //pass through to a page with the
         email: req.sanitize('email'),
         day_time: req.sanitize('day_time')
     }
+    getInfo = parseClassInfo(item.day_time);
+    var month_input = getInfo[0];
+    var day_num = getInfo[1];
+    var time_num = getInfo[2];
+    var other_id = getInfo[3];
     belt_group = 'Level 3';
-    var redir_link = '/store/update_count/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + item.day_time;
+    var redir_link = '/store/class_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + month_input + '/' + day_num + '/' + time_num +'/' + other_id;
     res.redirect(redir_link);
 });
 
@@ -1795,8 +1757,13 @@ app.post('/prep_signup', function(req, res){ //pass through to a page with the i
         email: req.sanitize('email'),
         day_time: req.sanitize('day_time')
     }
+    getInfo = parseClassInfo(item.day_time);
+    var month_input = getInfo[0];
+    var day_num = getInfo[1];
+    var time_num = getInfo[2];
+    var other_id = getInfo[3];
     belt_group = 'Prep Cycle';
-    var redir_link = '/store/update_count/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + item.day_time;
+    var redir_link = '/store/class_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + month_input + '/' + day_num + '/' + time_num +'/' + other_id;
     res.redirect(redir_link);
 });
 
@@ -1807,8 +1774,13 @@ app.post('/weapons_signup', function(req, res){ //pass through to a page with th
         email: req.sanitize('email'),
         day_time: req.sanitize('day_time')
     }
+    getInfo = parseClassInfo(item.day_time);
+    var month_input = getInfo[0];
+    var day_num = getInfo[1];
+    var time_num = getInfo[2];
+    var other_id = getInfo[3];
     belt_group = 'Weapons';
-    var redir_link = '/store/update_count/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + item.day_time;
+    var redir_link = '/store/class_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + month_input + '/' + day_num + '/' + time_num +'/' + other_id;
     res.redirect(redir_link);
 });
 
@@ -1819,8 +1791,13 @@ app.post('/open_mat_signup', function(req, res){ //pass through to a page with t
         email: req.sanitize('email'),
         day_time: req.sanitize('day_time')
     }
+    getInfo = parseClassInfo(item.day_time);
+    var month_input = getInfo[0];
+    var day_num = getInfo[1];
+    var time_num = getInfo[2];
+    var other_id = getInfo[3];
     belt_group = 'Open Mat';
-    var redir_link = '/store/update_count/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + item.day_time;
+    var redir_link = '/store/class_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + month_input + '/' + day_num + '/' + time_num +'/' + other_id;
     res.redirect(redir_link);
 });
 
