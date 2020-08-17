@@ -1559,7 +1559,7 @@ app.post('/1degree_signup', function(req, res){ //pass through to a page with th
         day_time: req.sanitize('day_time')
     }
     belt_group = 'Black Belt';
-    if (item.day_time == ''){
+    if (item.day_time == "NaN"){
         req.flash('error', 'Make sure to select at least one class.');
         res.redirect('1degree_signup');
     } else {
@@ -1574,6 +1574,10 @@ app.post('/2degree_signup', function(req, res){ //pass through to a page with th
         lname: req.sanitize('lname'),
         email: req.sanitize('email'),
         day_time: req.sanitize('day_time')
+    }
+    if (item.day_time == "NaN"){
+        req.flash('error', 'Make sure to select at least one class.');
+        res.redirect('2degree_signup');
     }
     var redir_link = '/store/update_count/' + item.fname + '/' + item.lname + '/' + item.email + '/Black Belt/' + item.day_time;
     res.redirect(redir_link);
@@ -1605,6 +1609,10 @@ function parseID(id_set){
 }
 
 app.get('/update_count/(:fname)/(:lname)/(:email)/(:belt_group)/(:class_id)', function(req, res){
+    if ((req.params.class_id == 'undefined') || (req.params.class_id == '')){
+        req.flash('error', 'Make sure to select at least one class.');
+        res.redirect('2degree_signup');
+    }
     const query = 'update class_times set count = count + 1 where id = $1;';
     var id_set = parseID(req.params.class_id);
     console.log('id_set is ' + id_set);
