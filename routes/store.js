@@ -1559,7 +1559,7 @@ app.post('/1degree_signup', function(req, res){ //pass through to a page with th
         day_time: req.sanitize('day_time')
     }
     belt_group = 'Black Belt';
-    if (item.day_time == "NaN"){
+    if ((item.day_time == NaN) || (item.day_time == '')){
         req.flash('error', 'Make sure to select at least one class.');
         res.redirect('1degree_signup');
     } else {
@@ -1575,7 +1575,7 @@ app.post('/2degree_signup', function(req, res){ //pass through to a page with th
         email: req.sanitize('email'),
         day_time: req.sanitize('day_time')
     }
-    if (item.day_time == "NaN"){
+    if ((item.day_time == NaN) || (item.day_time == '')){
         req.flash('error', 'Make sure to select at least one class.');
         res.redirect('2degree_signup');
     }
@@ -1652,7 +1652,7 @@ app.get('/process_classes/(:fname)/(:lname)/(:email)/(:belt_group)/(:id_set)', f
      * Redesign good job pages to have one color (also, announce no emails)
      * Add <title> to signup, preview, and good job pages
      */
-
+    if ((id_set.length == 0) || (id_set == NaN))
     switch(id_set.length){
         case 1:
             var end_query = "select distinct on (id_from_other) to_char(test_day, 'Month') as class_month, to_char(test_day, 'dd') as class_day, test_time from class_signups where id_from_other = $1;";
