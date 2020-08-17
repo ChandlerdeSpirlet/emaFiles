@@ -1616,6 +1616,10 @@ app.get('/update_count/(:fname)/(:lname)/(:email)/(:belt_group)/(:class_id)', fu
     const query = 'update class_times set count = count + 1 where id = $1;';
     var id_set = parseID(req.params.class_id);
     console.log('id_set is ' + id_set);
+    if (id_set == NaN){
+        req.flash('error', 'Make sure to select at least one class.');
+        res.redirect('2degree_signup');
+    }
     id_set.forEach(element => {
         db.any(query, element)
         .then(function(rows){
