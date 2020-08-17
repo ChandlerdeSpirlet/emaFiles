@@ -353,7 +353,7 @@
             <label>Class Days and Times:</label><br>
             <% if (data) {%>
                 <% data.forEach(function(item){ %>
-                    <pre>   <input type="checkbox" class="checkbox" id="day_time" name="day_time" value="<%= item.id %> <%= item.month_name %> <%= item.day_number %> at <%= item.time_num %>"> <%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> (<%= 25 - item.count %> spot(s) remaining).</pre>
+                    <pre>   <input type="checkbox" class="checkbox" id="day_time" name="day_time" value="<%= item.id %>"> <%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> (<%= 25 - item.count %> spot(s) remaining).</pre>
                 <% }) %>
             <% } %>
             <input type="submit" name="Submit" value="Submit"/>

@@ -1,38 +1,42 @@
 <html>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <% if (belt_group = 'Black Belt') { %>
+    <% if (belt_group == 'Black Belt') { %>
         <meta http-equiv = "refresh" content = "10; url = https://emafiles.herokuapp.com/store/1degree_signup"/>
     <% } %>
-    <% if (belt_group = 'Little Dragons') { %>
+    <% if (belt_group == 'Little Dragons') { %>
         <meta http-equiv = "refresh" content = "10; url = https://emafiles.herokuapp.com/store/dragons_signup"/>
     <% } %>
-    <% if (belt_group = 'Basic') { %>
+    <% if (belt_group == 'Basic') { %>
         <meta http-equiv = "refresh" content = "10; url = https://emafiles.herokuapp.com/store/basic_signup"/>
     <% } %>
-    <% if (belt_group = 'Level 1') { %>
+    <% if (belt_group == 'Level 1') { %>
         <meta http-equiv = "refresh" content = "10; url = https://emafiles.herokuapp.com/store/level1_signup"/>
     <% } %>
-    <% if (belt_group = 'Level 2') { %>
+    <% if (belt_group == 'Level 2') { %>
         <meta http-equiv = "refresh" content = "10; url = https://emafiles.herokuapp.com/store/level2_signup"/>
     <% } %>
-    <% if (belt_group = 'Level 3') { %>
+    <% if (belt_group == 'Level 3') { %>
         <meta http-equiv = "refresh" content = "10; url = https://emafiles.herokuapp.com/store/level3_signup"/>
     <% } %>
-    <% if (belt_group = 'Prep Cycle') { %>
+    <% if (belt_group == 'Prep Cycle') { %>
         <meta http-equiv = "refresh" content = "10; url = https://emafiles.herokuapp.com/store/prep_signup"/>
     <% } %>
-    <% if (belt_group = 'Weapons') { %>
+    <% if (belt_group == 'Weapons') { %>
         <meta http-equiv = "refresh" content = "10; url = https://emafiles.herokuapp.com/store/weapons_signup"/>
     <% } %>
-    <% if (belt_group = 'Open Mat') { %>
+    <% if (belt_group == 'Open Mat') { %>
         <meta http-equiv = "refresh" content = "10; url = https://emafiles.herokuapp.com/store/open_mat_signup"/>
     <% } %>
     <title>Classes Confirmed for <%= name %></title>
     <style>
         @media (prefers-color-scheme: light){
+            * {
+                box-sizing: border-box;
+                font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            }
             body{
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: white;
+                font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+                background-color: white;
             }
             h2 {
                 color: black;
