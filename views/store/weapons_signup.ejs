@@ -5,6 +5,7 @@
     <p style="color:green"><%- messages.success %></p>
 <% } %>
 <html>
+    <title>Weapons Class Signup</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         * {
@@ -361,14 +362,27 @@
             <label>Class Days and Times:</label><br>
             <% if (data) {%>
                 <% data.forEach(function(item){ %>
-                    <pre>   <input type="radio" id="day_time" name="day_time" value="<%= item.id %> <%= item.month_name %> <%= item.day_number %> at <%= item.time_num %>"> <%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> (<%= 20 - item.count %> spot(s) remaining).</pre>
+                    <pre>   <input type="checkbox" class="checkbox" id="day_time" name="day_time" value="<%= item.id %> <%= item.month_name %> <%= item.day_number %> at <%= item.time_num %>"> <%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> (<%= 20 - item.count %> spot(s) remaining).</pre>
                 <% }) %>
             <% } %>
             <input type="submit" name="Submit" value="Submit"/>
         </form>
+        <p style="font-style:italic;">You can now select up to <strong>4</strong> classes when signing up!</p>
     </body>
 </html>
 <script>
+    var checks = document.querySelectorAll(".check");
+    var max = 4;
+    for (var i = 0; i < checks.length; i++){
+        checks[i].onclick = selectiveCheck;
+    }
+    function selectiveCheck (event) {
+        var checkedChecks = document.querySelectorAll(".check:checked");
+        if (checkedChecks.length >= max + 1){
+            alert('Maximum of 4 classes per signup please.');
+            return false;
+        }
+    }
     function ValidateForm(){
         var fname = document.getElementById('fname');
         var lname = document.getElementById('lname');
