@@ -1748,6 +1748,7 @@ app.post('/basic_signup', function(req, res){ //pass through to a page with the 
         email: req.sanitize('email'),
         day_time: req.sanitize('day_time')
     }
+    belt_group = 'Basic';
     var redir_link = '/store/update_count/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + item.day_time;
     res.redirect(redir_link);
 });
