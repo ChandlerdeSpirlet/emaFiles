@@ -1609,7 +1609,7 @@ function parseID(id_set){
 }
 
 app.get('/update_count/(:fname)/(:lname)/(:email)/(:belt_group)/(:class_id)', function(req, res){
-    if ((req.params.class_id == 'undefined') || (req.params.class_id == '')){
+    if ((req.params.class_id == 'undefined') || (req.params.class_id == '') || (req.params.id_set == NaN)){
         req.flash('error', 'Make sure to select at least one class.');
         res.redirect('2degree_signup');
     }
