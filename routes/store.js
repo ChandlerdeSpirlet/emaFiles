@@ -1559,8 +1559,13 @@ app.post('/1degree_signup', function(req, res){ //pass through to a page with th
         day_time: req.sanitize('day_time')
     }
     belt_group = 'Black Belt';
-    var redir_link = '/store/update_count/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + item.day_time;
-    res.redirect(redir_link);
+    if (item.day_time == ''){
+        req.flash('error', 'Make sure to select at least one class.');
+        res.redirect('1degree_signup');
+    } else {
+        var redir_link = '/store/update_count/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + item.day_time;
+        res.redirect(redir_link);
+    }
 });
 
 app.post('/2degree_signup', function(req, res){ //pass through to a page with the info in the url
