@@ -1575,7 +1575,7 @@ app.post('/2degree_signup', function(req, res){ //pass through to a page with th
         email: req.sanitize('email'),
         day_time: req.sanitize('day_time')
     }
-    if ((item.day_time == NaN) || (item.day_time == '')){
+    if (item.day_time == NaN){
         req.flash('error', 'Make sure to select at least one class.');
         res.redirect('2degree_signup');
     }
@@ -1609,55 +1609,22 @@ function parseID(id_set){
 }
 
 app.get('/update_count/(:fname)/(:lname)/(:email)/(:belt_group)/(:class_id)', function(req, res){
-    if ((req.params.class_id == 'undefined') || (req.params.class_id == '') || (req.params.id_set == NaN)){
-        req.flash('error', 'Make sure to select at least one class.');
-        res.redirect('2degree_signup');
-    }
     const query = 'update class_times set count = count + 1 where id = $1;';
     var id_set = parseID(req.params.class_id);
     console.log('id_set is ' + id_set);
-    if (id_set == NaN){
-        req.flash('error', 'Make sure to select at least one class.');
-        var redir_query = "select * from class_times where count < 24 and level = 10 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
-        db.any(redir_query)
-            .then(function(rows){
-                if (rows.length == 0){
-                    res.render('store/temp_classes', {
-                        level: 'black belt'
-                    })
-                } else {
-                    res.render('store/2degree_signup', {
-                        fname: '',
-                        lname: '',
-                        email: '',
-                        data: rows
-                    })
-                }
-            })
-            .catch(function(err){
-                req.flash('error', 'Unable to render class signup (ERROR: ' + err + ')');
-                res.render('store/2degree_signup', {
-                    fname: '',
-                    lname: '',
-                    email: '',
-                    data: ''
-                })
-            })
-    } else {
-        id_set.forEach(element => {
-            db.any(query, element)
-            .then(function(rows){
-                //run to a new page to update the signups
-                console.log('Updated count with element ' + element);
-            })
-            .catch(function(err){
-                console.log('ERROR in update_count. Err: ' + err);
-                res.redirect('/');
-            })
-        });
-        const redir_link = '/store/process_classes/' + req.params.fname + '/' + req.params.lname + '/' + req.params.email + '/' + req.params.belt_group + '/' + id_set;
-        res.redirect(redir_link);
-    }
+    id_set.forEach(element => {
+        db.any(query, element)
+        .then(function(rows){
+            //run to a new page to update the signups
+            console.log('Updated count with element ' + element);
+        })
+        .catch(function(err){
+            console.log('ERROR in update_count. Err: ' + err);
+            res.redirect('/');
+        })
+    });
+    const redir_link = '/store/process_classes/' + req.params.fname + '/' + req.params.lname + '/' + req.params.email + '/' + req.params.belt_group + '/' + id_set;
+    res.redirect(redir_link);
 });
 
 app.get('/process_classes/(:fname)/(:lname)/(:email)/(:belt_group)/(:id_set)', function(req, res){
@@ -1681,7 +1648,6 @@ app.get('/process_classes/(:fname)/(:lname)/(:email)/(:belt_group)/(:id_set)', f
      * Redesign good job pages to have one color (also, announce no emails)
      * Add <title> to signup, preview, and good job pages
      */
-    if ((id_set.length == 0) || (id_set == NaN))
     switch(id_set.length){
         case 1:
             var end_query = "select distinct on (id_from_other) to_char(test_day, 'Month') as class_month, to_char(test_day, 'dd') as class_day, test_time from class_signups where id_from_other = $1;";
