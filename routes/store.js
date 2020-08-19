@@ -854,7 +854,7 @@ app.get('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(:
         day: day,
         time: time,
         belt_group: req.params.belt_group,
-        id_from_other: id_from_other
+        id_from_other: id
     })
 });
 
