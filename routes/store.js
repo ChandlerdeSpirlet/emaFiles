@@ -684,12 +684,10 @@ app.get('/testing_signup_level3', function(req, res){
 });
 
 function parseDateInfo(day_time){
-    console.log('day_time for processing is ' + day_time);
-    day_time_str = String(day_time);
-    console.log('day_time_str is ' + day_time_str);
+    day_time_str = day_time.toString();
     var id = day_time_str.indexOf(" ");
     var id_from_other = day_time_str.substring(0, id);
-    var day_time_str = day_time_str.indexOf(id + 1, day_time_str.length);
+    var day_time_str = day_time_str.substring(id + 1, day_time_str.length).toString();
     var n = day_time_str.indexOf(" ");
     var month = day_time_str.substring(0,n);
     var newStr = day_time_str.substring(n + 1, day_time.length);
