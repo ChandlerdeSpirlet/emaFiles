@@ -2463,7 +2463,7 @@ app.get('/classes_email/(:email)', function(req, res){
 });
 
 app.get('/test_email/(:email)', function(req, res){
-    var query = "select id, first_name, last_name, cast(to_char(test_day, 'Mon DD, YYYY') as varchar) as test_day_var, test_time from people_testing where email = $1";
+    var query = "select id, first_name, last_name, cast(to_char(test_day, 'Mon DD, YYYY') as varchar) as test_day_var, test_time, id_from_other from people_testing where email = $1";
     db.query(query, [req.params.email])
     .then(function(rows){
         if (rows.length == 0){
