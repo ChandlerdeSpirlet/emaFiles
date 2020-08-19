@@ -5,7 +5,7 @@
     <p style="color:green"><%- messages.success %></p>
 <% } %>
 <script>
-    var error = <%= messages.error %>;          
+    var error = <%- messages.error %>;          
     if(error!=null) 
     {  
         showAlert(error.message);
