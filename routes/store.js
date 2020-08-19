@@ -2394,11 +2394,27 @@ app.get('/delete/(:id)/(:id_from_other)/(:email)', function(req, res){
     res.redirect('https://emafiles.herokuapp.com/store/classes_email/' + req.params.email);
 });
 
-app.get('/delete_test/(:id)/(:email)/(:test_day)/(:test_time)/(:first_name)/(:last_name)', function(req, res){
-    var query_sched = "delete from people_testing where id = $1";
-    db.query(query_sched, [req.params.id]);
-    clearCount(req.params.test_day, req.params.test_time, req.params.first_name, req.params.last_name);
-    res.redirect('https://emafiles.herokuapp.com/store/test_email/' + req.params.email);
+app.get('/delete_test/(:id)/(:id_from_other)/(:email)', function(req, res){
+    const count_update = "update testing_signup set count = count - 1 where id = $1;"
+    const name_remove = "delete from people_testing where id = $1";
+    db.none(count_update, [req.params.id_from_other])
+        .then(function(rows){
+            console.log('count updated for test with id ' + req.params.id_from_other);
+            db.none(name_remove, [req.params.id])
+                .then(function(row){
+                    res.redirect('https://emafiles.herokuapp.com/store/test_email/' + req.params.email);
+                })
+                .catch(function(err){
+                    console.log('error with clearing name from people_testing with id ' + id + '. Err: ' + err);
+                    req.flash('error', 'Could not remove test.');
+                    res.redirect('test_lookup');
+                })
+        })
+        .catch(function(err){
+            console.log('Couldnt update count for id ' + req.params.id_from_other + '. Err: ' + err);
+            req.flash('error', )
+            res.redirect('test_lookup');
+        })
 });
 
 function clearCount(test_day, test_time, fname, lname){

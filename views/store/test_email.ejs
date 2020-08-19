@@ -167,7 +167,7 @@
                             <tr>
                                 <td><%= item.first_name %> <%= item.last_name %></td>
                                 <td><%= item.test_day_var %> at <%= item.test_time %></td>
-                                <td><a href="https://emafiles.herokuapp.com/store/delete_test/<%= item.id %>/<%= email %>/<%= item.test_day_var %>/<%= item.test_time %>/<%= item.first_name %>/<%= item.last_name %>">Drop This Test</a></td>
+                                <td><a href="https://emafiles.herokuapp.com/store/delete_test/<%= item.id %>/<%= item.id_from_other %>/<%= item.email %>">Drop This Test</a></td>
                             </tr>
                         <% }) %>
                     <% } %>
