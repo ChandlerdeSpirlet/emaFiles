@@ -5,6 +5,7 @@
     <p style="color:green"><%- messages.success %></p>
 <% } %>
 <html>
+    <title>Board Breaking Signup</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         * {
@@ -124,7 +125,6 @@
                 <label for="select">Select time:</label>
                 <% if (classes[0]) { %>
                 <div class="select-wrapper"><select id="select" name="level" required placeholder="Student's level">
-                        <%= console.log(classes); %>
                         <% classes.forEach(function(item){ %>
                             <option value="<%= item.class_time %>"><%= item.class_time %> &mdash; <%= item.class_name %></option>
                         <% }) %>
