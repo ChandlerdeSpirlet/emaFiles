@@ -20,11 +20,18 @@
             width: 100%;
             height: 2.5rem;            /* Footer height */
         }
+        p {
+            font-size: 13px;
+        }
+        label {
+            font-weight: bold;
+        }
     </style>
     <body>
         <div id="page-container">
             <div id="content-wrap">
-                <label><%= stud_name %></label>, you are signed up for testing on <label><%= month %> <%= day %> at <%= time %></label>. <br>An email confirmation will be sent to <label><%= email %></label>.
+                <p><label><%= stud_name %></label>, you are signed up for testing on <label><%= month %> <%= day %> at <%= time %></label>.</p>
+                <p>An email confirmation will be sent to <label><%= email %></label>.</p>
                 <p>(This page will return to the testing signup page in 10 seconds.)</p>
             </div>
         <footer id="footer">

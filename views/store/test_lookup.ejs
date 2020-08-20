@@ -55,7 +55,7 @@
     <body>
         <p>Enter your email to lookup your testing time.</p>
         <form action="/store/test_lookup" method="post">
-            <label>Email: </label><input type="email" name="email" id="email" pattern="[A-z0-9.]+[@][A-z0-9]{1,}[.]+[A-z]{2,}" value="<%= email %>"><br>
+            <label>Email: </label><input type="email" name="email" id="email" pattern="[A-z0-9.]+[@][A-z0-9]{1,}[.]+[A-z]{2,}" value="<%= email %>" required placeholder="Email"><br>
             <input type="submit" name="Preview" value="Lookup"/>
         </form>
     </body>
