@@ -4,165 +4,49 @@
 <% if (messages.success) { %>
     <p style="color:green"><%- messages.success %></p>
 <% } %>
-<script>
-    var error = <%- messages.error %>;          
-    if(error!=null) 
-    {  
-        showAlert(error.message);
-    }
-    showAlert = function(err) {
-        alert('error: ' + err);
-    }
-</script>
 <html>
+    <title>Testing Lookup</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        body {
+        label {
+            font-size: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        * {
+            box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, sans-serif;
         }
-        @media (prefers-color-scheme: dark){
-            body{
-                background-color: black;
-                color: white;
-            }
-            head{
-                background-color: black;
-                color: white;
-            }
-            label {
-                color: white;
-                font-size: 20px;
-                padding-left: 10px;
-                padding-bottom: 10px;
-            }
-            h1 {
-                text-align: center;
-                color: blue;
-                background-color: black;
-            }
-            input[type=email] {
-                width: 160px;
-                box-sizing: border-box;
-                border: 2px solid #ccc;
-                border-radius: 4px;
-                font-size: 16px;
-                background-color: white;
-                background-position: 10px 10px; 
-                background-repeat: no-repeat;
-                padding: 12px 20px 12px 40px;
-                -webkit-transition: width 0.4s ease-in-out;
-                transition: width 0.4s ease-in-out;
-            }
-            input[type=submit] {
-                background-color: blue; /* Green */
-                border: none;
-                color: black;
-                padding: 16px 32px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                margin: 4px 2px;
-                -webkit-transition-duration: 0.4s; /* Safari */
-                transition-duration: 0.4s;
-                cursor: pointer;
-            }
+        html {
+            background-image: linear-gradient(#0095ff, #9ed7ff);
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
         }
-        @media (prefers-color-scheme: light){
-            body{
-                background-color: white;
-                color: black;
-            }
-            head{
-                background-color: white;
-                color: black;
-            }
-            label {
-                color: black;
-                font-size: 20px;
-                padding-left: 10px;
-                padding-bottom: 10px;
-            }
-            h1 {
-                text-align: center;
-                color: blue;
-                background-color: white;
-            }
-            input[type=email] {
-                width: 160px;
-                box-sizing: border-box;
-                border: 2px solid #ccc;
-                border-radius: 4px;
-                font-size: 16px;
-                background-color: white;
-                background-position: 10px 10px; 
-                background-repeat: no-repeat;
-                padding: 12px 20px 12px 40px;
-                -webkit-transition: width 0.4s ease-in-out;
-                transition: width 0.4s ease-in-out;
-            }
-            input[type=submit] {
-                background-color: blue; /* Green */
-                border: none;
-                color: white;
-                padding: 16px 32px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                margin: 4px 2px;
-                -webkit-transition-duration: 0.4s; /* Safari */
-                transition-duration: 0.4s;
-                cursor: pointer;
-            }
+        p {
+            font-size: 14px;
         }
-        @media (prefers-color-scheme: no-preference){
-            body{
-                background-color: white;
-                color: black;
-            }
-            head{
-                background-color: white;
-                color: black;
-            }
-            label {
-                color: black;
-                font-size: 20px;
-                padding-left: 10px;
-                padding-bottom: 10px;
-            }
-            h1 {
-                text-align: center;
-                color: blue;
-                background-color: white;
-            }
-            input[type=email] {
-                width: 160px;
-                box-sizing: border-box;
-                border: 2px solid #ccc;
-                border-radius: 4px;
-                font-size: 16px;
-                background-color: white;
-                background-position: 10px 10px; 
-                background-repeat: no-repeat;
-                padding: 12px 20px 12px 40px;
-                -webkit-transition: width 0.4s ease-in-out;
-                transition: width 0.4s ease-in-out;
-            }
-            input[type=submit] {
-                background-color: blue; /* Green */
-                border: none;
-                color: white;
-                padding: 16px 32px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                margin: 4px 2px;
-                -webkit-transition-duration: 0.4s; /* Safari */
-                transition-duration: 0.4s;
-                cursor: pointer;
-            }
+        input[type="email"], input[type="submit"] {
+            display: block;
+            font-size: 100%;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            width: 100%;
+            padding: 5px;
+            height: 30px;
+        }
+        label {
+            margin-bottom: 5px;
+        }
+        button {
+            width: 60%;
+            margin: 0 auto;
+        }
+        label{
+            font-weight: bold;
         }
     </style>
     <head>
