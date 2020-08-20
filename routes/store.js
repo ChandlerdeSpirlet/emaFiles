@@ -760,11 +760,12 @@ app.post('/testing_signup_basic', function(req, res){
         day_time: req.sanitize('day_time')
     }
     getInfo = parseDateInfo(item.day_time);
-    month_input = getInfo[0];
-    day_num = getInfo[1];
-    time_num = getInfo[2];
+    id_from_other = getInfo[0]
+    month_input = getInfo[1];
+    day_num = getInfo[2];
+    time_num = getInfo[3];
     belt_group = 0;
-    var redir_link = '/store/testing_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + item.belts + '/' + month_input + '/' + day_num + '/' + time_num + '/' + belt_group;
+    var redir_link = '/store/testing_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + item.belts + '/' + month_input + '/' + day_num + '/' + time_num + '/' + belt_group + '/' + id_from_other;
     res.redirect(redir_link);
 });
 
@@ -782,11 +783,12 @@ app.post('/testing_signup_level1', function(req, res){
         day_time: req.sanitize('day_time')
     }
     getInfo = parseDateInfo(item.day_time);
-    month_input = getInfo[0];
-    day_num = getInfo[1];
-    time_num = getInfo[2];
+    id_from_other = getInfo[0]
+    month_input = getInfo[1];
+    day_num = getInfo[2];
+    time_num = getInfo[3];
     belt_group = 1;
-    var redir_link = '/store/testing_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + item.belts + '/' + month_input + '/' + day_num + '/' + time_num + '/' + belt_group;
+    var redir_link = '/store/testing_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + item.belts + '/' + month_input + '/' + day_num + '/' + time_num + '/' + belt_group + '/' + id_from_other;
     res.redirect(redir_link);
 });
 
@@ -804,11 +806,12 @@ app.post('/testing_signup_level2', function(req, res){
         day_time: req.sanitize('day_time')
     }
     getInfo = parseDateInfo(item.day_time);
-    month_input = getInfo[0];
-    day_num = getInfo[1];
-    time_num = getInfo[2];
+    id_from_other = getInfo[0]
+    month_input = getInfo[1];
+    day_num = getInfo[2];
+    time_num = getInfo[3];
     belt_group = 2;
-    var redir_link = '/store/testing_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + item.belts + '/' + month_input + '/' + day_num + '/' + time_num + '/' + belt_group;
+    var redir_link = '/store/testing_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + item.belts + '/' + month_input + '/' + day_num + '/' + time_num + '/' + belt_group + '/' + id_from_other;
     res.redirect(redir_link);
 });
 
@@ -826,11 +829,12 @@ app.post('/testing_signup_level3', function(req, res){
         day_time: req.sanitize('day_time')
     }
     getInfo = parseDateInfo(item.day_time);
-    month_input = getInfo[0];
-    day_num = getInfo[1];
-    time_num = getInfo[2];
+    id_from_other = getInfo[0]
+    month_input = getInfo[1];
+    day_num = getInfo[2];
+    time_num = getInfo[3];
     belt_group = 3;
-    var redir_link = '/store/testing_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + item.belts + '/' + month_input + '/' + day_num + '/' + time_num + '/' + belt_group;
+    var redir_link = '/store/testing_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + item.belts + '/' + month_input + '/' + day_num + '/' + time_num + '/' + belt_group + '/' + id_from_other;
     res.redirect(redir_link);
 });
 
@@ -1143,7 +1147,7 @@ function sendEmail(name, email_user, date, time){
         from: 'EMA_Testing@outlook.com',
         to: email_user,
         subject: 'Testing Confirmed for ' + name,
-        html: "<h2>" + 'Karate Belt Testing Confirmed' + "</h2><br>" + "<b>" + name + "</b>" + ' is confirmed for testing on ' + "<b>" + date + "</b>" + ' at ' + "<b>" + time + '.' + "</b><br>" + "Good luck and we'll see you at the school soon!" + "<br>" + "You can view and edit your testing time " + "<a href='https://emafiles.herokuapp.com/store/test_lookup'>here</a>" + "<p>*Please be aware of the following rules for in-person class:</p><ul><li>You must already be in your uniform when you arrive at the school.</li><li>Use of the restrooms is currently prohibited.</li><li>Shoes must be taken off and placed on the shoe rack by the door.</li><li>Hand sanitizer must be used before and after class.</li><li>Parents must remain outside the class and can watch the class from Zoom.</li><li>Mingling will not be allowed after class.</li></ul>"
+        html: "<h2>" + 'Karate Belt Testing Confirmed' + "</h2><br>" + "<b>" + name + "</b>" + ' is confirmed for testing on ' + "<b>" + date + "</b>" + ' at ' + "<b>" + time + '.' + "</b><br>" + "Good luck and we'll see you at the school soon!" + "<br>" + "You can view and edit your testing time " + "<a href='https://emafiles.herokuapp.com/store/test_lookup'>here</a>" + "<p>*Please be aware of the following rules for in-person class:</p><ul><li>You must already be in your uniform when you arrive at the school.</li><li>Use of the restrooms is currently prohibited.</li><li>Shoes must be taken off and placed on the shoe rack by the door.</li><li>Hand sanitizer must be used before and after class.</li></ul>"
     };
     transporter.sendMail(mailOptions, function(error, info){
         if (error){

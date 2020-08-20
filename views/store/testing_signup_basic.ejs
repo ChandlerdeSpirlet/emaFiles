@@ -5,363 +5,155 @@
     <p style="color:green"><%- messages.success %></p>
 <% } %>
 <html>
+    <title>Basic Testing Signup</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        * {
+                * {
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, sans-serif;
         }
-        @media (prefers-color-scheme: dark) {
-            input[type='first name'] {
-                width: 150px;
-                box-sizing: border-box;
-                border-radius: 4px;
-                border-color: blue;
-                font-size: 16px;
-                background-color: white;
-                background-position: 10px 10px; 
-                background-repeat: no-repeat;
-                padding: 12px 20px 12px 40px;
-                -webkit-transition: width 0.4s ease-in-out;
-                transition: width 0.4s ease-in-out;
-                padding-left: 10px;
-                padding-bottom: 10px;
-            }
-            input[type='last name'] {
-                width: 150px;
-                box-sizing: border-box;
-                border-radius: 4px;
-                font-size: 16px;
-                border-color: blue;
-                background-color: white;
-                background-position: 10px 10px; 
-                background-repeat: no-repeat;
-                padding: 12px 20px 12px 40px;
-                -webkit-transition: width 0.4s ease-in-out;
-                transition: width 0.4s ease-in-out;
-                padding-left: 10px;
-                padding-bottom: 10px;
-            }
-            input[type='email'] {
-                width: 220px;
-                box-sizing: border-box;
-                border-radius: 4px;
-                font-size: 16px;
-                border-color: blue;
-                background-color: white;
-                background-position: 10px 10px; 
-                background-repeat: no-repeat;
-                padding: 12px 20px 12px 40px;
-                -webkit-transition: width 0.4s ease-in-out;
-                transition: width 0.4s ease-in-out;
-                padding-left: 10px;
-                padding-bottom: 10px;
-            }
-            [type=submit] {
-                background-color: blue; /* Green */
-                border: none;
-                color: white;
-                padding: 16px 32px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                margin: 4px 2px;
-                -webkit-transition-duration: 0.4s; /* Safari */
-                transition-duration: 0.4s;
-                cursor: pointer;
-            }
-            label {
-                color: white;
-                font-size: 20px;
-                padding-left: 10px;
-                padding-bottom: 10px;
-            }
-            h1 {
-                text-align: center;
-                color: blue;
-                background-color: black;
-            }
-            head {
-                background-color: black;
-            }
-            body {
-                background-color: black;
-                font-size: 16px;
-                color: white;
-            }
-            #footer {
-                position: absolute;
-                bottom: 0;
-                width: 100%;
-                height: 2.5rem;            /* Footer height */
-                color: white;
-                background-color: black;
-            }
-            #Instructor_Login {
-                background-color: blue; /* Green */
-                border: none;
-                color: white;
-                padding: 16px 32px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                margin: 4px 2px;
-                -webkit-transition-duration: 0.4s; /* Safari */
-                transition-duration: 0.4s;
-                cursor: pointer;
-                position: right;
-            }
-            p {
-                color: white;
-                font-size: 14px;
-            }
-            li {
-                color: white;
-                font-size: 14px;
-            }
+        html {
+            background-image: linear-gradient(#0095ff, #9ed7ff);
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
         }
-        @media (prefers-color-scheme: light) {
-            input[type='first name'] {
-                width: 150px;
-                box-sizing: border-box;
-                border-radius: 4px;
-                border-color: blue;
-                font-size: 16px;
-                background-color: white;
-                background-position: 10px 10px; 
-                background-repeat: no-repeat;
-                padding: 12px 20px 12px 40px;
-                -webkit-transition: width 0.4s ease-in-out;
-                transition: width 0.4s ease-in-out;
-                padding-left: 10px;
-                padding-bottom: 10px;
-            }
-            input[type='last name'] {
-                width: 150px;
-                box-sizing: border-box;
-                border-radius: 4px;
-                font-size: 16px;
-                border-color: blue;
-                background-color: white;
-                background-position: 10px 10px; 
-                background-repeat: no-repeat;
-                padding: 12px 20px 12px 40px;
-                -webkit-transition: width 0.4s ease-in-out;
-                transition: width 0.4s ease-in-out;
-                padding-left: 10px;
-                padding-bottom: 10px;
-            }
-            input[type='email'] {
-                width: 220px;
-                box-sizing: border-box;
-                border-radius: 4px;
-                font-size: 16px;
-                border-color: blue;
-                background-color: white;
-                background-position: 10px 10px; 
-                background-repeat: no-repeat;
-                padding: 12px 20px 12px 40px;
-                -webkit-transition: width 0.4s ease-in-out;
-                transition: width 0.4s ease-in-out;
-                padding-left: 10px;
-                padding-bottom: 10px;
-            }
-            [type=submit] {
-                background-color: blue; /* Green */
-                border: none;
-                color: black;
-                padding: 16px 32px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                margin: 4px 2px;
-                -webkit-transition-duration: 0.4s; /* Safari */
-                transition-duration: 0.4s;
-                cursor: pointer;
-            }
-            label {
-                color: balck;
-                font-size: 20px;
-                padding-left: 10px;
-                padding-bottom: 10px;
-            }
-            h1 {
-                text-align: center;
-                color: blue;
-                background-color: white;
-            }
-            head {
-                background-color: white;
-            }
-            body {
-                background-color: white;
-                font-size: 16px;
-                color: black;
-            }
-            #footer {
-                position: absolute;
-                bottom: 0;
-                width: 100%;
-                height: 2.5rem;            /* Footer height */
-                color: black;
-                background-color: white;
-            }
-            #Instructor_Login {
-                background-color: blue; /* Green */
-                border: none;
-                color: black;
-                padding: 16px 32px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                margin: 4px 2px;
-                -webkit-transition-duration: 0.4s; /* Safari */
-                transition-duration: 0.4s;
-                cursor: pointer;
-                position: right;
-            }
-            p {
-                color: black;
-                font-size: 14px;
-            }
-            li {
-                color: black;
-                font-size: 14px;
-            }
+        h1, h3 {
+            text-align: center;
         }
-        @media (prefers-color-scheme: no-preference) {
-            input[type='first name'] {
-                width: 150px;
-                box-sizing: border-box;
-                border-radius: 4px;
-                border-color: blue;
-                font-size: 16px;
-                background-color: white;
-                background-position: 10px 10px; 
-                background-repeat: no-repeat;
-                padding: 12px 20px 12px 40px;
-                -webkit-transition: width 0.4s ease-in-out;
-                transition: width 0.4s ease-in-out;
-                padding-left: 10px;
-                padding-bottom: 10px;
-            }
-            input[type='last name'] {
-                width: 150px;
-                box-sizing: border-box;
-                border-radius: 4px;
-                font-size: 16px;
-                border-color: blue;
-                background-color: white;
-                background-position: 10px 10px; 
-                background-repeat: no-repeat;
-                padding: 12px 20px 12px 40px;
-                -webkit-transition: width 0.4s ease-in-out;
-                transition: width 0.4s ease-in-out;
-                padding-left: 10px;
-                padding-bottom: 10px;
-            }
-            input[type='email'] {
-                width: 220px;
-                box-sizing: border-box;
-                border-radius: 4px;
-                font-size: 16px;
-                border-color: blue;
-                background-color: white;
-                background-position: 10px 10px; 
-                background-repeat: no-repeat;
-                padding: 12px 20px 12px 40px;
-                -webkit-transition: width 0.4s ease-in-out;
-                transition: width 0.4s ease-in-out;
-                padding-left: 10px;
-                padding-bottom: 10px;
-            }
-            [type=submit] {
-                background-color: blue; /* Green */
-                border: none;
-                color: black;
-                padding: 16px 32px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                margin: 4px 2px;
-                -webkit-transition-duration: 0.4s; /* Safari */
-                transition-duration: 0.4s;
-                cursor: pointer;
-            }
-            label {
-                color: black;
-                font-size: 20px;
-                padding-left: 10px;
-                padding-bottom: 10px;
-            }
-            h1 {
-                text-align: center;
-                color: blue;
-                background-color: white;
-            }
-            head {
-                background-color: white;
-            }
-            body {
-                background-color: white;
-                font-size: 16px;
-                color: black;
-            }
-            p {
-                color: black;
-                font-size: 14px;
-            }
-            li {
-                color: black;
-                font-size: 14px;
-            }
+        p {
+            color: black;
+            font-size: 14px;
+        }
+        li {
+            font-size: 14px;
+        }
+        form > div {
+            margin-bottom: 20px;
+        }
+
+        button, label, select {
+            display: block;
+            font-size: 100%;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            width: 100%;
+            padding: 5px;
+            height: 30px;
+        }
+
+        input[type="first name"], input[type="last name"], input[type="email"], input[type="submit"] {
+            display: block;
+            font-size: 100%;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            width: 100%;
+            padding: 5px;
+            height: 30px;
+        }
+
+        select {
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .select-wrapper {
+            position: relative;
+        }
+
+        .select-wrapper::after {
+            content: "▼";
+            font-size: 1rem;
+            top: 6px;
+            right: 10px;
+            position: absolute;
+        }
+
+        input[type="text"], select {
+            box-shadow: inset 1px 1px 3px #ccc;
+            border-radius: 5px;
+        }
+
+        label {
+            margin-bottom: 5px;
+        }
+
+        button {
+            width: 60%;
+            margin: 0 auto;
+        }
+        label{
+            font-weight: bold;
+        }
+        p {
+            font-size: 16px;
+        }
+        .desc {
+            font-size: 14px;
+            display: inline;
+            font-weight: normal;
+        }
+        .item {
+            display: block; 
+            padding: 5px;
+        }
+        input[type="radio"] {
+            display: inline;
         }
     </style>
     <head>
         <h1>Basics Belt Testing Signup</h1>
-        <p>Basic testing times are available at the school at the below times. There are only 20 spots available for each testing slot, so only testing times with available slots are shown.</p>
-        <p>*If you are not comfortable with testing at the school, Virtual Testing will be held from June 24th through July 1st via Zoom. If you would like to schedule a Virtual Test, go to the EMA app and select&nbsp;<em>Testing Signup</em>, then select <em>Virtual Testing</em>.</p>
+        <p>Basic testing times are available at the school at the below times. There are only 25 spots available for each testing slot, so only testing times with available slots are shown.</p>
+        <p>*If you are not comfortable with testing at the school, Virtual Testing will be held on Thursday, October 1st from 4:00 - 8:00 via Zoom. If you would like to schedule a Virtual Test, go to the EMA app and select&nbsp;<em>Testing Signup</em>, then select <em>Virtual Testing</em>.</p>
         <p><strong>BASIC TESTING TIMES</strong></p>
         <ul>
-        <li>June 25
-        <ul>
-        <li>10:00 AM</li>
-        <li>11:00 AM</li>
-        <li>12:00 PM</li>
-        <li>6:30 PM</li>
-        </ul>
-        </li>
-        <li>June 30
-        <ul>
-        <li>10:00 AM</li>
-        </ul>
-        </li>
-        <li>July 1
-        <ul>
-        <li>10:00 AM</li>
-        </ul>
-        </li>
+            <li>Monday, September 28th
+                <ul>
+                    <li>5:30 PM &mdash; 6:15 PM</li>
+                </ul>
+            </li>
+            <li>Tuesday, September 29th
+                <ul>
+                    <li>5:30 PM &mdash; 6:15 PM</li>
+                </ul>
+            </li>
+            <li>Thursday, October 1st (Virtual Test Via Zoom)
+                <ul>
+                    <li>4:00 PM &mdash; 8:00 PM</li>
+                </ul>
+            </li>
         </ul>
     </head>
     <body>
         <form onsubmit="return ValidateForm()" name="Form" action="/store/testing_signup_basic" method="POST">
-            <label>First Name: </label><input type="first name" name="fname" id="fname" pattern="[A-z]{1}[A-z ]+" value="<%= fname %>"><br>
-            <label>Last Name: </label><input type="last name" name="lname" id="lname" pattern="[A-z]{1}[A-z ]+" value="<%= lname %>"><br>
-            <label>Email: </label><input type="email" name="email" id="email" pattern="[A-z0-9.]+[@][A-z0-9]{1,}[.]+[A-z]{2,}" value="<%= email %>"><br>
-            <label>Belt Rank: </label>
+            <div>
+                <label for="fname">First Name: </label>
+                <input type="first name" name="fname" id="fname" pattern="[A-z]{1}[A-z ]+" value="<%= fname %>" required placeholder="First Name">
+            </div>
+            <div>
+                <label for="lname">Last Name: </label>
+                <input type="last name" name="lname" id="lname" pattern="[A-z]{1}[A-z ]+" value="<%= lname %>" required placeholder="Last Name">
+            </div>
+            <div>
+                <label for="email">Email: </label>
+                <input type="email" name="email" id="email" pattern="[A-z0-9.]+[@][A-z0-9]{1,}[.]+[A-z]{2,}" value="<%= email %>" required placeholder="Email">
+            </div>
+            <label>Current Belt Rank: </label>
+            <div class="select-wrapper">
                 <select name="belts" id="belts">
                     <option value="White">White Belt</option>
                     <option value="Gold">Gold Belt</option>
-                </select><br>
+                </select>
+            </div><br>
             <label>Testing Days and Times:</label><br>
             <% if (data) {%>
                 <% data.forEach(function(item){ %>
-                    <pre>   <input type="radio" id="day_time" name="day_time" value="<%= item.month_name %> <%= item.day_number %> at <%= item.time_num %>"> <%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> (<%= 20 - item.count %> spot(s) remaining).</pre>
+                    <div class="item">
+                        <input type="radio" id="<%= item.id %>" name="day_time" value="<%= item.id %> <%= item.month_name %> <%= item.day_number %> at <%= item.time_num %>"><%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> (<%= 25 - item.count %> spot(s) remaining).
+                    </div>
                 <% }) %>
             <% } %>
             <input type="submit" name="Preview" value="Preview"/>
@@ -374,7 +166,7 @@
         var lname = document.getElementById('lname');
         var email = document.getElementById('email');
         var rank = document.getElementById('belts');
-        var day = document.getElementById('day_time');
+        var day = document.getElementsByClassName('day_time');
         if (fname == null || fname == ""){
             alert("First name is required and must contain at least two letters.");
             return false;
