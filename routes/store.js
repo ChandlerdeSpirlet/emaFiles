@@ -296,14 +296,14 @@ app.post('/preview_month2a/(:full_name)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', func
         var total_score = Number(req.params.jj) + Number(req.params.pu) + Number(req.params.su) + Number(req.params.mtn_cl) + Number(req.params.fk);
         console.log("Full name is " + item.full_name);
         var query = "insert into progress_check (first_name, last_name, student_name, total_score_1, total_score_2) values ('No', 'Month 1', $1, 0, $2) on conflict (student_name) do update set total_score_2 = $3";
-        db.none(query, [req.params.full_name, total_score, total_score])
+        db.none(query, [item.full_name, total_score, total_score])
             .then(function(row){
                 console.log('in .then');
                 var items = ['Nice job', 'Way to go', 'Awesome', 'Super cool', 'Looks great', 'Good job', 'Fantastic', 'Fantastic job', 'Awesome job', "That's karate-choppin'"];
-                var item = items[Math.floor(Math.random() * items.length)];
+                var comp = items[Math.floor(Math.random() * items.length)];
                 res.render('store/good_job_month2', {
-                    comp: item,
-                    stud_name: req.params.stud_name,
+                    comp: comp,
+                    stud_name: item.stud_name,
                     tot_score: total_score
                 });
             })
