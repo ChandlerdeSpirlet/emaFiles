@@ -1,4 +1,5 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Progress Check Month 2 &mdash; Preview</title>
 <style>
     * {
         box-sizing: border-box;
@@ -41,6 +42,9 @@
     h1 {
         text-align: center;
     }
+    label {
+        font-style: italic;
+    }
 </style>
 <html>
     <head>
@@ -50,12 +54,12 @@
         <div id="page-container">
             <div id="content-wrap">
                 <h2>You have entered the following information</h2>
-                <h3>Student Name: <label><%= full_name %></label></h3>
-                <h3>Jumping Jacks: <label><%= jj %></label></h3>
-                <h3>Push-ups: <label><%= pu %></label></h3>
-                <h3>Sit-ups: <label><%= mtn_cl %></label></h3>
-                <h3>Mountain Climbers: <label><%= su %></label></h3>
-                <h3>Front Kicks: <label><%= fk %></label></h3>
+                <h3>Student Name: </h3><label><%= full_name %></label>
+                <h3>Jumping Jacks: </h3><label><%= jj %></label>
+                <h3>Push-ups: </h3><label><%= pu %></label>
+                <h3>Sit-ups: </h3><label><%= mtn_cl %></label>
+                <h3>Mountain Climbers: </h3><label><%= su %></label>
+                <h3>Front Kicks: </h3><label><%= fk %></label>
                 <br>
                 <p>If this looks correct, click <i>Submit</i>, otherwise, click <i>Edit</i></p>
                 <form action="/store/preview_month2a/<%= full_name %>/<%= jj %>/<%= pu %>/<%= su %>/<%= mtn_cl %>/<%= fk %>" method="post">
@@ -66,6 +70,7 @@
                     <input type="hidden" name="mtn_cl" value="<%= mtn_cl %>"/>
                     <input type="hidden" name="fk" value="<%= fk %>"/>
                     <input type="submit" name="button" value="Submit"/>
+                    <br>
                     <input type="submit" name="button" value="Edit"/>
                 </form>
             </div>
