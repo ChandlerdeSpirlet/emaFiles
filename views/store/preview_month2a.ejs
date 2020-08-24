@@ -1,181 +1,45 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-    @media (prefers-color-scheme: dark){
-        * {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        background-color: black;
-        }
-        h1 {
-            color: blue;
-            text-shadow: white 1px 1px 2px;
-        }
-        body{
-            background-color: black;
-        }
-        label{
-            color: white;
-            font-size: 16px;
-        }   
-        [type=submit] {
-            background-color: blue; /* Green */
-            border: none;
-            color: white;
-            padding: 16px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            -webkit-transition-duration: 0.4s; /* Safari */
-            transition-duration: 0.4s;
-            cursor: pointer;
-        }
-        h2 {
-            color: blue;
-        }
-        h3 {
-            color: blue;
-            font-size: 18px;
-            font-weight: bold;
-        }
-        p {
-            color: white;
-        }
-        #page-container {
-            position: relative;
-            min-height: 90vh;
-        }
-
-        #content-wrap {
-            padding-bottom: 2.5rem;    /* Footer height */
-        }
-
-        #footer {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 2.5rem;            /* Footer height */
-            color: white;
-            background-color: black;
-        }
+    * {
+        box-sizing: border-box;
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     }
-    @media (prefers-color-scheme: light){
-        * {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        background-color: white;
-        }
-        h1 {
-            color: blue;
-            text-shadow: black 1px 1px 2px;
-        }
-        body{
-            background-color: white;
-        }
-        label{
-            color: black;
-            font-size: 16px;
-        }   
-        [type=submit] {
-            background-color: blue; /* Green */
-            border: none;
-            color: black;
-            padding: 16px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            -webkit-transition-duration: 0.4s; /* Safari */
-            transition-duration: 0.4s;
-            cursor: pointer;
-        }
-        h2 {
-            color: blue;
-        }
-        h3 {
-            color: blue;
-            font-size: 18px;
-            font-weight: bold;
-        }
-        p {
-            color: black;
-        }
-        #page-container {
-            position: relative;
-            min-height: 90vh;
-        }
-
-        #content-wrap {
-            padding-bottom: 2.5rem;    /* Footer height */
-        }
-
-        #footer {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 2.5rem;            /* Footer height */
-            color: black;
-            background-color: white;
-        }
+    html {
+        min-height: 100%;
+        background-image: linear-gradient(#0095ff, #9ed7ff);
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
     }
-    @media (prefers-color-scheme: no-preference){
-        * {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        background-color: white;
-        }
-        h1 {
-            color: blue;
-            text-shadow: black 1px 1px 2px;
-        }
-        body{
-            background-color: white;
-        }
-        label{
-            color: black;
-            font-size: 16px;
-        }   
-        [type=submit] {
-            background-color: blue; /* Green */
-            border: none;
-            color: black;
-            padding: 16px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            -webkit-transition-duration: 0.4s; /* Safari */
-            transition-duration: 0.4s;
-            cursor: pointer;
-        }
-        h2 {
-            color: blue;
-        }
-        h3 {
-            color: blue;
-            font-size: 18px;
-            font-weight: bold;
-        }
-        p {
-            color: black;
-        }
-        #page-container {
-            position: relative;
-            min-height: 90vh;
-        }
-
-        #content-wrap {
-            padding-bottom: 2.5rem;    /* Footer height */
-        }
-
-        #footer {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 2.5rem;            /* Footer height */
-            color: black;
-            background-color: white;
-        }
+    #page-container {
+        position: relative;
+        min-height: 90vh;
+    }
+    #content-wrap {
+        padding-bottom: 2.5rem;
+    }
+    #footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 2.5rem;
+    }
+    button, label, input, select {
+        display: block;
+        font-size: 100%;
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        width: 100%;
+        padding: 5px;
+        height: 30px;
+    }
+    p {
+        font-size: 16px;
+    }
+    h1 {
+        text-align: center;
     }
 </style>
 <html>

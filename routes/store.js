@@ -219,7 +219,7 @@ app.get('/student_progress_check_month2', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/student_progress_check')
     } else {
-        var query = 'select * from get_names()';
+        var query = "select * from get_names() where get_names != 'No Month 1'";
         db.query(query)
             .then(function(rows){
                 res.render('store/student_progress_check_month2', {
@@ -245,7 +245,7 @@ app.post('/student_progress_check_month2', function(req, res){
         fk: req.sanitize('fk').trim() 
     }
         var redir_link = '/store/preview_month2a/' + item.full_name +'/' + item.jj + '/' + item.pu + '/' + item.mtn_cl + '/' + item.su + '/' + item.fk;
-    res.redirect(redir_link);
+        res.redirect(redir_link);
 });
 
 app.get('/preview_month2a/(:full_name)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', function(req, res){
@@ -332,7 +332,7 @@ app.post('/preview_month2a/(:full_name)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', func
             })
     }
     if (item.button == 'Edit'){
-        var query = 'select * from get_names()';
+        var query = "select * from get_names() where get_names != 'No Month 1'";
         db.query(query)
             .then(function(rows){
                 res.render('store/student_progress_check_month2', {
