@@ -55,14 +55,14 @@
     <body>
         <div id="page-container">
             <div id="content-wrap">
-                <label>Student Name: </label><p><%= full_name %></p>
-                <label>Jumping Jacks: </label><p><%= jj %></p>
-                <label>Push-ups: </label><p><%= pu %></p>
-                <label>Sit-ups: </label><p><%= mtn_cl %></p>
-                <label>Mountain Climbers: </label><p><%= su %></p>
-                <label>Front Kicks: </label><p><%= fk %></p>
+                <b style="font-size: 22px;">Student Name: </b><em style="font-size:16px;"><%= full_name %></em>
+                <b style="font-size: 22px;">Jumping Jacks: </b><em style="font-size:16px;"><%= jj %></em>
+                <b style="font-size: 22px;">Push-ups: </b><em style="font-size:16px;"><%= pu %></em>
+                <b style="font-size: 22px;">Sit-ups: </b><em style="font-size:16px;"><%= mtn_cl %></em>
+                <b style="font-size: 22px;">Mountain Climbers: </b><em style="font-size:16px;"><%= su %></em>
+                <b style="font-size: 22px;">Front Kicks: </b><em style="font-size:16px;"><%= fk %></em>
                 <br>
-                <p style="font-style: normal">If this looks correct, click <i>Submit</i>, otherwise, click <i>Edit</i></p>
+                <p style="font-style: normal; font-size:16px;">If this looks correct, click <i>Submit</i>, otherwise, click <i>Edit</i></p>
                 <form action="/store/preview_month2a/<%= full_name %>/<%= jj %>/<%= pu %>/<%= su %>/<%= mtn_cl %>/<%= fk %>" method="post">
                     <input type="hidden" name="stud_name" value="<%= full_name %>"/>
                     <input type="hidden" name="jj" value="<%= jj %>"/>
