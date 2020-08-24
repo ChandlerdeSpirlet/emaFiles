@@ -297,7 +297,7 @@ app.post('/preview_month2a/(:full_name)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', func
         console.log("Full name is " + item.full_name);
         var full_name = item.full_name;
         var query = "insert into progress_check (first_name, last_name, student_name, total_score_1, total_score_2) values ('No', 'Month 1', $1, 0, $2) on conflict (student_name) do update set total_score_2 = $3";
-        db.none(query, [item.full_name, total_score, total_score])
+        db.none(query, [req.params.full_name, total_score, total_score])
             .then(function(row){
                 console.log('in .then');
                 var items = ['Nice job', 'Way to go', 'Awesome', 'Super cool', 'Looks great', 'Good job', 'Fantastic', 'Fantastic job', 'Awesome job', "That's karate-choppin'"];
