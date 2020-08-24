@@ -38,12 +38,14 @@
     }
     p {
         font-size: 16px;
+        font-style: italic;
     }
     h1 {
         text-align: center;
     }
     label {
-        font-style: italic;
+        font-weight: bold;
+        font-size: 22px;
     }
 </style>
 <html>
@@ -53,15 +55,14 @@
     <body>
         <div id="page-container">
             <div id="content-wrap">
-                <h2>You have entered the following information</h2>
-                <h3>Student Name: </h3><label><%= full_name %></label>
-                <h3>Jumping Jacks: </h3><label><%= jj %></label>
-                <h3>Push-ups: </h3><label><%= pu %></label>
-                <h3>Sit-ups: </h3><label><%= mtn_cl %></label>
-                <h3>Mountain Climbers: </h3><label><%= su %></label>
-                <h3>Front Kicks: </h3><label><%= fk %></label>
+                <label>Student Name: </label><p><%= full_name %></p>
+                <label>Jumping Jacks: </label><p><%= jj %></p>
+                <label>Push-ups: </label><p><%= pu %></p>
+                <label>Sit-ups: </label><p><%= mtn_cl %></p>
+                <label>Mountain Climbers: </label><p><%= su %></p>
+                <label>Front Kicks: </label><p><%= fk %></p>
                 <br>
-                <p>If this looks correct, click <i>Submit</i>, otherwise, click <i>Edit</i></p>
+                <p style="font-style: normal">If this looks correct, click <i>Submit</i>, otherwise, click <i>Edit</i></p>
                 <form action="/store/preview_month2a/<%= full_name %>/<%= jj %>/<%= pu %>/<%= su %>/<%= mtn_cl %>/<%= fk %>" method="post">
                     <input type="hidden" name="stud_name" value="<%= full_name %>"/>
                     <input type="hidden" name="jj" value="<%= jj %>"/>
