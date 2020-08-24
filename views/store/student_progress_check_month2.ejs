@@ -3,7 +3,6 @@
     <p style="color:red"><%- messages.error %></p>
 <% } %>
 <html>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Month 2 Progress Check</title>
     <style>
         * {
@@ -11,6 +10,7 @@
             font-family: -apple-system, BlinkMacSystemFont, sans-serif;
         }
         html {
+            min-height: 100%;
             background-image: linear-gradient(#0095ff, #9ed7ff);
             -webkit-background-size: cover;
             -moz-background-size: cover;
@@ -34,7 +34,6 @@
             float: left;
             width: 50%;
             padding: 10px;
-            background-color: black;
         }
         /* Clear floats after the columns */
         .row:after {
