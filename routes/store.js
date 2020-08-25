@@ -1576,7 +1576,7 @@ app.post('/1degree_signup', function(req, res){ //pass through to a page with th
         req.flash('error', 'Make sure to select at least one class.');
         res.redirect('1degree_signup');
     } else {
-        const redir_link = '/store/process_classes/' + req.params.fname + '/' + req.params.lname + '/' + req.params.email + '/' + belt_group + '/' + item.day_time;
+        const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + item.day_time;
         res.redirect(redir_link);
     }
 });
