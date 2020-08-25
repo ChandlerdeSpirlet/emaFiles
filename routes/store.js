@@ -1576,7 +1576,7 @@ app.post('/1degree_signup', function(req, res){ //pass through to a page with th
         req.flash('error', 'Make sure to select at least one class.');
         res.redirect('1degree_signup');
     } else {
-        var redir_link = '/store/update_count/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + item.day_time;
+        const redir_link = '/store/process_classes/' + req.params.fname + '/' + req.params.lname + '/' + req.params.email + '/' + belt_group + '/' + item.day_time;
         res.redirect(redir_link);
     }
 });
@@ -1592,7 +1592,7 @@ app.post('/2degree_signup', function(req, res){ //pass through to a page with th
         req.flash('error', 'Make sure to select at least one class.');
         res.redirect('2degree_signup');
     }
-    var redir_link = '/store/update_count/' + item.fname + '/' + item.lname + '/' + item.email + '/Black Belt/' + item.day_time;
+    const redir_link = '/store/process_classes/' + req.params.fname + '/' + req.params.lname + '/' + req.params.email + '/' + 'Black Belt Test' + '/' + item.day_time;
     res.redirect(redir_link);
     /*
     getInfo = parseClassInfo(item.day_time);
@@ -1646,6 +1646,7 @@ app.get('/process_classes/(:fname)/(:lname)/(:email)/(:belt_group)/(:id_set)', f
     var id_set = parseID(req.params.id_set);
     console.log('id_set after parse in process is ' + id_set);
     id_set.forEach(element => { 
+        var temp_class_check = req.params.email.toLowerCase() + element.toString();
         db.none(query_classes, [req.params.fname, req.params.lname, req.params.belt_group, req.params.email, element, element, element])
             .then(function(row){
                 console.log('Added class with id ' + element);
@@ -1655,12 +1656,6 @@ app.get('/process_classes/(:fname)/(:lname)/(:email)/(:belt_group)/(:id_set)', f
             })
     }); 
     
-    /* TODO
-     * Create switch statement for different number of class ids
-     * Run data from preview page to update_count
-     * Redesign good job pages to have one color (also, announce no emails)
-     * Add <title> to signup, preview, and good job pages
-     */
     switch(id_set.length){
         case 1:
             var end_query = "select distinct on (id_from_other) to_char(test_day, 'Month') as class_month, to_char(test_day, 'dd') as class_day, test_time from class_signups where id_from_other = $1;";
@@ -1758,7 +1753,7 @@ app.post('/dragons_signup', function(req, res){ //pass through to a page with th
         day_time: req.sanitize('day_time')
     }
     belt_group = 'Little Dragons';
-    var redir_link = '/store/update_count/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + item.day_time;
+    const redir_link = '/store/process_classes/' + req.params.fname + '/' + req.params.lname + '/' + req.params.email + '/' + belt_group + '/' + item.day_time;
     res.redirect(redir_link);
 });
 
@@ -1770,7 +1765,7 @@ app.post('/basic_signup', function(req, res){ //pass through to a page with the 
         day_time: req.sanitize('day_time')
     }
     belt_group = 'Basic';
-    var redir_link = '/store/update_count/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + item.day_time;
+    const redir_link = '/store/process_classes/' + req.params.fname + '/' + req.params.lname + '/' + req.params.email + '/' + belt_group + '/' + item.day_time;
     res.redirect(redir_link);
 });
 
@@ -1782,7 +1777,7 @@ app.post('/level1_signup', function(req, res){ //pass through to a page with the
         day_time: req.sanitize('day_time')
     }
     belt_group = 'Level 1';
-    var redir_link = '/store/update_count/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + item.day_time;
+    const redir_link = '/store/process_classes/' + req.params.fname + '/' + req.params.lname + '/' + req.params.email + '/' + belt_group + '/' + item.day_time;
     res.redirect(redir_link);
 });
 
@@ -1794,7 +1789,7 @@ app.post('/level2_signup', function(req, res){ //pass through to a page with the
         day_time: req.sanitize('day_time')
     }
     belt_group = 'Level 2';
-    var redir_link = '/store/update_count/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + item.day_time;
+    const redir_link = '/store/process_classes/' + req.params.fname + '/' + req.params.lname + '/' + req.params.email + '/' + belt_group + '/' + item.day_time;
     res.redirect(redir_link);
 });
 
@@ -1806,7 +1801,7 @@ app.post('/level3_signup', function(req, res){ //pass through to a page with the
         day_time: req.sanitize('day_time')
     }
     belt_group = 'Level 3';
-    var redir_link = '/store/update_count/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + item.day_time;
+    const redir_link = '/store/process_classes/' + req.params.fname + '/' + req.params.lname + '/' + req.params.email + '/' + belt_group + '/' + item.day_time;
     res.redirect(redir_link);
 });
 
@@ -1818,7 +1813,7 @@ app.post('/prep_signup', function(req, res){ //pass through to a page with the i
         day_time: req.sanitize('day_time')
     }
     belt_group = 'Prep Cycle';
-    var redir_link = '/store/update_count/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + item.day_time;
+    const redir_link = '/store/process_classes/' + req.params.fname + '/' + req.params.lname + '/' + req.params.email + '/' + belt_group + '/' + item.day_time;
     res.redirect(redir_link);
 });
 
@@ -1830,7 +1825,7 @@ app.post('/weapons_signup', function(req, res){ //pass through to a page with th
         day_time: req.sanitize('day_time')
     }
     belt_group = 'Weapons';
-    var redir_link = '/store/update_count/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + item.day_time;
+    const redir_link = '/store/process_classes/' + req.params.fname + '/' + req.params.lname + '/' + req.params.email + '/' + belt_group + '/' + item.day_time;
     res.redirect(redir_link);
 });
 
@@ -1842,7 +1837,7 @@ app.post('/open_mat_signup', function(req, res){ //pass through to a page with t
         day_time: req.sanitize('day_time')
     }
     belt_group = 'Open Mat';
-    var redir_link = '/store/update_count/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + item.day_time;
+    const redir_link = '/store/process_classes/' + req.params.fname + '/' + req.params.lname + '/' + req.params.email + '/' + belt_group + '/' + item.day_time;
     res.redirect(redir_link);
 });
 
