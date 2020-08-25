@@ -1753,7 +1753,7 @@ app.post('/dragons_signup', function(req, res){ //pass through to a page with th
         day_time: req.sanitize('day_time')
     }
     belt_group = 'Little Dragons';
-    const redir_link = '/store/process_classes/' + req.params.fname + '/' + req.params.lname + '/' + req.params.email + '/' + belt_group + '/' + item.day_time;
+    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + item.day_time;
     res.redirect(redir_link);
 });
 
@@ -1765,7 +1765,7 @@ app.post('/basic_signup', function(req, res){ //pass through to a page with the 
         day_time: req.sanitize('day_time')
     }
     belt_group = 'Basic';
-    const redir_link = '/store/process_classes/' + req.params.fname + '/' + req.params.lname + '/' + req.params.email + '/' + belt_group + '/' + item.day_time;
+    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + item.day_time;
     res.redirect(redir_link);
 });
 
@@ -1777,7 +1777,7 @@ app.post('/level1_signup', function(req, res){ //pass through to a page with the
         day_time: req.sanitize('day_time')
     }
     belt_group = 'Level 1';
-    const redir_link = '/store/process_classes/' + req.params.fname + '/' + req.params.lname + '/' + req.params.email + '/' + belt_group + '/' + item.day_time;
+    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + item.day_time;
     res.redirect(redir_link);
 });
 
@@ -1789,7 +1789,7 @@ app.post('/level2_signup', function(req, res){ //pass through to a page with the
         day_time: req.sanitize('day_time')
     }
     belt_group = 'Level 2';
-    const redir_link = '/store/process_classes/' + req.params.fname + '/' + req.params.lname + '/' + req.params.email + '/' + belt_group + '/' + item.day_time;
+    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + item.day_time;
     res.redirect(redir_link);
 });
 
@@ -1801,7 +1801,7 @@ app.post('/level3_signup', function(req, res){ //pass through to a page with the
         day_time: req.sanitize('day_time')
     }
     belt_group = 'Level 3';
-    const redir_link = '/store/process_classes/' + req.params.fname + '/' + req.params.lname + '/' + req.params.email + '/' + belt_group + '/' + item.day_time;
+    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + item.day_time;
     res.redirect(redir_link);
 });
 
@@ -1813,7 +1813,7 @@ app.post('/prep_signup', function(req, res){ //pass through to a page with the i
         day_time: req.sanitize('day_time')
     }
     belt_group = 'Prep Cycle';
-    const redir_link = '/store/process_classes/' + req.params.fname + '/' + req.params.lname + '/' + req.params.email + '/' + belt_group + '/' + item.day_time;
+    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + item.day_time;
     res.redirect(redir_link);
 });
 
@@ -1825,7 +1825,7 @@ app.post('/weapons_signup', function(req, res){ //pass through to a page with th
         day_time: req.sanitize('day_time')
     }
     belt_group = 'Weapons';
-    const redir_link = '/store/process_classes/' + req.params.fname + '/' + req.params.lname + '/' + req.params.email + '/' + belt_group + '/' + item.day_time;
+    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + item.day_time;
     res.redirect(redir_link);
 });
 
@@ -1837,7 +1837,7 @@ app.post('/open_mat_signup', function(req, res){ //pass through to a page with t
         day_time: req.sanitize('day_time')
     }
     belt_group = 'Open Mat';
-    const redir_link = '/store/process_classes/' + req.params.fname + '/' + req.params.lname + '/' + req.params.email + '/' + belt_group + '/' + item.day_time;
+    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + item.email + '/' + belt_group + '/' + item.day_time;
     res.redirect(redir_link);
 });
 
