@@ -5,7 +5,7 @@
     <p style="color:green"><%- messages.success %></p>
 <% } %>
 <html>
-    <title>Board Breaking Signup</title>
+    <title>Ninja Day Signup</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         * {
@@ -82,37 +82,19 @@
         }
     </style>
     <head>
-        <h1>Board Breaking Signup</h1>
+        <h1>Ninja Day Signup</h1>
         <h3>
             <ul style="text-align: center;">
                 <li>$25 per person</li>
-                <li>Bring a friend (non sibling) for <strong>FREE!!</strong></li>
-                <li>5 boards per person are included</li>
-                <li>Waiver must be signed for friend at the door</li>
+                <li>Pizza and Drinks are included</li>
+                <li>Bring your nerf gear and prepare for battle!!</li>
             </ul>
         </h3>
     </head>
     <body>
-        <p><strong>Board Breaking Workshop Times</strong></p>
+        <p><strong>Ninja Day Spots</strong></p>
         <ul>
-            <% if ((classes[0]) && (classes[1])) { %>
-                <li>Little Dragons / Basic / Level 1 &mdash; 5:00 PM (<%= 30 - classes[0].count %> spaces remaining)</li>
-                <li>Level 1 / Level 2 / Level 3 / Black Belt &mdash; 7:00 PM (<%= 30 - classes[1].count %> spaces remaining)</li>
-            <% } %>
-            <% if ((classes[0]) && (!classes[1])) { %>
-                <% if (classes[0].class_time == '5:00 PM') { %>
-                    <li>Little Dragons / Basic / Level 1 &mdash; 5:00 PM (<%= 30 - classes[0].count %> spaces remaining)</li>
-                    <li>Level 1 / Level 2 / Level 3 / Black Belt &mdash; 7:00 PM (0 spaces remaining)</li>
-                <% } %>
-                <% if (classes[0].class_time == '7:00 PM') { %>
-                    <li>Little Dragons / Basic / Level 1 &mdash; 5:00 PM (0 spaces remaining)</li>
-                    <li>Level 1 / Level 2 / Level 3 / Black Belt &mdash; 7:00 PM (<%= 30 - classes[0].count %> spaces remaining)</li>
-                <% } %>
-            <% } %>
-            <% if ((!classes[0]) && (!classes[1])){ %>
-                <li>Little Dragons / Basic / Level 1 &mdash; 5:00 PM (0 spaces remaining)</li>
-                <li>Level 1 / Level 2 / Level 3 / Black Belt &mdash; 7:00 PM (0 spaces remaining)</li>
-            <% } %>
+            <li>12:30 PM &mdash; 5:00 PM (<%= 30 - classes[0].count %> spaces remaining)</li>
         </ul>
         <br>
         <form action="/store/board_breaking_post" name="form" method="POST">
@@ -124,20 +106,15 @@
             <div>
                 <label for="select">Select time:</label>
                 <% if (classes[0]) { %>
-                <div class="select-wrapper"><select id="select" name="level" required placeholder="Student's level">
+                <div class="select-wrapper"><select id="select" name="level" required>
                         <% classes.forEach(function(item){ %>
-                            <option value="<%= item.class_time %>"><%= item.class_time %> &mdash; <%= item.class_name %></option>
+                            <option value="<%= item.class_time %>"><%= item.class_name %></option>
                         <% }) %>
                 </select>
                 <% } %>
                 <% if (!classes[0]) { %>
                     <p>No remaining spaces. Check back as more spaces may be added.</p>
                 <% } %>
-            </div>
-            <br>
-            <div>
-                <label for="buddy">Buddy:</label>
-                <input type="text" id="buddy" name="buddy" placeholder="Leave blank if no buddy">
             </div>
             <br>
             <div>
