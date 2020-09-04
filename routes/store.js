@@ -2531,53 +2531,31 @@ app.post('/board_breaking_post', function(req, res){
 
 app.get('/board_confirmed_processing/(:student_name)/(:time)/(:combined)', function(req, res){
     const signup_query = 'insert into board_breaking (student_name, class_time) values ($1, $2)';
-    if (req.params.buddy_name != 'NONE'){
-        db.any(signup_query, [req.params.student_name, req.params.buddy_name, req.params.time])
-            .then(function(rows){
-                console.log('in .then for signup');
-                const inc_count_query = 'update board_breaking_times set count = count + 2 where class_time = $1';
-                db.any(inc_count_query, [req.params.time])
-                    .then(function(rows){
-                        res.render('store/board_confirmed', {
-                            student_name: req.params.combined,
-                            class_time: req.params.time
-                        })
+    console.log('time is ' + req.params.time);
+    console.log('student_name is ' + req.params.student_name);
+    console.log('combined is ' + req.params.combined);
+    db.any(signup_query, [req.params.student_name, req.params.time])
+        .then(function(rows){
+            console.log('in .then for signup');
+            const inc_count_query = 'update board_breaking_times set count = count + 1 where class_time = $1';
+            db.any(inc_count_query, [req.params.time])
+                .then(function(rows){
+                    res.render('store/board_confirmed', {
+                        student_name: req.params.combined,
+                        class_time: req.params.time
                     })
-                    .catch(function(err){
-                        console.log('in .catch for inc_count ' + err);
-                        req.flash('error', 'Unable to increase count for class. Take a screenshot and contact a system admin. Error: ' + err);
-                        res.redirect('board_breaking');
-                    })
-            })
-            .catch(function(err){
-                console.log('in .catch for signup ' + err);
-                req.flash('Unable to signup for given time. Take a screenshot and contact a system admin. Error: ' + err);
-                res.redirect('board_breaking');
-            })
-    } else {
-        db.any(signup_query, [req.params.student_name, req.params.time])
-            .then(function(rows){
-                console.log('in .then for signup');
-                const inc_count_query = 'update board_breaking_times set count = count + 1 where class_time = $1';
-                db.any(inc_count_query, [req.params.time])
-                    .then(function(rows){
-                        res.render('store/board_confirmed', {
-                            student_name: req.params.combined,
-                            class_time: req.params.time
-                        })
-                    })
-                    .catch(function(err){
-                        console.log('in .catch for inc_count ' + err);
-                        req.flash('error', 'Unable to increase count for class. Take a screenshot and contact a system admin. Error: ' + err);
-                        res.redirect('board_breaking');
-                    })
-            })
-            .catch(function(err){
-                console.log('in .catch for signup ' + err);
-                req.flash('Unable to signup for given time. Take a screenshot and contact a system admin. Error: ' + err);
-                res.redirect('board_breaking');
-            })
-    }
+                })
+                .catch(function(err){
+                    console.log('in .catch for inc_count ' + err);
+                    req.flash('error', 'Unable to increase count for class. Take a screenshot and contact a system admin. Error: ' + err);
+                    res.redirect('board_breaking');
+                })
+        })
+        .catch(function(err){
+            console.log('in .catch for signup ' + err);
+            req.flash('Unable to signup for given time. Take a screenshot and contact a system admin. Error: ' + err);
+            res.redirect('board_breaking');
+        })
 });
 
 app.get('/board_confirmed', function(req, res){
