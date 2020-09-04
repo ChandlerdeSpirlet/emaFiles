@@ -2531,9 +2531,6 @@ app.post('/board_breaking_post', function(req, res){
 
 app.get('/board_confirmed_processing/(:student_name)/(:time)/(:combined)', function(req, res){
     const signup_query = 'insert into board_breaking (student_name, class_time) values ($1, $2)';
-    console.log('time is ' + req.params.time);
-    console.log('student_name is ' + req.params.student_name);
-    console.log('combined is ' + req.params.combined);
     db.any(signup_query, [req.params.student_name, req.params.time])
         .then(function(rows){
             console.log('in .then for signup');
