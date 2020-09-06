@@ -1641,14 +1641,15 @@ app.get('/update_count/(:fname)/(:lname)/(:email)/(:belt_group)/(:class_id)', fu
 });
 
 app.get('/process_classes/(:fname)/(:lname)/(:email)/(:belt_group)/(:id_set)', function(req, res){
-    const query_classes = 'insert into class_signups (first_name, last_name, belt, email, test_day, test_time, id_from_other) values ($1, $2, $3, $4, (select date_order from class_times where id = $5), (select time_num from class_times where id = $6), $7)';
+    const query_classes = 'insert into class_signups (first_name, last_name, belt, email, test_day, test_time, id_from_other, class_check) values ($1, $2, $3, $4, (select date_order from class_times where id = $5), (select time_num from class_times where id = $6), $7, $8) on conflict (class_check) do nothing;';
     console.log('id_set in process_classes is ' + req.params.id_set);
     var id_set = parseID(req.params.id_set);
     console.log('id_set after parse in process is ' + id_set);
     id_set.forEach(element => { 
-        var temp_class_check = req.params.email.toLowerCase() + element.toString();
-        db.none(query_classes, [req.params.fname, req.params.lname, req.params.belt_group, req.params.email, element, element, element])
+        var temp_class_check = req.params.fname.toLowerCase().replace(/\s/g, "") + req.params.lname.toLowerCase().replace(/\s/g, "") + element.toString();
+        db.none(query_classes, [req.params.fname, req.params.lname, req.params.belt_group, req.params.email, element, element, element, temp_class_check])
             .then(function(row){
+                console.log('row is ' + row);
                 console.log('Added class with id ' + element);
             })
             .catch(function(err){
