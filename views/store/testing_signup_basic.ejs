@@ -143,7 +143,7 @@
             </div>
             <label>Current Belt Rank: </label>
             <div class="select-wrapper">
-                <select name="belts" id="belts">
+                <select name="belts" id="belts" required>
                     <option value="White">White Belt</option>
                     <option value="Gold">Gold Belt</option>
                 </select>
@@ -152,7 +152,7 @@
             <% if (data) {%>
                 <% data.forEach(function(item){ %>
                     <div class="item">
-                        <input type="radio" id="<%= item.id %>" name="day_time" value="<%= item.id %> <%= item.month_name %> <%= item.day_number %> at <%= item.time_num %>"><%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> (<%= 25 - item.count %> spot(s) remaining).
+                        <input type="radio" id="<%= item.id %>" name="day_time" value="<%= item.id %> <%= item.month_name %> <%= item.day_number %> at <%= item.time_num %>" required><%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> (<%= 25 - item.count %> spot(s) remaining).
                     </div>
                 <% }) %>
             <% } %>
