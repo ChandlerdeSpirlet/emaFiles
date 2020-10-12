@@ -21,18 +21,20 @@
         "body-parser": "^1.19.0",
         "cookie-parser": "^1.4.5",
         "cors": "^2.8.5",
+        "dotenv": "^8.2.0",
         "ejs": "^2.7.4",
         "express": "^4.17.1",
         "express-flash": "0.0.2",
         "express-session": "^1.17.1",
         "express-validator": "^5.3.1",
-        "fast-csv": "^4.3.1",
+        "fast-csv": "^4.3.2",
         "fs": "0.0.1-security",
-        "json2csv": "^5.0.1",
+        "json2csv": "^5.0.3",
         "lodash": "^4.17.20",
-        "nodemailer": "^6.4.11",
-        "pg": "^8.3.2",
+        "nodemailer": "^6.4.13",
+        "pg": "^8.4.1",
         "pg-copy-streams": "^4.0.0",
-        "pg-promise": "^10.5.8"
+        "pg-promise": "^10.7.0",
+        "stripe": "^8.109.0"
     }
 }
