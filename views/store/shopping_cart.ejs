@@ -80,166 +80,137 @@
                 <label for="order_email">Email:</label>
                 <input type="text" id="order_email" name="order_email" required placeholder="Email">
             </div>
-            <table>
-                <tr>
-                    <th>Quantity</th>
-                    <th>Color</th>
-                    <th>Size</th>
-                </tr>
-                <tr>
-                    <td>
-                        Hoodie 1
-                    </td>
-                    <td>
-                        <div class="select-wrapper"><select id="select" name="quantity1" required>
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                        </select>
-                        <div class="select-wrapper"><select id="select" name="color1" required>
-                            <option value="None">None</option>
-                            <option value="Black">Black</option>
-                            <option value="White">White</option>
-                        </select>
-                        <div class="select-wrapper"><select id="select" name="size1" required>
-                            <option value="default">Choose Size</option>
-                            <optgroup label="Youth Sizes">
-                                <option value="Youth Small">Youth Small</option>
-                                <option value="Youth Medium">Youth Medium</option>
-                                <option value="Youth Large">Youth Large</option>
-                            </optgroup>
-                            <optgroup label="Adult Sizes">
-                                <option value="Adult Small">Adult Small</option>
-                                <option value="Adult Medium">Adult Medium</option>
-                                <option value="Adult Large">Adult Large</option>
-                                <option value="Adult X-Large">Adult X-Large</option>
-                                <option value="Adult XX-Large">Adult XX-Large</option>
-                            </optgroup>
-                        </select>
-                    </td>
-                </tr>
+            <div id="order1">
+                <h4>Hoodie 1</h4>
+                    <div class="select-wrapper"><select id="select" name="quantity1" required>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                    </select>
+                    <div class="select-wrapper"><select id="select" name="color1" required>
+                        <option value="None">None</option>
+                        <option value="Black">Black</option>
+                        <option value="White">White</option>
+                    </select>
+                    <div class="select-wrapper"><select id="select" name="size1" required>
+                        <option value="default">Choose Size</option>
+                        <optgroup label="Youth Sizes">
+                            <option value="Youth Small">Youth Small</option>
+                            <option value="Youth Medium">Youth Medium</option>
+                            <option value="Youth Large">Youth Large</option>
+                        </optgroup>
+                        <optgroup label="Adult Sizes">
+                            <option value="Adult Small">Adult Small</option>
+                            <option value="Adult Medium">Adult Medium</option>
+                            <option value="Adult Large">Adult Large</option>
+                            <option value="Adult X-Large">Adult X-Large</option>
+                            <option value="Adult XX-Large">Adult XX-Large</option>
+                        </optgroup>
+                    </select>
                 <button onclick="show2()">Add More</button>
-                <div id="order2" style="display: none;">
-                    <tr>
-                        <td>
-                            Hoodie 2
-                        </td>
-                        <td>
-                            <div class="select-wrapper"><select id="select" name="quantity2" required>
-                                <option value="0">0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                            </select>
-                            <div class="select-wrapper"><select id="select" name="color2" required>
-                                <option value="None">None</option>
-                                <option value="Black">Black</option>
-                                <option value="White">White</option>
-                            </select>
-                            <div class="select-wrapper"><select id="select" name="size2" required>
-                                <option value="default">Choose Size</option>
-                                <optgroup label="Youth Sizes">
-                                    <option value="Youth Small">Youth Small</option>
-                                    <option value="Youth Medium">Youth Medium</option>
-                                    <option value="Youth Large">Youth Large</option>
-                                </optgroup>
-                                <optgroup label="Adult Sizes">
-                                    <option value="Adult Small">Adult Small</option>
-                                    <option value="Adult Medium">Adult Medium</option>
-                                    <option value="Adult Large">Adult Large</option>
-                                    <option value="Adult X-Large">Adult X-Large</option>
-                                    <option value="Adult XX-Large">Adult XX-Large</option>
-                                </optgroup>
-                            </select>
-                        </td>
-                    </tr>
-                    <button onclick="show3()">Add More</button>
-                </div>
-                <div id="order3" style="display: none;">
-                    <tr>
-                        <td>
-                            Hoodie 3
-                        </td>
-                        <td>
-                            <div class="select-wrapper"><select id="select" name="quantity3" required>
-                                <option value="0">0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                            </select>
-                            <div class="select-wrapper"><select id="select" name="color3" required>
-                                <option value="None">None</option>
-                                <option value="Black">Black</option>
-                                <option value="White">White</option>
-                            </select>
-                            <div class="select-wrapper"><select id="select" name="size3" required>
-                                <option value="default">Choose Size</option>
-                                <optgroup label="Youth Sizes">
-                                    <option value="Youth Small">Youth Small</option>
-                                    <option value="Youth Medium">Youth Medium</option>
-                                    <option value="Youth Large">Youth Large</option>
-                                </optgroup>
-                                <optgroup label="Adult Sizes">
-                                    <option value="Adult Small">Adult Small</option>
-                                    <option value="Adult Medium">Adult Medium</option>
-                                    <option value="Adult Large">Adult Large</option>
-                                    <option value="Adult X-Large">Adult X-Large</option>
-                                    <option value="Adult XX-Large">Adult XX-Large</option>
-                                </optgroup>
-                            </select>
-                        </td>
-                    </tr>
+            </div>
+            <div id="order2" style="display: none;">
+                <h4>Hoodie 2</h4>>
+                    <div class="select-wrapper"><select id="select" name="quantity2" required>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                    </select>
+                    <div class="select-wrapper"><select id="select" name="color2" required>
+                        <option value="None">None</option>
+                        <option value="Black">Black</option>
+                        <option value="White">White</option>
+                    </select>
+                    <div class="select-wrapper"><select id="select" name="size2" required>
+                        <option value="default">Choose Size</option>
+                        <optgroup label="Youth Sizes">
+                            <option value="Youth Small">Youth Small</option>
+                            <option value="Youth Medium">Youth Medium</option>
+                            <option value="Youth Large">Youth Large</option>
+                        </optgroup>
+                        <optgroup label="Adult Sizes">
+                            <option value="Adult Small">Adult Small</option>
+                            <option value="Adult Medium">Adult Medium</option>
+                            <option value="Adult Large">Adult Large</option>
+                            <option value="Adult X-Large">Adult X-Large</option>
+                            <option value="Adult XX-Large">Adult XX-Large</option>
+                        </optgroup>
+                    </select>
+                <button onclick="show3()">Add More</button>
+            </div>
+            <div id="order3" style="display: none;">
+                <h4>Hoodie 3</h4>
+                    <div class="select-wrapper"><select id="select" name="quantity3" required>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                    </select>
+                    <div class="select-wrapper"><select id="select" name="color3" required>
+                        <option value="None">None</option>
+                        <option value="Black">Black</option>
+                        <option value="White">White</option>
+                    </select>
+                    <div class="select-wrapper"><select id="select" name="size3" required>
+                        <option value="default">Choose Size</option>
+                        <optgroup label="Youth Sizes">
+                            <option value="Youth Small">Youth Small</option>
+                            <option value="Youth Medium">Youth Medium</option>
+                            <option value="Youth Large">Youth Large</option>
+                        </optgroup>
+                        <optgroup label="Adult Sizes">
+                            <option value="Adult Small">Adult Small</option>
+                            <option value="Adult Medium">Adult Medium</option>
+                            <option value="Adult Large">Adult Large</option>
+                            <option value="Adult X-Large">Adult X-Large</option>
+                            <option value="Adult XX-Large">Adult XX-Large</option>
+                        </optgroup>
+                    </select>
                     <button onclick="show4()">Add More</button>
-                </div>
-                <div id="order4" style="display: none;">
-                    <tr>
-                        <td>
-                            Hoodie 4
-                        </td>
-                        <td>
-                            <div class="select-wrapper"><select id="select" name="quantity4" required>
-                                <option value="0">0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                            </select>
-                            <div class="select-wrapper"><select id="select" name="color4" required>
-                                <option value="None">None</option>
-                                <option value="Black">Black</option>
-                                <option value="White">White</option>
-                            </select>
-                            <div class="select-wrapper"><select id="select" name="size4" required>
-                                <option value="default">Choose Size</option>
-                                <optgroup label="Youth Sizes">
-                                    <option value="Youth Small">Youth Small</option>
-                                    <option value="Youth Medium">Youth Medium</option>
-                                    <option value="Youth Large">Youth Large</option>
-                                </optgroup>
-                                <optgroup label="Adult Sizes">
-                                    <option value="Adult Small">Adult Small</option>
-                                    <option value="Adult Medium">Adult Medium</option>
-                                    <option value="Adult Large">Adult Large</option>
-                                    <option value="Adult X-Large">Adult X-Large</option>
-                                    <option value="Adult XX-Large">Adult XX-Large</option>
-                                </optgroup>
-                            </select>
-                        </td>
-                    </tr>
-                </div>
-            </table>
+            </div>
+            <div id="order4" style="display: none;">
+                <h4>Hoodie 4</h4>>
+                    <div class="select-wrapper"><select id="select" name="quantity4" required>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                    </select>
+                    <div class="select-wrapper"><select id="select" name="color4" required>
+                        <option value="None">None</option>
+                        <option value="Black">Black</option>
+                        <option value="White">White</option>
+                    </select>
+                    <div class="select-wrapper"><select id="select" name="size4" required>
+                        <option value="default">Choose Size</option>
+                        <optgroup label="Youth Sizes">
+                            <option value="Youth Small">Youth Small</option>
+                            <option value="Youth Medium">Youth Medium</option>
+                            <option value="Youth Large">Youth Large</option>
+                        </optgroup>
+                        <optgroup label="Adult Sizes">
+                            <option value="Adult Small">Adult Small</option>
+                            <option value="Adult Medium">Adult Medium</option>
+                            <option value="Adult Large">Adult Large</option>
+                            <option value="Adult X-Large">Adult X-Large</option>
+                            <option value="Adult XX-Large">Adult XX-Large</option>
+                        </optgroup>
+                    </select>
+            </div>
             <div>
                 <input type="submit" name="Submit" value="Checkout"/>
             </div>
