@@ -76,10 +76,13 @@
             border-radius: 5px;
         }
     </style>
-    routes/storedFiles/ema-hoodie.png
-    <body>
+    <body>views/store/shopping_cart.ejs
         <h1>EMA Hoodie Order Form</h1>
-        <img src="/routes/storedFiles/ema-hoodie.png" alt="EMA Hoodie">
+        <img src="views/store/ema-hoodie.png" alt="EMA Hoodie">
+        <img src="/store/ema-hoodie.png" alt="store">
+        <img src="store/ema-hoodie.png" alt="no slash">
+        <img src="/ema-hoodie.png" alt="just png">
+        <img src="ema-hoodie.png" alt="no slash png">
         <form name="Form" action="/store/process_cart" method="POST">
             <div>
                 <label for="order_name">Name:</label>
@@ -120,13 +123,15 @@
                             <option value="Adult XX-Large">Adult XX-Large</option>
                         </optgroup>
                     </select>
-                <button onclick="show2()">Add More</button>
+                    <br>
+                    <button type="button" onclick="show2()">Add More</button>
+                    <br>
                 <div>
                     <input type="submit" name="Submit" id="checkout1" style="display: none;" value="Checkout"/>
                 </div>
             </div>
             <div id="order2" style="display: none;">
-                <h4>Hoodie 2</h4>>
+                <h4>Hoodie 2</h4>
                     <div class="select-wrapper"><select id="select" name="quantity2" required>
                         <option value="0">0</option>
                         <option value="1">1</option>
@@ -156,7 +161,9 @@
                             <option value="Adult XX-Large">Adult XX-Large</option>
                         </optgroup>
                     </select>
-                <button onclick="show3()">Add More</button>
+                <br>
+                <button type="button" onclick="show3()">Add More</button>
+                <br>
                 <div>
                     <input type="submit" name="Submit" id="checkout2" style="display: none;" value="Checkout"/>
                 </div>
@@ -192,7 +199,9 @@
                             <option value="Adult XX-Large">Adult XX-Large</option>
                         </optgroup>
                     </select>
-                    <button onclick="show4()">Add More</button>
+                    <br>
+                    <button type="button" onclick="show4()">Add More</button>
+                    <br>
                     <div>
                         <input type="submit" name="Submit" id="checkout3" style="display: none;" value="Checkout"/>
                     </div>
