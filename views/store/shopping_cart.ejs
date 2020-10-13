@@ -13,6 +13,12 @@
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, sans-serif;
         }
+        img {
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
         html {
             background-image: linear-gradient(#0095ff, #9ed7ff);
             -webkit-background-size: cover;
@@ -71,6 +77,8 @@
         }
     </style>
     <body>
+        <h1>EMA Hoodie Order Form</h1>
+        <img src="https://scontent.fapa1-1.fna.fbcdn.net/v/t1.0-9/121185484_10158652691288374_6371473402707957527_n.jpg?_nc_cat=111&_nc_sid=b9115d&_nc_ohc=CzjZAtiPWNAAX95tpxa&_nc_ht=scontent.fapa1-1.fna&oh=42d2aca6f101651f832eeb49a2e76eed&oe=5FAA9A15" alt="EMA Hoodie">
         <form name="Form" action="/store/process_cart" method="POST">
             <div>
                 <label for="order_name">Name:</label>
@@ -112,6 +120,9 @@
                         </optgroup>
                     </select>
                 <button onclick="show2()">Add More</button>
+                <div>
+                    <input type="submit" name="Submit" id="checkout1" style="display: none;" value="Checkout"/>
+                </div>
             </div>
             <div id="order2" style="display: none;">
                 <h4>Hoodie 2</h4>>
@@ -145,6 +156,9 @@
                         </optgroup>
                     </select>
                 <button onclick="show3()">Add More</button>
+                <div>
+                    <input type="submit" name="Submit" id="checkout2" style="display: none;" value="Checkout"/>
+                </div>
             </div>
             <div id="order3" style="display: none;">
                 <h4>Hoodie 3</h4>
@@ -178,6 +192,9 @@
                         </optgroup>
                     </select>
                     <button onclick="show4()">Add More</button>
+                    <div>
+                        <input type="submit" name="Submit" id="checkout3" style="display: none;" value="Checkout"/>
+                    </div>
             </div>
             <div id="order4" style="display: none;">
                 <h4>Hoodie 4</h4>>
@@ -212,7 +229,7 @@
                     </select>
             </div>
             <div>
-                <input type="submit" name="Submit" value="Checkout"/>
+                <input type="submit" name="Submit" id="checkout4" value="Checkout"/>
             </div>
         </form>
     </body>
@@ -222,6 +239,8 @@
         var x = document.getElementById("order2");
         if (x.style.display === "none") {
             x.style.display = "block";
+            document.getElementById("checkout1").style.display = "none";
+            document.getElementById("checkout2").style.display = "block";
         } else {
             x.style.display = "none";
         }
@@ -230,6 +249,8 @@
         var x = document.getElementById("order3");
         if (x.style.display === "none") {
             x.style.display = "block";
+            document.getElementById("checkout2").style.display = "none";
+            document.getElementById("checkout3").style.display = "block";
         } else {
             x.style.display = "none";
         }
@@ -238,6 +259,8 @@
         var x = document.getElementById("order4");
         if (x.style.display === "none") {
             x.style.display = "block";
+            document.getElementById("checkout3").style.display = "none";
+            document.getElementById("checkout4").style.display = "block";
         } else {
             x.style.display = "none";
         }
