@@ -8,6 +8,7 @@ var fs = require('fs');
 var nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 var db = require('../database');
+const stripe = require('stripe')('pk_test_51H75ScKv0edLDEqJAZ1I7MJA1JHPR2LDD4f6y1hmM636nzq8D6Cpc3SoDkIY1ZapQS1GVWBAhwHLpFRoIYuxdVqo00yokwK8lD');
 const cors = require('cors');
 const { to } = require('pg-copy-streams');
 app.use(cors())
@@ -2561,4 +2562,41 @@ app.get('/board_confirmed', function(req, res){
         student_name: '',
         class_time: ''
     })
+});
+
+app.post('/create-session-hoodie', async (req, res) => {
+    const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items: [
+            {
+                price_data: {
+                currency: 'usd',
+                product_data: {
+                    name: 'EMA Hoodie',
+                    description: '2020 EMA Hoodie',
+                    images: ['https://scontent.fapa1-1.fna.fbcdn.net/v/t1.0-9/121185484_10158652691288374_6371473402707957527_n.jpg?_nc_cat=111&_nc_sid=b9115d&_nc_ohc=s87FZ63TNKwAX9Dv8Ht&_nc_ht=scontent.fapa1-1.fna&oh=f6382a44ace51f3e269042529ba750b2&oe=5FAA9A15', 'https://scontent.fapa1-1.fna.fbcdn.net/v/t1.0-9/121239752_10158652691348374_2337616342705280587_n.jpg?_nc_cat=101&_nc_sid=b9115d&_nc_ohc=BRf6f4sxNccAX_lGh63&_nc_ht=scontent.fapa1-1.fna&oh=c5a4d7fdc585bb0c80c3d1677dafab61&oe=5FAB83B9'],
+                },
+                unit_amount: 2000,
+                },
+            quantity: 1,
+            },
+        ],
+        mode: 'payment',
+        success_url: `https://emafiles.herokuapp.com/store/success`,
+        cancel_url: `https://emafiles.herokuapp.com/store/cancel`,
+    });
+    res.json({ id: session.id });
+});
+
+app.get('/shopping_cart', function(req, res){
+    res.render('store/shopping_cart', {
+
+    })
+});
+
+app.post('/process_cart', function(req, res){
+    //process quantities 
+    //create orderID
+    //update orderID db once paid for successfully
+    //add quantities to db by combining size and color
 });
