@@ -2677,7 +2677,7 @@ app.get('/checkout/(:order_size)/(:price)/(:order_id)/(:order_desc)', function(r
 });
 
 //app.post('/create-session-hoodie/(:price)/(:order_id)/(:order_desc)', async (req, res) => {
-app.post('/create-session-hoodie', async (req, res => {
+app.post('/create-session-hoodie', async (req, res) => {
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
         line_items: [
