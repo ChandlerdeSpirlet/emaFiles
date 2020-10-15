@@ -107,7 +107,7 @@
     var checkoutButton = document.getElementById("checkout-button");
 
     checkoutButton.addEventListener("click", function () {
-        fetch("/create-session-hoodie/<%= price_actual %>/<%= order_id %>/<%= description %>", {
+        fetch("store/create-session-hoodie/<%= price_actual %>/<%= order_id %>/<%= description %>", {
             method: "POST",
         })
         .then(function (response) {
