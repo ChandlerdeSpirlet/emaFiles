@@ -2666,7 +2666,7 @@ app.get('/checkout/(:order_size)/(:price)/(:order_id)/(:order_desc)', function(r
     var first_half = temp.substring(0, temp.length - 2);
     var last_half = temp.substring(temp.length - 2, temp.length);
     const final = '$' + first_half + '.' + last_half;
-    res.render('checkout', {
+    res.render('store/checkout', {
         description: item_description,
         price: req.params.price,
         price_actual: req.params.price,
