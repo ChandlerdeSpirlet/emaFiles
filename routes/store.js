@@ -2692,7 +2692,6 @@ app.post('/create-session-hoodie/(:price)/(:order_id)/(:order_desc)', async (req
                 },
             quantity: 1,
             description: req.params.order_desc,//Build description
-            metadata: {'order id': req.params.order_id},
             },
         ],
         mode: 'payment',
