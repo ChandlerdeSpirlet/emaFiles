@@ -2564,7 +2564,117 @@ app.get('/board_confirmed', function(req, res){
     })
 });
 
-app.post('/create-session-hoodie', async (req, res) => {
+app.get('/shopping_cart', function(req, res){
+    res.render('store/shopping_cart', {
+
+    })
+});
+
+app.post('/process_cart', function(req, res){ //create array of sizes and color descriptions mix. Create order size variable to pass
+    //process quantities 
+    var order_size = 0;
+    order_desc = [];
+    var price = 0.0;
+    var item = {
+        order_name: req.sanitize('order_name').trim(),
+        order_email: req.sanitize('order_email').trim(),
+        quantity1: req.sanitize('quantity1'),
+        color1: req.sanitize('color1'),
+        size1: req.sanitize('size1'),
+        quantity2: req.sanitize('quantity2'),
+        color2: req.sanitize('color2'),
+        size2: req.sanitize('size2'),
+        quantity3: req.sanitize('quantity3'),
+        color3: req.sanitize('color3'),
+        size3: req.sanitize('size3'),
+        quantity4: req.sanitize('quantity4'),
+        color4: req.sanitize('color4'),
+        size4: req.sanitize('size4')
+    }
+    if (item.quantity1 != 0) {
+        order_size++;
+        order_desc.push(item.quantity1);
+        order_desc.push(item.size1);
+        order_desc.push(item.color1);
+        if ((item.size1 == 'youth_small') || (item.size1 == 'youth_medium') || (item.size1 == 'youth_large')){
+            price = price + (4000 * item.quantity1); //Represents $40 * quantity
+        } else {
+            price = price + (5500 * item.quantity1); //Represents $50 * quantity
+        }
+    }
+    if (item.quantity2 != 0) {
+        order_size++;
+        order_desc.push(item.quantity2);
+        order_desc.push(item.size2);
+        order_desc.push(item.color2);
+        if ((item.size2 == 'youth_small') || (item.size2 == 'youth_medium') || (item.size2 == 'youth_large')){
+            price = price + (4000 * item.quantity2);
+        } else {
+            price = price + (5500 * item.quantity2);
+        }
+    }
+    if (item.quantity3 != 0) {
+        order_size++;
+        order_desc.push(item.quantity3);
+        order_desc.push(item.size3);
+        order_desc.push(item.color3);
+        if ((item.size3 == 'youth_small') || (item.size3 == 'youth_medium') || (item.size3 == 'youth_large')){
+            price = price + (4000 * item.quantity3);
+        } else {
+            price = price + (5500 * item.quantity3);
+        }
+    }
+    if (item.quantity4 != 0) {
+        order_size++;
+        order_desc.push(item.quantity4);
+        order_desc.push(item.size4);
+        order_desc.push(item.color4);
+        if ((item.size4 == 'youth_small') || (item.size4 == 'youth_medium') || (item.size4 == 'youth_large')){
+            price = price + (4000 * item.quantity4);
+        } else {
+            price = price + (5500 * item.quantity4);
+        }
+    }
+    const order_id = item.order_name.substring(0, 4) + String(Math.floor( Math.random() * ( 1 + 10000 - 1 ) ) + 1);
+    var redir_link = '/store/checkout/' + order_size +'/' + price + '/' + order_id + '/' + order_desc;
+    res.redirect(redir_link);
+    //create orderID
+    //update orderID db once paid for successfully
+    //add quantities to db by combining size and color
+});
+
+app.get('/checkout/(:order_size)/(:price)/(:order_id)/(:order_desc)', function(req, res){
+    switch (req.params.order_size){
+        case 1:
+            //Build description of order 1x black order_size[2].replace("_" ," ")
+            var item_description = String(req.params.order_desc[0]) + ' x ' + req.params.order_desc[1] + ' ' + req.params.order_desc[2];
+            break;
+        case 2:
+            var item_description = String(req.params.order_desc[0]) + ' x ' + req.params.order_desc[1] + ' ' + req.params.order_desc[2] + '\n' + String(req.params.order_desc[3]) + ' x ' + req.params.order_desc[4] + ' ' + req.params.order_desc[5];
+            break;
+        case 3:
+            var item_description = String(req.params.order_desc[0]) + ' x ' + req.params.order_desc[1] + ' ' + req.params.order_desc[2] + '\n' + String(req.params.order_desc[3]) + ' x ' + req.params.order_desc[4] + ' ' + req.params.order_desc[5] + '\n' + String(req.params.order_desc[6]) + ' x ' + req.params.order_desc[7] + ' ' + req.params.order_desc[8];
+            break;
+        case 4:
+            var item_description = String(req.params.order_desc[0]) + ' x ' + req.params.order_desc[1] + ' ' + req.params.order_desc[2] + '\n' + String(req.params.order_desc[3]) + ' x ' + req.params.order_desc[4] + ' ' + req.params.order_desc[5] + '\n' + String(req.params.order_desc[6]) + ' x ' + req.params.order_desc[7] + ' ' + req.params.order_desc[8] + '\n' + String(req.params.order_desc[9]) + ' x ' + req.params.order_desc[10] + ' ' + req.params.order_desc[11];
+            break;
+        default:
+            var item_description = 'Could not get order quantity and description.';
+            break;
+    }
+    var temp = String(req.params.price);
+    var first_half = temp.substring(0, temp.length - 2);
+    var last_half = temp.substring(temp.length - 2, temp.length);
+    const final = '$' + first_half + '.' + last_half;
+    res.render('checkout', {
+        description: item_description,
+        price: req.params.price,
+        price_actual: req.params.price,
+        order_id: req.params.order_id
+    })
+});
+
+app.post('/create-session-hoodie/(:price)/(:order_id)/(:order_desc)', async (req, res) => {
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
         line_items: [
@@ -2573,12 +2683,14 @@ app.post('/create-session-hoodie', async (req, res) => {
                 currency: 'usd',
                 product_data: {
                     name: 'EMA Hoodie',
-                    description: '2020 EMA Hoodie',
+                    description: req.params.order_desc,
                     images: ['https://scontent.fapa1-1.fna.fbcdn.net/v/t1.0-9/121185484_10158652691288374_6371473402707957527_n.jpg?_nc_cat=111&_nc_sid=b9115d&_nc_ohc=s87FZ63TNKwAX9Dv8Ht&_nc_ht=scontent.fapa1-1.fna&oh=f6382a44ace51f3e269042529ba750b2&oe=5FAA9A15', 'https://scontent.fapa1-1.fna.fbcdn.net/v/t1.0-9/121239752_10158652691348374_2337616342705280587_n.jpg?_nc_cat=101&_nc_sid=b9115d&_nc_ohc=BRf6f4sxNccAX_lGh63&_nc_ht=scontent.fapa1-1.fna&oh=c5a4d7fdc585bb0c80c3d1677dafab61&oe=5FAB83B9'],
                 },
-                unit_amount: 2000,
+                unit_amount: req.params.price,
                 },
             quantity: 1,
+            description: req.params.order_desc,//Build description
+            metadata: {'order id': req.params.order_id},
             },
         ],
         mode: 'payment',
@@ -2586,17 +2698,4 @@ app.post('/create-session-hoodie', async (req, res) => {
         cancel_url: `https://emafiles.herokuapp.com/store/cancel`,
     });
     res.json({ id: session.id });
-});
-
-app.get('/shopping_cart', function(req, res){
-    res.render('store/shopping_cart', {
-
-    })
-});
-
-app.post('/process_cart', function(req, res){
-    //process quantities 
-    //create orderID
-    //update orderID db once paid for successfully
-    //add quantities to db by combining size and color
 });
