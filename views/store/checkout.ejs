@@ -107,10 +107,11 @@
     var checkoutButton = document.getElementById("checkout-button");
 
     checkoutButton.addEventListener("click", function () {
-        fetch("store/create-session-hoodie/<%= price_actual %>/<%= order_id %>/<%= description %>", {
+        fetch("https://emafiles.herokuapp.com/store/create-session-hoodie/<%= price_actual %>/<%= order_id %>/<%= description %>", {
             method: "POST",
         })
         .then(function (response) {
+            console.log('.then response ' + response.json());
             return response.json();
         })
         .then(function (session) {
