@@ -107,27 +107,28 @@
     var checkoutButton = document.getElementById("checkout-button");
 
     checkoutButton.addEventListener("click", function () {
-        fetch("https://emafiles.herokuapp.com/store/create-session-hoodie/<%= price_actual %>/<%= order_id %>/<%= description %>", {
+        fetch("/create-session-hoodie/<%= price_actual %>/<%= order_id %>/<%= description %>", {
             method: "POST",
         })
-        .then(function (response) {
-            console.log('.then response ' + response.json());
-            return response.json();
-        })
-        .then(function (session) {
-            return stripe.redirectToCheckout({ sessionId: session.id });
-        })
-        .then(function (result) {
-          // If redirectToCheckout fails due to a browser or network
-          // error, you should display the localized error message to your
-          // customer using error.message.
-            if (result.error) {
-                alert(result.error.message);
-            }
-        })
-        .catch(function (error) {
-            console.error("Error:", error);
-        });
+            .then(function (response) {
+                console.log('res is ' + response.json());
+                return response.json();
+            })
+            .then(function (session) {
+                return stripe.redirectToCheckout({ sessionId: session.id });
+            })
+            .then(function (result) {
+            // If redirectToCheckout fails due to a browser or network
+            // error, you should display the localized error message to your
+            // customer using error.message.
+                console.log('result is ' + result.error.message);
+                if (result.error) {
+                    alert(result.error.message);
+                }
+            })
+            .catch(function (error) {
+                console.error("Error:", error);
+            });
     });
     </script>
 </html>
