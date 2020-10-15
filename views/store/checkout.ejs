@@ -115,13 +115,16 @@
                 return response.json();
             })
             .then(function (session) {
+                console.log('session id is ' + session.id);
+                console.log('session is ' + session);
                 return stripe.redirectToCheckout({ sessionId: session.id });
             })
             .then(function (result) {
             // If redirectToCheckout fails due to a browser or network
             // error, you should display the localized error message to your
             // customer using error.message.
-                console.log('result is ' + result.error.message);
+                console.log('result.error is ' + result.error.message);
+                console.log('result is ' + result);
                 if (result.error) {
                     alert(result.error.message);
                 }
