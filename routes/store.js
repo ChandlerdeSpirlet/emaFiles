@@ -2636,6 +2636,7 @@ app.post('/process_cart', function(req, res){ //create array of sizes and color 
         }
     }
     const order_id = item.order_name.substring(0, 4) + String(Math.floor( Math.random() * ( 1 + 10000 - 1 ) ) + 1);
+    console.log('order size in process_cart is ' + order_size;
     var redir_link = '/store/checkout/' + order_size +'/' + price + '/' + order_id + '/' + order_desc;
     res.redirect(redir_link);
     //create orderID
@@ -2644,6 +2645,7 @@ app.post('/process_cart', function(req, res){ //create array of sizes and color 
 });
 
 app.get('/checkout/(:order_size)/(:price)/(:order_id)/(:order_desc)', function(req, res){
+    console.log('order size in checkout is ' + req.params.order_size + '. Of type ' + typeof req.params.order_size);
     switch (req.params.order_size){
         case 1:
             //Build description of order 1x black order_size[2].replace("_" ," ")
