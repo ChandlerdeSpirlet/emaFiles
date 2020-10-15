@@ -2636,7 +2636,7 @@ app.post('/process_cart', function(req, res){ //create array of sizes and color 
         }
     }
     const order_id = item.order_name.substring(0, 4) + String(Math.floor( Math.random() * ( 1 + 10000 - 1 ) ) + 1);
-    console.log('order size in process_cart is ' + order_size;
+    console.log('order size in process_cart is ' + order_size);
     var redir_link = '/store/checkout/' + order_size +'/' + price + '/' + order_id + '/' + order_desc;
     res.redirect(redir_link);
     //create orderID
