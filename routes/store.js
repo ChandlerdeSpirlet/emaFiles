@@ -8,7 +8,7 @@ var fs = require('fs');
 var nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 var db = require('../database');
-const stripe = require('stripe')('pk_test_51H75ScKv0edLDEqJAZ1I7MJA1JHPR2LDD4f6y1hmM636nzq8D6Cpc3SoDkIY1ZapQS1GVWBAhwHLpFRoIYuxdVqo00yokwK8lD');
+const stripe = require('stripe')('sk_test_51H75ScKv0edLDEqJEL6q5HTs0dJN28eeyehpgMBEdEc4BT26iod0kUZpE3zcL0QrwZtwV7kCFTbS7bfb8Ehs6lys00Ut3Az4SN');
 const cors = require('cors');
 const { to } = require('pg-copy-streams');
 app.use(cors())
@@ -2647,17 +2647,17 @@ app.post('/process_cart', function(req, res){ //create array of sizes and color 
 app.get('/checkout/(:order_size)/(:price)/(:order_id)/(:order_desc)', function(req, res){
     console.log('order size in checkout is ' + req.params.order_size + '. Of type ' + typeof req.params.order_size);
     switch (req.params.order_size){
-        case 1:
+        case '1':
             //Build description of order 1x black order_size[2].replace("_" ," ")
             var item_description = String(req.params.order_desc[0]) + ' x ' + req.params.order_desc[1] + ' ' + req.params.order_desc[2];
             break;
-        case 2:
+        case '2':
             var item_description = String(req.params.order_desc[0]) + ' x ' + req.params.order_desc[1] + ' ' + req.params.order_desc[2] + '\n' + String(req.params.order_desc[3]) + ' x ' + req.params.order_desc[4] + ' ' + req.params.order_desc[5];
             break;
-        case 3:
+        case '3':
             var item_description = String(req.params.order_desc[0]) + ' x ' + req.params.order_desc[1] + ' ' + req.params.order_desc[2] + '\n' + String(req.params.order_desc[3]) + ' x ' + req.params.order_desc[4] + ' ' + req.params.order_desc[5] + '\n' + String(req.params.order_desc[6]) + ' x ' + req.params.order_desc[7] + ' ' + req.params.order_desc[8];
             break;
-        case 4:
+        case '4':
             var item_description = String(req.params.order_desc[0]) + ' x ' + req.params.order_desc[1] + ' ' + req.params.order_desc[2] + '\n' + String(req.params.order_desc[3]) + ' x ' + req.params.order_desc[4] + ' ' + req.params.order_desc[5] + '\n' + String(req.params.order_desc[6]) + ' x ' + req.params.order_desc[7] + ' ' + req.params.order_desc[8] + '\n' + String(req.params.order_desc[9]) + ' x ' + req.params.order_desc[10] + ' ' + req.params.order_desc[11];
             break;
         default:
@@ -2670,7 +2670,7 @@ app.get('/checkout/(:order_size)/(:price)/(:order_id)/(:order_desc)', function(r
     const final = '$' + first_half + '.' + last_half;
     res.render('store/checkout', {
         description: item_description,
-        price: req.params.price,
+        price: final,
         price_actual: req.params.price,
         order_id: req.params.order_id
     })
