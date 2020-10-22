@@ -1409,7 +1409,7 @@ app.get('/level2_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/level2_signup');
     } else {
-        var query = "select * from class_times where count < 19 and level = 2 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
+        var query = "select * from class_times where count < 24 and level = 2 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
         db.any(query)
             .then(function(rows){
                 if (rows.length == 0){
@@ -2133,7 +2133,7 @@ app.post('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day
                 })
         }
         if (req.params.belt_group == 'Level 2'){
-            var query = "select * from class_times where count < 19 and level = 2 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
+            var query = "select * from class_times where count < 25 and level = 2 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
             db.any(query)
                 .then(function(rows){
                     res.render('store/level2_signup', {
