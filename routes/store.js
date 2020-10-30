@@ -1665,7 +1665,7 @@ app.get('/process_classes/(:fname)/(:lname)/(:email)/(:belt_group)/(:id_set)', f
                 console.log('Err: with element ' + element + '. Err: ' + err);
             })
     }); 
-    
+    console.log('id_set is ' + id_set);
     switch(id_set.length){
         case 1:
             var end_query = "select distinct on (id_from_other) to_char(test_day, 'Month') as class_month, to_char(test_day, 'dd') as class_day, test_time from class_signups where id_from_other = $1;";
@@ -1690,6 +1690,24 @@ app.get('/process_classes/(:fname)/(:lname)/(:email)/(:belt_group)/(:id_set)', f
             db.any(end_query, [id_set[0], id_set[1]])
             .then(function(rows){
                 //use belt_group to redirect to correct good_job_class page
+                JSON.safeStringify = (obj, indent = 2) => {
+                    let cache = [];
+                    const retVal = JSON.stringify(
+                        obj,
+                        (key, value) =>
+                            typeof value === "object" && value !== null
+                            ? cache.includes(value)
+                                ? undefined // Duplicate reference found, discard key
+                                : cache.push(value) && value // Store value in our collection
+                            : value,
+                        indent
+                    );
+                    cache = null;
+                    return retVal;
+                };
+                
+                  // Example:
+                console.log('rows in id_set.length', JSON.safeStringify(rows));
                 res.render('store/class_confirmed', {
                     data: rows,
                     email: req.params.email,
