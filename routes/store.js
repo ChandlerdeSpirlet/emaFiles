@@ -1687,6 +1687,7 @@ app.get('/process_classes/(:fname)/(:lname)/(:email)/(:belt_group)/(:id_set)', f
             break;
         case 2:
             var end_query = "select distinct on (id_from_other) to_char(test_day, 'Month') as class_month, to_char(test_day, 'dd') as class_day, test_time from class_signups where id_from_other in ($1, $2);";
+            console.log('id_set[0] = ' + id_set[0] + ' id_set[1] = ' + id_set[1]);
             db.any(end_query, [id_set[0], id_set[1]])
             .then(function(rows){
                 //use belt_group to redirect to correct good_job_class page
