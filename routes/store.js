@@ -1249,7 +1249,7 @@ app.get('/2degree_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/2degree_signup');
     } else {
-        var query = "select TO_CHAR(date_order, 'Month') as month_name, TO_CHAR(date_order, 'DD') as day_number, time_num, id, count from class_times where level in (10, 10.5) and count < 24 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order;";
+        var query = "select TO_CHAR(date_order, 'Month') as month_name, TO_CHAR(date_order, 'DD') as day_number, time_num, level, id, count from class_times where level in (10, 10.5) and count < 24 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order;";
         db.any(query)
             .then(function(rows){
                 if (rows.length == 0){
@@ -1259,6 +1259,7 @@ app.get('/2degree_signup', function(req, res){
                 } else {
                     res.render('store/2degree_signup', {
                         fname: '',
+                        level: '',
                         lname: '',
                         email: '',
                         data: rows
@@ -1269,6 +1270,7 @@ app.get('/2degree_signup', function(req, res){
                 req.flash('error', 'Unable to render class signup (ERROR: ' + err + ')');
                 res.render('store/2degree_signup', {
                     fname: '',
+                    level: '',
                     lname: '',
                     email: '',
                     data: ''
