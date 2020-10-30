@@ -1658,7 +1658,6 @@ app.get('/process_classes/(:fname)/(:lname)/(:email)/(:belt_group)/(:id_set)', f
         var temp_class_check = req.params.fname.toLowerCase().replace(/\s/g, "") + req.params.lname.toLowerCase().replace(/\s/g, "") + element.toString();
         db.none(query_classes, [req.params.fname, req.params.lname, req.params.belt_group, req.params.email, element, element, element, temp_class_check])
             .then(function(row){
-                console.log('row is ' + row);
                 console.log('Added class with id ' + element);
             })
             .catch(function(err){
@@ -1687,28 +1686,9 @@ app.get('/process_classes/(:fname)/(:lname)/(:email)/(:belt_group)/(:id_set)', f
             break;
         case 2:
             var end_query = "select distinct on (id_from_other) to_char(test_day, 'Month') as class_month, to_char(test_day, 'dd') as class_day, test_time from class_signups where id_from_other in ($1, $2);";
-            console.log('id_set[0] = ' + id_set[0] + ' id_set[1] = ' + id_set[1]);
             db.any(end_query, [id_set[0], id_set[1]])
             .then(function(rows){
                 //use belt_group to redirect to correct good_job_class page
-                JSON.safeStringify = (obj, indent = 2) => {
-                    let cache = [];
-                    const retVal = JSON.stringify(
-                        obj,
-                        (key, value) =>
-                            typeof value === "object" && value !== null
-                            ? cache.includes(value)
-                                ? undefined // Duplicate reference found, discard key
-                                : cache.push(value) && value // Store value in our collection
-                            : value,
-                        indent
-                    );
-                    cache = null;
-                    return retVal;
-                };
-                
-                  // Example:
-                console.log('rows in id_set.length', JSON.safeStringify(rows));
                 res.render('store/class_confirmed', {
                     data: rows,
                     email: req.params.email,
