@@ -122,31 +122,31 @@
         </ul>
         <p><strong>Level 1 CLASS TIMES</strong></p>
         <ul>
-            <li>Mondays
+            <li>Monday
             <ul>
-                <li>6:30 PM - 7:00 PM</li>
+                <li>6:30 PM - 7:15 PM</li>
             </ul>
             </li>
-            <li>Tuesdays
+            <li>Tuesday
             <ul>
-                <li>5:00 PM - 5:45 PM</li>
-                <li>7:00 PM - 7:45 PM (Floor 2)</li>
+                <li>5:45 PM - 6:15 PM</li>
+                <li>7:15 PM - 7:45 PM (Floor 2)</li>
             </ul>
             </li>
-            <li>Thursdays
+            <li>Wednesday
             <ul>
-                <li>5:00 PM - 5:45 PM</li>
-                <li>7:00 PM - 7:45 PM (Floor 2)</li>
+                <li>6:30 PM - 7:15 PM</li>
             </ul>
             </li>
-            <li>Fridays
+            <li>Thursday
             <ul>
-                <li>6:30 PM - 7:00 PM</li>
+                <li>5:45 PM - 6:15 PM</li>
+                <li>7:15 PM - 7:45 PM (Floor 2)</li>
             </ul>
             </li>
-            <li>Saturdays
+            <li>Friday
             <ul>
-                <li>10:00 AM - 10:30 AM</li>
+                <li>6:30 PM - 7:15 PM</li>
             </ul>
             </li>
         </ul>
@@ -161,7 +161,11 @@
                 <% data.forEach(function(item){ %>
                     <div class="item">
                         <input type="checkbox" class="check" id="<%= item.id %>" name="day_time" value="<%= item.id %>">
-                        <label for="<%= item.id %>" class="desc"><%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> (<%= 25 - item.count %> spot(s) remaining).</label>
+                        <% if (item.level == '1.5') { %>
+                            <label for="<%= item.id %>" class="desc"><%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> &mdash; FLOOR 2 (<%= 25 - item.count %> spot(s) remaining).</label>
+                        <% } else { %>
+                            <label for="<%= item.id %>" class="desc"><%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> (<%= 25 - item.count %> spot(s) remaining).</label>
+                        <% } %>
                     </div><br>
                 <% }) %>
             <% } %>
@@ -206,7 +210,4 @@
         }
         return true;
     }
-</script>
-<script type="text/javascript">
-    alert("Class signups will be unavailable from October 29th at 9:00 PM to November 1st at 9:00 PM for routine maintenance, class scheduling updates, and adding the new class schedule.");
 </script>
