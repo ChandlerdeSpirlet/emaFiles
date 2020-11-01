@@ -48,7 +48,7 @@
         <div class="wrapper">
         <% if (data) { %>
             <% data.forEach(function(item){ %>
-                <a href="/store/class_checkin/<%= item.id %>/<%= date_selected %>/<%= item.level %>/<%= item.time_num %>"><button class="button"><br>
+                <a href="/store/class_details/<%= item.id %>/<%= date_selected %>/<%= item.level %>/<%= item.time_num %>"><button class="button"><br>
                 <h2 style="font-size: xx-large;"><% if (item.level == 0) {%> Little Dragons 
                                                 <% } else if (item.level == 0.5) { %> Basic 
                                                 <% } else if (item.level == 0.8) { %> Basic, Floor 2 

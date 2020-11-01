@@ -2634,8 +2634,8 @@ app.get('/class_checkin/(:id)/(:date_selected)/(:level_num)/(:time_num)', (req, 
         })
 });
 
-app.get('/class_checkin/(:id)/(:date_selected)/(:level_num)/(:time_num)', (req, res) => {
-    res.render('store/class_checkin', {
+app.get('/class_details/(:id)/(:date_selected)/(:level_num)/(:time_num)', (req, res) => {
+    res.render('store/class_details', {
         data: '',
         date_selected: req.params.date_selected,
         level_num: req.params.level_num,
