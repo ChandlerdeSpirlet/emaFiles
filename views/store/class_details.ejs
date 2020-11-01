@@ -21,7 +21,6 @@
         }
         .column {
             float: left;
-            width: calc(100% / 2);
             height: 100%;
             padding: 10px;
         }
@@ -45,6 +44,7 @@
             line-height: 50px;
             border-radius: 25px;
             background-color: #f1f1f1;
+            padding-bottom: 5px;
         }
         .closebtn {
             padding-left: 10px;
@@ -83,6 +83,12 @@
         label{
             font-weight: bold;
         }
+        #footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                height: 2.5rem;
+            }
     </style>
     <head>
         <h1><% if (level_num == 0) {%> Little Dragons 
@@ -109,7 +115,7 @@
                                 <div class="chip">
                                     <%= item.first_name %> <%= item.last_name %>
                                 </div>
-                            <% }) %>>
+                            <% }) %>
                         <% } else { %>
                             There are no students to display.
                         <% } %>
@@ -117,5 +123,8 @@
                 </div>
             </div>
         </div>
+        <footer id="footer">
+            <a href="https://emafiles.herokuapp.com/store/class_lookup"><button>New Search</button></a>
+        </footer>
     </body>
 </html>
