@@ -48,7 +48,7 @@
         <div class="wrapper">
         <% if (data) { %>
             <% data.forEach(function(item){ %>
-                <a href="/class_checkin/<%= item.id %>/<%= date_selected %>/<%= item.level %>/<%= item.time_num %>"><button class="button"><br>
+                <a href="/store/class_checkin/<%= item.id %>/<%= date_selected %>/<%= item.level %>/<%= item.time_num %>"><button class="button"><br>
                 <h2 style="font-size: xx-large;"><% if (item.level == 0) {%> Little Dragons 
                                                 <% } else if (item.level == 0.5) { %> Basic 
                                                 <% } else if (item.level == 0.8) { %> Basic, Floor 2 
@@ -61,7 +61,7 @@
                                                 <% } else if (item.level == 6) { %> Weapons
                                                 <% } else if (item.level == 4) { %> Open Mat
                                                 <% } else { %> Unrecognizable Level Data <% } %></h2>
-                    <h3 style="font-size: x-large;"><%= item.time_num %></h3> &mdash; Student Count: <%= item.count %></h3>
+                    <h3 style="font-size: x-large;"><%= item.time_num %> &mdash; Student Count: <%= item.count %></h3>
                 </button></a><br>
             <% }) %>
         <% } else { %>
