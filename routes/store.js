@@ -2620,6 +2620,24 @@ app.get('/class_checkin/(:id)/(:date_selected)/(:level_num)/(:time_num)', (req, 
     let student_find_query = "select first_name, last_name from class_signups where id_from_other = $1;";
     db.query(student_find_query, [id])
         .then(function(rows){
+            JSON.safeStringify = (obj, indent = 2) => {
+                let cache = [];
+                const retVal = JSON.stringify(
+                    obj,
+                    (key, value) =>
+                        typeof value === "object" && value !== null
+                        ? cache.includes(value)
+                            ? undefined // Duplicate reference found, discard key
+                            : cache.push(value) && value // Store value in our collection
+                        : value,
+                    indent
+                );
+                cache = null;
+                return retVal;
+            };
+            
+              // Example:
+            console.log('rows', JSON.safeStringify(rows));
             res.render('store/class_details', {
                 data: rows,
                 date_selected: date_selected,
@@ -2635,10 +2653,37 @@ app.get('/class_checkin/(:id)/(:date_selected)/(:level_num)/(:time_num)', (req, 
 });
 
 app.get('/class_details/(:id)/(:date_selected)/(:level_num)/(:time_num)', (req, res) => {
-    res.render('store/class_details', {
-        data: '',
-        date_selected: req.params.date_selected,
-        level_num: req.params.level_num,
-        time_num: req.params.time_num
-    })
+    var student_find_query = "select first_name, last_name from class_signups where id_from_other = $1;";
+    db.query(student_find_query, [req.params.id])
+        .then(function(rows){
+            JSON.safeStringify = (obj, indent = 2) => {
+                let cache = [];
+                const retVal = JSON.stringify(
+                    obj,
+                    (key, value) =>
+                        typeof value === "object" && value !== null
+                        ? cache.includes(value)
+                            ? undefined // Duplicate reference found, discard key
+                            : cache.push(value) && value // Store value in our collection
+                        : value,
+                    indent
+                );
+                cache = null;
+                return retVal;
+            };
+            
+              // Example:
+            console.log('rows', JSON.safeStringify(rows));
+            res.render('store/class_details', {
+                data: rows,
+                date_selected: req.params.date_selected,
+                level_num: req.params.level_num,
+                time_num: req.params.time_num
+            })
+        })
+        .catch(function(err){
+            console.log('Could not find students for the class. Error: ' + err);
+            req.flash('error', 'Could not find students for the class. Error: ' + err);
+            res.redirect('class_lookup');
+        })
 });
