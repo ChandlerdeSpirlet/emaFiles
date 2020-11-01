@@ -2583,7 +2583,7 @@ app.post('/class_lookup', (req, res) => {
         month: req.sanitize('month_select').trim(),
         day: req.sanitize('day_select').trim()
     }
-    const redir_link = 'class_selector_force/' + item.month + '/' + item.day;
+    const redir_link = '/store/class_selector_force/' + item.month + '/' + item.day;
     res.redirect(redir_link);
 });
 
