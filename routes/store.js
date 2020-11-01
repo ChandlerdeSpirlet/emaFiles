@@ -2572,3 +2572,73 @@ app.get('/board_confirmed', function(req, res){
 });
 
 //Lookup by month & day, show all classes with class time, pull data with id
+app.get('/class_lookup', (req, res) => {
+    res.render('store/class_lookup', {
+
+    })
+});
+
+app.post('/class_lookup', (req, res) => {
+    var item = {
+        month: req.sanitize('month_select').trim(),
+        day: req.sanitize('day_select').trim()
+    }
+    const redir_link = 'class_selector_force/' + item.month + '/' + item.day;
+    res.redirect(redir_link);
+});
+
+app.get('/class_selector_force/(:month)/(:day)', (req, res) => {
+    let temp_date = new Date();
+    let year = temp_date.getFullYear();
+    let date_selected = req.params.month + ' ' + req.params.day + ', ' + year;
+    let class_selection_query = "select * from class_times where date_order = to_date($1, 'Month DD, YYYY') order by time_num;";
+    db.query(class_selection_query, [date_selected])
+        .then(function(rows){
+            res.render('store/class_selector', {
+                data: rows,
+                date_selected: date_selected
+            });
+        })
+        .catch(function(err){
+            console.log('Could not lookup classes. ' + err);
+            res.redirect('/');
+        })
+});
+
+app.get('/class_selector', (req, res) => {
+    res.render('store/class_lookup', {
+        data: '',
+        date_selected: ''
+    })
+});
+
+app.get('/class_checkin/(:id)/(:date_selected)/(:level_num)/(:time_num)', (req, res) => {
+    let id = req.params.id;
+    let date_selected = req.params.date_selected;
+    let level_num = req.params.level_num;
+    let time_num = req.params.time_num;
+    let student_find_query = "select first_name, last_name, from class_signups where id_from_other = $1;";
+    db.query(student_find_query, [id])
+        .then(function(rows){
+            res.render('store/class_details', {
+                data: rows,
+                date_selected: date_selected,
+                level_num: level_num,
+                time_num: time_num
+            })
+        })
+        .catch(function(err){
+            console.log('Could not find students for the class. Error: ' + err);
+            req.flash('error', 'Could not find students for the class. Error: ' + err);
+            res.redirect('class_lookup');
+        })
+});
+
+app.get('/class_checkin/(:id)/(:date_selected)/(:level_num)/(:time_num)', (req, res) => {
+    res.render('store/class_checkin', {
+        data: '',
+        date_selected: req.params.date_selected,
+        level_num: req.params.level_num,
+        time_num: req.params.time_num
+    })
+});
