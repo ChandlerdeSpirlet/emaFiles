@@ -2635,7 +2635,7 @@ app.get('/class_checkin/(:id)/(:date_selected)/(:level_num)/(:time_num)', (req, 
 });
 
 app.get('/class_details/(:id)/(:date_selected)/(:level_num)/(:time_num)', (req, res) => {
-    var student_find_query = "select first_name, last_name from class_signups where id_from_other = $1;";
+    var student_find_query = "select first_name, last_name from class_signups where id_from_other = $1 order by last_name desc;";
     db.query(student_find_query, [req.params.id])
         .then(function(rows){
             res.render('store/class_details', {
