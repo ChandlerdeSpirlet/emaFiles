@@ -124,12 +124,12 @@
             <form action="/store/class_lookup" method="POST">
                 <div class="row">
                     <input type="submit" name="button" value="Search Today's Classes">
-                    <h3>or</h3>
+                    <h3>or</h3><br>
                 </div>
                 <div class="row">
                     <div class="column1">
                         <div class="select-wrapper">
-                            <select id="select" name="month_select" required>
+                            <select id="select" name="month_select">
                                 <option value="">Month</option>
                                 <option value="January">January</option>
                                 <option value="February">February</option>
@@ -148,7 +148,7 @@
                     </div>
                     <div class="column2">
                         <div class="select-wrapper">
-                            <select id="select" name="day_select" required>
+                            <select id="select" name="day_select">
                                 <option value="">Day</option>
                                 <% for (var x = 1; x < 32; x++) { %>
                                     <option value="<%= x %>"><%= x %></option>
