@@ -2585,7 +2585,7 @@ app.post('/class_lookup', (req, res) => {
     }
     if (item.button == "Search Today's Classes"){
         let temp_date = new Date();
-        temp_date.setUTCHours(7);
+        temp_date.setHours(temp_date.getHours() - 7);
         var options = { month: 'long'};
         let month_name = new Intl.DateTimeFormat('en-US', options).format(temp_date);
         var redir_link = '/store/class_selector_force/' + month_name + '/' + temp_date.getDay();
@@ -2599,7 +2599,7 @@ app.post('/class_lookup', (req, res) => {
 
 app.get('/class_selector_force/(:month)/(:day)', (req, res) => {
     let temp_date = new Date();
-    temp_date.setUTCHours(7);
+    temp_date.setHours(temp_date.getHours() - 7);
     let year = temp_date.getFullYear();
     let date_selected = req.params.month + ' ' + req.params.day + ', ' + year;
     let class_selection_query = "select * from class_times where date_order = to_date($1, 'Month DD, YYYY') order by time_num;";
