@@ -2585,7 +2585,10 @@ app.post('/class_lookup', (req, res) => {
     }
     if (item.button == "Search Today's Classes"){
         let temp_date = new Date();
-        var redir_link = '/store/class_selector_force/' + temp_date.getMonth + '/' + temp_date.getDay;
+        var options = { month: 'long'};
+        let month_name = new Intl.DateTimeFormat('en-US', options).format(temp_date);
+        var redir_link = '/store/class_selector_force/' + month_name + '/' + temp_date.getDay();
+        console.log('temp_date.getMonth ' + temp_date.getMonth);
         console.log('redir_link is ' + redir_link);
     } else {
         var redir_link = '/store/class_selector_force/' + item.month + '/' + item.day;
