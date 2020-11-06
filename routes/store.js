@@ -2588,9 +2588,10 @@ app.post('/class_lookup', (req, res) => {
         console.log('temp date is ' + temp_date);
         temp_date.setHours(temp_date.getHours() - 7);
         console.log('new date is ' + temp_date);
+        var day = temp_date.getDay();
         var options = { month: 'long'};
         let month_name = new Intl.DateTimeFormat('en-US', options).format(temp_date);
-        var redir_link = '/store/class_selector_force/' + month_name + '/' + temp_date.getDay();
+        var redir_link = '/store/class_selector_force/' + month_name + '/' + day;
         console.log('temp_date.getMonth ' + temp_date.getMonth);
         console.log('redir_link is ' + redir_link);
     } else {
