@@ -2585,7 +2585,9 @@ app.post('/class_lookup', (req, res) => {
     }
     if (item.button == "Search Today's Classes"){
         let temp_date = new Date();
+        console.log('temp date is ' + temp_date);
         temp_date.setHours(temp_date.getHours() - 7);
+        console.log('new date is ' + temp_date);
         var options = { month: 'long'};
         let month_name = new Intl.DateTimeFormat('en-US', options).format(temp_date);
         var redir_link = '/store/class_selector_force/' + month_name + '/' + temp_date.getDay();
