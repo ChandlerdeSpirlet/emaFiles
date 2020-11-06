@@ -292,7 +292,6 @@ app.post('/preview_month2a/(:full_name)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', func
             tot_score: total_score
         });
     }
-    console.log('is_backdoor = ' + is_backdoor);
     if ((item.button == 'Submit') && (is_backdoor == false)){
         var total_score = Number(req.params.jj) + Number(req.params.pu) + Number(req.params.su) + Number(req.params.mtn_cl) + Number(req.params.fk);
         console.log("Full name is " + item.full_name);

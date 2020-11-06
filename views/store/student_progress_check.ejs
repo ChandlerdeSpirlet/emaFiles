@@ -361,7 +361,7 @@
                 <div class="row">
                     <form onsubmit="return ValidateForm()" name="Form" action="/store/student_progress_check" method="post">
                         <label>First Name: </label><input type="first name" name="fname" id="fname" pattern="[A-z]{1}[A-z ]+" value="<%= fname %>"><br>
-                        <label>Last Name: </label><input type="last name" name="lname" id="lname"  pattern="\b[A-z]{1}[A-z ]+\b"value="<%= lname %>"/><br>
+                        <label>Last Name: </label><input type="last name" name="lname" id="lname"  pattern="[A-z]{1}[A-z ]+"value="<%= lname %>"/><br>
                         <div class="column">
                             <label>Jumping Jacks: </label><input inputmode="numeric" type="number" name="jj" id="jj" pattern="\b[0-9]+\b" value="<%= jj %>"/><br>
                             <label>Sit-ups: </label><input inputmode="numeric" type="number" name="su" id="su" pattern="\b[0-9]+\b" value="<%= su %>"/><br>
