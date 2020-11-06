@@ -2580,9 +2580,16 @@ app.get('/class_lookup', (req, res) => {
 app.post('/class_lookup', (req, res) => {
     var item = {
         month: req.sanitize('month_select').trim(),
+        button: req.sanitize('button'),
         day: req.sanitize('day_select').trim()
     }
-    const redir_link = '/store/class_selector_force/' + item.month + '/' + item.day;
+    if (item.button == "Search Today's Classes"){
+        let temp_date = new Date();
+        var redir_link = '/store/class_selector_force/' + temp_date.getMonth + '/' + temp_date.getDay;
+        console.log('redir_link is ' + redir_link);
+    } else {
+        var redir_link = '/store/class_selector_force/' + item.month + '/' + item.day;
+    }
     res.redirect(redir_link);
 });
 
