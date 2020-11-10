@@ -112,7 +112,7 @@ app.get('/ASPPacket', function(req, res){
     res.contentType("application/pdf");
     res.send(data);
 });
-app.get('/Calendar', function(req, res){
+app.get('/Calendar.pdf', function(req, res){
     var data = fs.readFileSync(__dirname + '/storedFiles/Calendar.pdf');
     res.contentType("application/pdf");
     res.send(data);
