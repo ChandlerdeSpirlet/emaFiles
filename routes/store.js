@@ -2588,11 +2588,11 @@ app.post('/class_lookup', (req, res) => {
         console.log('temp date is ' + temp_date);
         temp_date.setHours(temp_date.getHours() - 7);
         console.log('new date is ' + temp_date);
-        var day = temp_date.getDay() + 1;
-        console.log('day number is ' + day);
+        var day_num = temp_date.getDay() + 1;
+        console.log('day_num number is ' + day_num);
         var options = { month: 'long'};
         let month_name = new Intl.DateTimeFormat('en-US', options).format(temp_date);
-        var redir_link = '/store/class_selector_force/' + month_name + '/' + day;
+        var redir_link = '/store/class_selector_force/' + month_name + '/' + day_num;
         console.log('temp_date.getMonth ' + temp_date.getMonth());
         console.log('redir_link is ' + redir_link);
     } else {
