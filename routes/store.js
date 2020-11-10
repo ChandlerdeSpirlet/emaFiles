@@ -36,7 +36,7 @@ app.get('/', function(req, res){
 app.get('/workouts', function(req, res){
     res.render('store/workouts');
 });
-app.get('/schedule', function (req, res){
+app.get('/schedule.pdf', function (req, res){
     var data =fs.readFileSync(__dirname + '/storedFiles/sched.pdf');
     res.contentType("application/pdf");
     res.send(data);
