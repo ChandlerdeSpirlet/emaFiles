@@ -2589,6 +2589,7 @@ app.post('/class_lookup', (req, res) => {
         temp_date.setHours(temp_date.getHours() - 7);
         console.log('new date is ' + temp_date);
         var day = temp_date.getDay() + 1;
+        console.log('day number is ' + day);
         var options = { month: 'long'};
         let month_name = new Intl.DateTimeFormat('en-US', options).format(temp_date);
         var redir_link = '/store/class_selector_force/' + month_name + '/' + day;
