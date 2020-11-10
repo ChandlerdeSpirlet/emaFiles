@@ -2593,7 +2593,7 @@ app.post('/class_lookup', (req, res) => {
         var options = { month: 'long'};
         let month_name = new Intl.DateTimeFormat('en-US', options).format(temp_date);
         var redir_link = '/store/class_selector_force/' + month_name + '/' + day;
-        console.log('temp_date.getMonth ' + temp_date.getMonth);
+        console.log('temp_date.getMonth ' + temp_date.getMonth());
         console.log('redir_link is ' + redir_link);
     } else {
         var redir_link = '/store/class_selector_force/' + item.month + '/' + item.day;
