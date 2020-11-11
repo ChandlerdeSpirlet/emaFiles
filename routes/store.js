@@ -47,7 +47,7 @@ app.get('/CalendlyInstructions', function(req, res){
     res.contentType("application/pdf");
     res.send(data);
 });
-app.get('/ITP', function(req, res){
+app.get('/ITP.pdf', function(req, res){
     var data = fs.readFileSync(__dirname + '/storedFiles/ITP.pdf');
     res.contentType("application/pdf");
     res.send(data);
