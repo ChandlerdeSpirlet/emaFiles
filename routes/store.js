@@ -42,7 +42,7 @@ app.get('/schedule.pdf', function (req, res){
     res.send(data);
     console.log("DIRNAME IS: " + __dirname)
 });
-app.get('/CalendlyInstructions', function(req, res){
+app.get('/CalendlyInstructions.pdf', function(req, res){
     var data = fs.readFileSync(__dirname + '/storedFiles/CalendlyInstructions.pdf');
     res.contentType("application/pdf");
     res.send(data);
@@ -52,62 +52,62 @@ app.get('/ITP.pdf', function(req, res){
     res.contentType("application/pdf");
     res.send(data);
 });
-app.get('/L1', function(req, res){
+app.get('/L1.pdf', function(req, res){
     var data = fs.readFileSync(__dirname + '/storedFiles/Level_1_Combos.pdf');
     res.contentType("application/pdf");
     res.send(data);
 });
-app.get('/L2', function(req, res){
+app.get('/L2.pdf', function(req, res){
     var data = fs.readFileSync(__dirname + '/storedFiles/Level_2_Combos.pdf');
     res.contentType("application/pdf");
     res.send(data);
 });
-app.get('/L3', function(req, res){
+app.get('/L3.pdf', function(req, res){
     var data = fs.readFileSync(__dirname + '/storedFiles/Level_3_Combos.pdf');
     res.contentType("application/pdf");
     res.send(data);
 });
-app.get('/bingo_cards', function(req, res){
+app.get('/bingo_cards.pdf', function(req, res){
     var data = fs.readFileSync(__dirname + '/storedFiles/bingo_cards.pdf');
     res.contentType("application/pdf");
     res.send(data);
 });
-app.get('/aspHomework', function(req, res){
+app.get('/aspHomework.pdf', function(req, res){
     var data = fs.readFileSync(__dirname + '/storedFiles/ASPhomework.pdf');
     res.contentType("application/pdf");
     res.send(data);
 });
-app.get('/Lvl1Homework', function(req, res){
+app.get('/Lvl1Homework.pdf', function(req, res){
     var data = fs.readFileSync(__dirname + '/storedFiles/Lvl1Homework.pdf');
     res.contentType("application/pdf");
     res.send(data);
 });
-app.get('/Lvl2Homework', function(req, res){
+app.get('/Lvl2Homework.pdf', function(req, res){
     var data = fs.readFileSync(__dirname + '/storedFiles/Lvl2Homework.pdf');
     res.contentType("application/pdf");
     res.send(data);
 });
-app.get('/Lvl3Homework', function(req, res){
+app.get('/Lvl3Homework.pdf', function(req, res){
     var data = fs.readFileSync(__dirname + '/storedFiles/Lvl3Homework.pdf');
     res.contentType("application/pdf");
     res.send(data);
 });
-app.get('/BBHomework', function(req, res){
+app.get('/BBHomework.pdf', function(req, res){
     var data = fs.readFileSync(__dirname + '/storedFiles/BBHomework.pdf');
     res.contentType("application/pdf");
     res.send(data);
 });
-app.get('/Lvl1Sparring', function(req, res){
+app.get('/Lvl1Sparring.pdf', function(req, res){
     var data = fs.readFileSync(__dirname + '/storedFiles/Lvl1Sparring.pdf');
     res.contentType("application/pdf");
     res.send(data);
 });
-app.get('/Lvl2Sparring', function(req, res){
+app.get('/Lvl2Sparring.pdf', function(req, res){
     var data = fs.readFileSync(__dirname + '/storedFiles/Lvl2Sparring.pdf');
     res.contentType("application/pdf");
     res.send(data);
 });
-app.get('/ASPPacket', function(req, res){
+app.get('/ASPPacket.pdf', function(req, res){
     var data = fs.readFileSync(__dirname + '/storedFiles/ASPPacket.pdf');
     res.contentType("application/pdf");
     res.send(data);
@@ -147,17 +147,17 @@ app.get('/6GoalSetting', function(req, res){
     res.contentType("application/pdf");
     res.send(data);
 });
-app.get('/Level1Curriculum', function(req, res){
+app.get('/Level1Curriculum.pdf', function(req, res){
     var data = fs.readFileSync(__dirname + '/storedFiles/Level1Curriculum.pdf');
     res.contentType("application/pdf");
     res.send(data);
 });
-app.get('/Level2Curriculum', function(req, res){
+app.get('/Level2Curriculum.pdf', function(req, res){
     var data = fs.readFileSync(__dirname + '/storedFiles/Level2Curriculum.pdf');
     res.contentType("application/pdf");
     res.send(data);
 });
-app.get('/Level3Curriculum', function(req, res){
+app.get('/Level3Curriculum.pdf', function(req, res){
     var data = fs.readFileSync(__dirname + '/storedFiles/Level3Curriculum.pdf');
     res.contentType("application/pdf");
     res.send(data);
