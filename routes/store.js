@@ -191,7 +191,7 @@ app.get('/Level3Curriculum.pdf', function(req, res){
     res.contentType("application/pdf");
     res.send(data);
 });
-app.get('/SWAT1Tasks', function(req, res){
+app.get('/SWAT1Tasks.pdf', function(req, res){
     var data = fs.readFileSync(__dirname + '/storedFiles/SWAT1Tasks.pdf');
     res.contentType("application/pdf");
     res.send(data);
