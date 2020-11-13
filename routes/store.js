@@ -40,7 +40,36 @@ app.get('/schedule.pdf', function (req, res){
     var data =fs.readFileSync(__dirname + '/storedFiles/sched.pdf');
     res.contentType("application/pdf");
     res.send(data);
-    console.log("DIRNAME IS: " + __dirname)
+});
+app.get('/Level_1_Rubric.pdf', function (req, res){
+    var data =fs.readFileSync(__dirname + '/storedFiles/Level_1_Rubric.pdf');
+    res.contentType("application/pdf");
+    res.send(data);
+});
+app.get('/Level_2_Rubric.pdf', function (req, res){
+    var data =fs.readFileSync(__dirname + '/storedFiles/Level_2_Rubric.pdf');
+    res.contentType("application/pdf");
+    res.send(data);
+});
+app.get('/Level_3_Rubric.pdf', function (req, res){
+    var data =fs.readFileSync(__dirname + '/storedFiles/Level_3_Rubric.pdf');
+    res.contentType("application/pdf");
+    res.send(data);
+});
+app.get('/Level_1_Manual.pdf', function (req, res){
+    var data =fs.readFileSync(__dirname + '/storedFiles/Level_1_Manual.pdf');
+    res.contentType("application/pdf");
+    res.send(data);
+});
+app.get('/Level_2_Manual.pdf', function (req, res){
+    var data =fs.readFileSync(__dirname + '/storedFiles/Level_2_Manual.pdf');
+    res.contentType("application/pdf");
+    res.send(data);
+});
+app.get('/Level_3_Manual.pdf', function (req, res){
+    var data =fs.readFileSync(__dirname + '/storedFiles/Level_3_Manual.pdf');
+    res.contentType("application/pdf");
+    res.send(data);
 });
 app.get('/CalendlyInstructions.pdf', function(req, res){
     var data = fs.readFileSync(__dirname + '/storedFiles/CalendlyInstructions.pdf');
