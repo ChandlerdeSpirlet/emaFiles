@@ -47,7 +47,7 @@
     <body>
         <div class="wrapper">
         <% if (data) { %>
-            <% if (data.length == 0) {<h2>No Test Today!</h2>} %>
+            <% if (data.length == 0) { %><h2>No Test Today!</h2> <% } %>
             <% else { %>
             <% data.forEach(function(item){ %>
                 <a href="/store/test_details/<%= item.id %>/<%= date_selected %>/<%= item.level %>/<%= item.time_num %>"><button class="button"><br>
