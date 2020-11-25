@@ -1,0 +1,42 @@
+<html>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Weapons Test Confirmed</title>
+    <meta http-equiv = "refresh" content = "10; url = https://emafiles.herokuapp.com/store/testing_signup_weapons"/>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        html {
+            background-image: linear-gradient(#0095ff, #9ed7ff);
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+        #footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 2.5rem;            /* Footer height */
+        }
+        p {
+            font-size: 15px;
+        }
+        label {
+            font-weight: bold;
+        }
+    </style>
+    <body>
+        <div id="page-container">
+            <div id="content-wrap">
+                <p><label><%= stud_name %></label>, you are signed up for testing on <label><%= month %> <%= day %> at <%= time %></label>.</p>
+                <p>An email confirmation will be sent to <label><%= email %></label>.</p>
+                <p>(This page will return to the testing signup page in 10 seconds.)</p>
+            </div>
+        <footer id="footer">
+            Intellectual property of Chandler de Spirlet.
+        </footer>
+        </div>    
+    </body>
+</html>

@@ -712,6 +712,31 @@ app.get('/testing_signup_level3', function(req, res){
             })
     }
 });
+app.get('/testing_signup_weapons', function(req, res){
+    if (req.headers['x-forwarded-proto'] != 'https'){
+        res.redirect('https://emafiles.herokuapp.com/store/testing_signup_weapons');
+    } else {
+        var query = 'select * from testing_signup where count < 24 and level = 4 order by test_day';
+        db.any(query)
+            .then(function(rows){
+                res.render('store/testing_signup_weapons', {
+                    fname: '',
+                    lname: '',
+                    email: '',
+                    data: rows
+                })
+            })
+            .catch(function(err){
+                req.flash('error', 'Unable to render testing signup (ERROR: ' + err + ')');
+                res.render('store/testing_signup_weapons', {
+                    fname: '',
+                    lname: '',
+                    email: '',
+                    data: ''
+                })
+            })
+    }
+});
 
 function parseDateInfo(day_time){
     day_time_str = day_time.toString();
@@ -849,6 +874,27 @@ app.post('/testing_signup_level3', function(req, res){
     req.assert('fname', 'First Name is Required').notEmpty();
     req.assert('lname', 'Last Name is Required').notEmpty();
     req.assert('email', 'Email is Required').notEmpty();
+    req.assert('day_time', 'A Testing Time is Required').notEmpty();
+    var item = {
+        fname: req.sanitize('fname'),
+        lname: req.sanitize('lname'),
+        email: req.sanitize('email'),
+        day_time: req.sanitize('day_time')
+    }
+    getInfo = parseDateInfo(item.day_time);
+    id_from_other = getInfo[0]
+    month_input = getInfo[1];
+    day_num = getInfo[2];
+    time_num = getInfo[3];
+    belt_group = 3;
+    var redir_link = '/store/testing_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/none' + '/' + month_input + '/' + day_num + '/' + time_num + '/' + belt_group + '/' + id_from_other;
+    res.redirect(redir_link);
+});
+
+app.post('/testing_signup_weapons', function(req, res){
+    req.assert('fname', 'First Name is Required').notEmpty();
+    req.assert('lname', 'Last Name is Required').notEmpty();
+    req.assert('email', 'Email is Required').notEmpty();
     req.assert('belts', 'Belt Rank is Required').notEmpty();
     req.assert('day_time', 'A Testing Time is Required').notEmpty();
     var item = {
@@ -863,7 +909,7 @@ app.post('/testing_signup_level3', function(req, res){
     month_input = getInfo[1];
     day_num = getInfo[2];
     time_num = getInfo[3];
-    belt_group = 3;
+    belt_group = 4;
     var redir_link = '/store/testing_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/' + item.belts + '/' + month_input + '/' + day_num + '/' + time_num + '/' + belt_group + '/' + id_from_other;
     res.redirect(redir_link);
 });
@@ -946,6 +992,15 @@ app.post('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(
                     email: req.params.email
                 });
             }
+            if (req.params.belt_group == 4){
+                res.render('store/good_job_testing_weapons', {
+                    stud_name: item.fname + ' ' + item.lname,
+                    month: req.params.month,
+                    day: req.params.day,
+                    time: req.params.time,
+                    email: req.params.email
+                });
+            }
         } else {
             var query_count = 'update testing_signup set count = count + 1 where id = $1';
             db.query(query_count, [req.params.id_from_other]); //Updates count
@@ -992,6 +1047,15 @@ app.post('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(
             }
             if (req.params.belt_group == 3){
                 res.render('store/good_job_testing_level3', {
+                    stud_name: item.fname + ' ' + item.lname,
+                    month: req.params.month,
+                    day: req.params.day,
+                    time: req.params.time,
+                    email: req.params.email
+                });
+            }
+            if (req.params.belt_group == 4){
+                res.render('store/good_job_testing_weapons', {
                     stud_name: item.fname + ' ' + item.lname,
                     month: req.params.month,
                     day: req.params.day,
@@ -1117,6 +1181,29 @@ app.post('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(
                     })
                 })
         }
+        if (req.params.belt_group == 4){
+            var query = 'select * from testing_signup where count < 24 and level = 4';
+            db.any(query)
+                .then(function(rows){
+                    res.render('store/testing_signup_weapons', {
+                        fname: item.fname,
+                        lname: item.lname,
+                        email: item.email,
+                        belts: item.belt,
+                        day_time: '',
+                        data: rows
+                    })
+                })
+                .catch(function(err){
+                    req.flash('error', 'Unable to render testing signup (ERROR: ' + err + ')');
+                    res.render('store/testing_signup_weapons', {
+                        fname: '',
+                        lname: '',
+                        email: '',
+                        data: ''
+                    })
+                })
+        }
     }
     
 });
@@ -1158,6 +1245,15 @@ app.get('/good_job_testing_level2', function(req, res){
 });
 app.get('/good_job_testing_level3', function(req, res){
     res.render('/store/good_job_testing_level3', {
+        stud_name: '',
+        month: '',
+        day: '',
+        time: '',
+        email: ''
+    })
+});
+app.get('/good_job_testing_weapons', function(req, res){
+    res.render('/store/good_job_testing_weapons', {
         stud_name: '',
         month: '',
         day: '',
