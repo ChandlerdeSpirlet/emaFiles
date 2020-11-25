@@ -107,17 +107,17 @@
                 <label for="select">Select time:</label>
                 <% console.log('classes: ' + classes); %>
                 <% console.log('classes[0]: ' + classes[0]); %>
-                <% if (classes[0]) { %>
-                    <% if (classes.length == 0) { %>
-                        <h1>No more spaces</h1>
-                    <% } else { %>
-                <div class="select-wrapper"><select id="select" name="level" required>
-                        <% classes.forEach(function(item){ %>
-                            <option value="<%= item.class_time %>"><%= item.class_name %></option>
-                        <% }) %>
-                </select>
+                <% if (classes.length == 0) { %>
+                    <h1>No more spaces</h1>
+                <% } else { %>
+                    <% if (classes[0]) { %>
+                        <div class="select-wrapper"><select id="select" name="level" required>
+                                <% classes.forEach(function(item){ %>
+                                    <option value="<%= item.class_time %>"><%= item.class_name %></option>
+                                <% }) %>
+                        </select>
+                    <% } %>
                 <% } %>
-            <% } %>
                 <% if (!classes[0]) { %>
                     <p>No remaining spaces. Check back as more spaces may be added.</p>
                 <% } %>
