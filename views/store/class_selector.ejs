@@ -47,23 +47,26 @@
     <body>
         <div class="wrapper">
         <% if (data) { %>
-            <% data.forEach(function(item){ %>
-                <a href="/store/class_details/<%= item.id %>/<%= date_selected %>/<%= item.level %>/<%= item.time_num %>"><button class="button"><br>
-                <h2 style="font-size: xx-large;"><% if (item.level == 0) {%> Little Dragons 
-                                                <% } else if (item.level == 0.5) { %> Basic 
-                                                <% } else if (item.level == 0.8) { %> Basic, Floor 2 
-                                                <% } else if (item.level == 1 ) { %> Level 1 
-                                                <% } else if (item.level == 1.5) { %> Level 1, Floor 2 
-                                                <% } else if (item.level == 2) { %> Level 2 
-                                                <% } else if (item.level == 3) { %> Level 3 
-                                                <% } else if (item.level == 3.5) { %> Prep Class
-                                                <% } else if (item.level == 4) { %> Black Belt
-                                                <% } else if (item.level == 6) { %> Weapons
-                                                <% } else if (item.level == 7) { %> Open Mat
-                                                <% } else { %> Unrecognizable Level Data <% } %></h2>
-                    <h3 style="font-size: x-large;"><%= item.time_num %> &mdash; Student Count: <%= item.count %></h3>
-                </button></a><br>
-            <% }) %>
+            <% if (data.length == 0) { %> <h2>No Classes Today!</h2>
+            <% } else { %>
+                <% data.forEach(function(item){ %>
+                    <a href="/store/class_details/<%= item.id %>/<%= date_selected %>/<%= item.level %>/<%= item.time_num %>"><button class="button"><br>
+                    <h2 style="font-size: xx-large;"><% if (item.level == 0) {%> Little Dragons 
+                                                    <% } else if (item.level == 0.5) { %> Basic 
+                                                    <% } else if (item.level == 0.8) { %> Basic, Floor 2 
+                                                    <% } else if (item.level == 1 ) { %> Level 1 
+                                                    <% } else if (item.level == 1.5) { %> Level 1, Floor 2 
+                                                    <% } else if (item.level == 2) { %> Level 2 
+                                                    <% } else if (item.level == 3) { %> Level 3 
+                                                    <% } else if (item.level == 3.5) { %> Prep Class
+                                                    <% } else if (item.level == 4) { %> Black Belt
+                                                    <% } else if (item.level == 6) { %> Weapons
+                                                    <% } else if (item.level == 7) { %> Open Mat
+                                                    <% } else { %> Unrecognizable Level Data <% } %></h2>
+                        <h3 style="font-size: x-large;"><%= item.time_num %> &mdash; Student Count: <%= item.count %></h3>
+                    </button></a><br>
+                <% }) %>
+                <% } %>
         <% } else { %>
             No classes can be found. Contact a system administrator. Error: c_s:Class
         <% } %>

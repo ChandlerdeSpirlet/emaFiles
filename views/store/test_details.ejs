@@ -102,8 +102,8 @@
                 <div class="row">
                     <div style="align-content: center;"class="column">
                         <% if (data) { %>
-                            <% if (data.length == 0){ %><p> No students to display. </p> <% } %>
-                            <% else { %>
+                            <% if (data.length == 0){ %><h2> No students to display. </h2>
+                            <% } else { %>
                             <% data.forEach(function(item) { %>
                                 <div class="chip">
                                     <%= item.first_name %> <%= item.last_name %> - <i><%= item.belt %></i>
