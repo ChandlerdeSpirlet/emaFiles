@@ -2702,6 +2702,36 @@ app.get('/class_lookup', (req, res) => {
     })
 });
 
+app.get('/test_search', (req, res) => {
+    res.render('store/test_search', {
+
+    })
+});
+
+app.post('/test_search', (req, res) => {
+    var item = {
+        month: req.sanitize('month_select').trim(),
+        button: req.sanitize('button'),
+        day: req.sanitize('day_select').trim()
+    }
+    if (item.button == "Search Today's Tests"){
+        let temp_date = new Date();
+        console.log('temp date is ' + temp_date);
+        temp_date.setHours(temp_date.getHours() - 7);
+        console.log('new date is ' + temp_date);
+        var day_num = temp_date.getDate();
+        console.log('day_num number is ' + day_num);
+        var options = { month: 'long'};
+        let month_name = new Intl.DateTimeFormat('en-US', options).format(temp_date);
+        var redir_link = '/store/test_selector_force/' + month_name + '/' + day_num;
+        console.log('temp_date.getMonth ' + temp_date.getMonth());
+        console.log('redir_link is ' + redir_link);
+    } else {
+        var redir_link = '/store/test_selector_force/' + item.month + '/' + item.day;
+    }
+    res.redirect(redir_link);
+});
+
 app.post('/class_lookup', (req, res) => {
     var item = {
         month: req.sanitize('month_select').trim(),
@@ -2745,8 +2775,34 @@ app.get('/class_selector_force/(:month)/(:day)', (req, res) => {
         })
 });
 
+app.get('/test_selector_force/(:month)/(:day)', (req, res) => {
+    let temp_date = new Date();
+    temp_date.setHours(temp_date.getHours() - 7);
+    let year = temp_date.getFullYear();
+    let date_selected = req.params.month + ' ' + req.params.day + ', ' + year;
+    let class_selection_query = "select * from testing_signup where test_day = to_date($1, 'Month DD, YYYY') order by time_num;";
+    db.query(class_selection_query, [date_selected])
+        .then(function(rows){
+            res.render('store/test_selector', {
+                data: rows,
+                date_selected: date_selected
+            });
+        })
+        .catch(function(err){
+            console.log('Could not lookup classes. ' + err);
+            res.redirect('/');
+        })
+});
+
 app.get('/class_selector', (req, res) => {
     res.render('store/class_lookup', {
+        data: '',
+        date_selected: ''
+    })
+});
+
+app.get('/test_selector', (req, res) => {
+    res.render('store/test_selector', {
         data: '',
         date_selected: ''
     })
@@ -2789,5 +2845,41 @@ app.get('/class_details/(:id)/(:date_selected)/(:level_num)/(:time_num)', (req, 
             console.log('Could not find students for the class. Error: ' + err);
             req.flash('error', 'Could not find students for the class. Error: ' + err);
             res.redirect('class_lookup');
+        })
+});
+
+app.get('/test_details/(:id)/(:date_selected)/(:level_num)/(:time_num)', (req, res) => {
+    var student_find_query = "select first_name, last_name, belt from people_testing where id_from_other = $1 order by last_name;";
+    db.query(student_find_query, [req.params.id])
+        .then(function(rows){
+            res.render('store/test_details', {
+                data: rows,
+                date_selected: req.params.date_selected,
+                level_num: req.params.level_num,
+                time_num: req.params.time_num
+            })
+        })
+        .catch(function(err){
+            console.log('Could not find students for the test. Error: ' + err);
+            req.flash('error', 'Could not find students for the test. Error: ' + err);
+            res.redirect('test_search');
+        })
+});
+
+app.get('/test_checkin/(:id)/(:date_selected)/(:level_num)/(:time_num)', (req, res) => {
+    var student_find_query = "select first_name, last_name, belt from people_testing where id_from_other = $1 order by last_name;";
+    db.query(student_find_query, [req.params.id])
+        .then(function(rows){
+            res.render('store/test_details', {
+                data: rows,
+                date_selected: req.params.date_selected,
+                level_num: req.params.level_num,
+                time_num: req.params.time_num
+            })
+        })
+        .catch(function(err){
+            console.log('Could not find students for the test. Error: ' + err);
+            req.flash('error', 'Could not find students for the test. Error: ' + err);
+            res.redirect('test_search');
         })
 });
