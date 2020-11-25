@@ -106,7 +106,7 @@
             <div>
                 <label for="select">Select time:</label>
                 <% if (classes[0]) { %>
-                    <% if (classes[0].length == 0) { %>
+                    <% if (classes[0].length == undefined) { %>
                         <h1>No more spaces</h1>
                     <% } else { %>
                 <div class="select-wrapper"><select id="select" name="level" required>
