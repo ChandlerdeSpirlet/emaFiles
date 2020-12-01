@@ -889,6 +889,7 @@ app.post('/testing_signup_level3', function(req, res){
     }
     getInfo = parseDateInfo(item.day_time);
     var email = String(item.email).toLowerCase();
+    console.log('email is ' + email);
     id_from_other = getInfo[0]
     month_input = getInfo[1];
     day_num = getInfo[2];
