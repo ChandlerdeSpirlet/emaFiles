@@ -791,13 +791,14 @@ app.post('/testing_signup_dragons', function(req, res){
         belts: req.sanitize('belts'),
         day_time: req.sanitize('day_time')
     }
+    var email = String(item.email).toLowerCase();
     getInfo = parseDateInfo(item.day_time);
     id_from_other = getInfo[0]
     month_input = getInfo[1];
     day_num = getInfo[2];
     time_num = getInfo[3];
     belt_group = -1;
-    var redir_link = '/store/testing_preview/' + item.fname + '/' + item.lname + '/' + item.email.toLowerCase() + '/' + item.belts + '/' + month_input + '/' + day_num + '/' + time_num + '/' + belt_group + '/' + id_from_other;
+    var redir_link = '/store/testing_preview/' + item.fname + '/' + item.lname + '/' + email + '/' + item.belts + '/' + month_input + '/' + day_num + '/' + time_num + '/' + belt_group + '/' + id_from_other;
     res.redirect(redir_link);
 });
 
@@ -815,12 +816,13 @@ app.post('/testing_signup_basic', function(req, res){
         day_time: req.sanitize('day_time')
     }
     getInfo = parseDateInfo(item.day_time);
+    var email = String(item.email).toLowerCase();
     id_from_other = getInfo[0]
     month_input = getInfo[1];
     day_num = getInfo[2];
     time_num = getInfo[3];
     belt_group = 0;
-    var redir_link = '/store/testing_preview/' + item.fname + '/' + item.lname + '/' + item.email.toLowerCase() + '/' + item.belts + '/' + month_input + '/' + day_num + '/' + time_num + '/' + belt_group + '/' + id_from_other;
+    var redir_link = '/store/testing_preview/' + item.fname + '/' + item.lname + '/' + email + '/' + item.belts + '/' + month_input + '/' + day_num + '/' + time_num + '/' + belt_group + '/' + id_from_other;
     res.redirect(redir_link);
 });
 
@@ -838,12 +840,13 @@ app.post('/testing_signup_level1', function(req, res){
         day_time: req.sanitize('day_time')
     }
     getInfo = parseDateInfo(item.day_time);
+    var email = String(item.email).toLowerCase();
     id_from_other = getInfo[0]
     month_input = getInfo[1];
     day_num = getInfo[2];
     time_num = getInfo[3];
     belt_group = 1;
-    var redir_link = '/store/testing_preview/' + item.fname + '/' + item.lname + '/' + item.email.toLowerCase() + '/' + item.belts + '/' + month_input + '/' + day_num + '/' + time_num + '/' + belt_group + '/' + id_from_other;
+    var redir_link = '/store/testing_preview/' + item.fname + '/' + item.lname + '/' + email + '/' + item.belts + '/' + month_input + '/' + day_num + '/' + time_num + '/' + belt_group + '/' + id_from_other;
     res.redirect(redir_link);
 });
 
@@ -861,12 +864,13 @@ app.post('/testing_signup_level2', function(req, res){
         day_time: req.sanitize('day_time')
     }
     getInfo = parseDateInfo(item.day_time);
+    var email = String(item.email).toLowerCase();
     id_from_other = getInfo[0]
     month_input = getInfo[1];
     day_num = getInfo[2];
     time_num = getInfo[3];
     belt_group = 2;
-    var redir_link = '/store/testing_preview/' + item.fname + '/' + item.lname + '/' + item.email.toLowerCase() + '/' + item.belts + '/' + month_input + '/' + day_num + '/' + time_num + '/' + belt_group + '/' + id_from_other;
+    var redir_link = '/store/testing_preview/' + item.fname + '/' + item.lname + '/' + email + '/' + item.belts + '/' + month_input + '/' + day_num + '/' + time_num + '/' + belt_group + '/' + id_from_other;
     res.redirect(redir_link);
 });
 
@@ -884,12 +888,13 @@ app.post('/testing_signup_level3', function(req, res){
         day_time: req.sanitize('day_time')
     }
     getInfo = parseDateInfo(item.day_time);
+    var email = String(item.email).toLowerCase();
     id_from_other = getInfo[0]
     month_input = getInfo[1];
     day_num = getInfo[2];
     time_num = getInfo[3];
     belt_group = 3;
-    var redir_link = '/store/testing_preview/' + item.fname + '/' + item.lname + '/' + item.email.toLowerCase() + '/' + item.belts + '/' + month_input + '/' + day_num + '/' + time_num + '/' + belt_group + '/' + id_from_other;
+    var redir_link = '/store/testing_preview/' + item.fname + '/' + item.lname + '/' + email + '/' + item.belts + '/' + month_input + '/' + day_num + '/' + time_num + '/' + belt_group + '/' + id_from_other;
     res.redirect(redir_link);
 });
 
@@ -1705,11 +1710,12 @@ app.post('/1degree_signup', function(req, res){ //pass through to a page with th
         day_time: req.sanitize('day_time')
     }
     belt_group = 'Black Belt';
+    var email = String(item.email).toLowerCase();
     if ((item.day_time == NaN) || (item.day_time == '')){
         req.flash('error', 'Make sure to select at least one class.');
         res.redirect('1degree_signup');
     } else {
-        const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + item.email.toLowerCase() + '/' + belt_group + '/' + item.day_time;
+        const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + email + '/' + belt_group + '/' + item.day_time;
         res.redirect(redir_link);
     }
 });
@@ -1725,7 +1731,8 @@ app.post('/2degree_signup', function(req, res){ //pass through to a page with th
         req.flash('error', 'Make sure to select at least one class.');
         res.redirect('2degree_signup');
     }
-    const redir_link = '/store/process_classes/' + req.params.fname + '/' + req.params.lname + '/' + req.params.email.toLowerCase() + '/' + 'Black Belt Test' + '/' + item.day_time;
+    var email = String(item.email).toLowerCase();
+    const redir_link = '/store/process_classes/' + req.params.fname + '/' + req.params.lname + '/' + email + '/' + 'Black Belt Test' + '/' + item.day_time;
     res.redirect(redir_link);
     /*
     getInfo = parseClassInfo(item.day_time);
@@ -1885,8 +1892,9 @@ app.post('/dragons_signup', function(req, res){ //pass through to a page with th
         email: req.sanitize('email'),
         day_time: req.sanitize('day_time')
     }
+    var email = String(item.email).toLowerCase();
     belt_group = 'Little Dragons';
-    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + item.email.toLowerCase() + '/' + belt_group + '/' + item.day_time;
+    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + email + '/' + belt_group + '/' + item.day_time;
     res.redirect(redir_link);
 });
 
@@ -1898,7 +1906,8 @@ app.post('/basic_signup', function(req, res){ //pass through to a page with the 
         day_time: req.sanitize('day_time')
     }
     belt_group = 'Basic';
-    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + item.email.toLowerCase() + '/' + belt_group + '/' + item.day_time;
+    var email = String(item.email).toLowerCase();
+    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + email + '/' + belt_group + '/' + item.day_time;
     res.redirect(redir_link);
 });
 
@@ -1910,7 +1919,8 @@ app.post('/level1_signup', function(req, res){ //pass through to a page with the
         day_time: req.sanitize('day_time')
     }
     belt_group = 'Level 1';
-    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + item.email.toLowerCase() + '/' + belt_group + '/' + item.day_time;
+    var email = String(item.email).toLowerCase();
+    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + email + '/' + belt_group + '/' + item.day_time;
     res.redirect(redir_link);
 });
 
@@ -1922,7 +1932,8 @@ app.post('/level2_signup', function(req, res){ //pass through to a page with the
         day_time: req.sanitize('day_time')
     }
     belt_group = 'Level 2';
-    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + item.email.toLowerCase() + '/' + belt_group + '/' + item.day_time;
+    var email = String(item.email).toLowerCase();
+    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + email + '/' + belt_group + '/' + item.day_time;
     res.redirect(redir_link);
 });
 
@@ -1934,7 +1945,8 @@ app.post('/level3_signup', function(req, res){ //pass through to a page with the
         day_time: req.sanitize('day_time')
     }
     belt_group = 'Level 3';
-    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + item.email.toLowerCase() + '/' + belt_group + '/' + item.day_time;
+    var email = String(item.email).toLowerCase();
+    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + email + '/' + belt_group + '/' + item.day_time;
     res.redirect(redir_link);
 });
 
@@ -1945,8 +1957,9 @@ app.post('/prep_signup', function(req, res){ //pass through to a page with the i
         email: req.sanitize('email'),
         day_time: req.sanitize('day_time')
     }
+    var email = String(item.email).toLowerCase();
     belt_group = 'Prep Cycle';
-    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + item.email.toLowerCase() + '/' + belt_group + '/' + item.day_time;
+    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + email + '/' + belt_group + '/' + item.day_time;
     res.redirect(redir_link);
 });
 
@@ -1958,7 +1971,8 @@ app.post('/weapons_signup', function(req, res){ //pass through to a page with th
         day_time: req.sanitize('day_time')
     }
     belt_group = 'Weapons';
-    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + item.email.toLowerCase() + '/' + belt_group + '/' + item.day_time;
+    var email = String(item.email).toLowerCase();
+    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + email + '/' + belt_group + '/' + item.day_time;
     res.redirect(redir_link);
 });
 
@@ -1970,7 +1984,8 @@ app.post('/open_mat_signup', function(req, res){ //pass through to a page with t
         day_time: req.sanitize('day_time')
     }
     belt_group = 'Open Mat';
-    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + item.email.toLowerCase() + '/' + belt_group + '/' + item.day_time;
+    var email = String(item.email).toLowerCase();
+    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + email + '/' + belt_group + '/' + item.day_time;
     res.redirect(redir_link);
 });
 
@@ -2508,15 +2523,17 @@ app.post('/email_lookup', function(req, res){
     var item = {
         email: req.sanitize('email')
     }
-    console.log('email in lookup is ' + item.email.toLowerCase());
-    res.redirect('classes_email/' + item.email.toLowerCase());
+    var email = String(item.email).toLowerCase();
+    console.log('email in lookup is ' + email);
+    res.redirect('classes_email/' + email);
 });
 
 app.post('/test_lookup', function(req, res){
     var item = {
         email: req.sanitize('email')
     }
-    res.redirect('test_email/' + item.email.toLowerCase());
+    var email = String(item.email).toLowerCase();
+    res.redirect('test_email/' + email);
 });
 
 app.get('/delete/(:id)/(:id_from_other)/(:email)', function(req, res){
