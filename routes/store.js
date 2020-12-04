@@ -916,7 +916,7 @@ app.post('/testing_signup_weapons', function(req, res){
     day_num = getInfo[2];
     time_num = getInfo[3];
     belt_group = 4;
-    var redir_link = '/store/testing_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/none' + '/' + month_input + '/' + day_num + '/' + time_num + '/' + belt_group + '/' + id_from_other;
+    var redir_link = '/store/testing_preview/' + item.fname + '/' + item.lname + '/' + item.email + '/Weapons' + '/' + month_input + '/' + day_num + '/' + time_num + '/' + belt_group + '/' + id_from_other;
     res.redirect(redir_link);
 });
 
