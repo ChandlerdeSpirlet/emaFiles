@@ -146,6 +146,11 @@ app.get('/Calendar.pdf', function(req, res){
     res.contentType("application/pdf");
     res.send(data);
 });
+app.get('/last_month.pdf', function(req, res){
+    var data = fs.readFileSync(__dirname + '/storedFiles/last_month.pdf');
+    res.contentType("applicaction/pdf");
+    res.send(data);
+});
 app.get('/1Confidence', function(req, res){
     var data = fs.readFileSync(__dirname + '/storedFiles/1Confidence.pdf');
     res.contentType("application/pdf");
