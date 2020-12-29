@@ -137,7 +137,7 @@
                 <% data.forEach(function(item){ %>
                     <div class="item">
                         <input type="checkbox" class="check" id="<%= item.id %>" name="day_time" value="<%= item.id %>">
-                        <label for="<%= item.id %>" class="desc"><%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> (<%= 20 - item.count %> spot(s) remaining).</label>
+                        <label for="<%= item.id %>" class="desc"><%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> <% if (item.count != 1){ %> (<%= 20 - item.count %> spots remaining). <% } else { %> (<%= 20 - item.count %> spot remaining). <% } %></label>
                     </div><br>
                 <% }) %>
             <% } %>

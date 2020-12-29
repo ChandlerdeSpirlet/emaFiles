@@ -124,7 +124,7 @@
         <ul>
             <li>Tuesday
             <ul>
-                <li>6:45 PM - 7:15 PM</li>
+                <li>6:45 PM - 7:30 PM</li>
             </ul>
             </li>
             <li>Wednesday (Floor 2)
@@ -134,7 +134,7 @@
             </li>
             <li>Thursday <b>(Sparring Night, Bring Your Gear)</b>
             <ul>
-                <li>6:45 PM - 7:15 PM</li>
+                <li>6:45 PM - 7:30 PM</li>
             </ul>
             </li>
             <li>Saturday <b>(Sparring Night, Bring Your Gear)</b>
@@ -154,7 +154,7 @@
                 <% data.forEach(function(item){ %>
                     <div class="item">
                         <input type="checkbox" class="check" id="<%= item.id %>" name="day_time" value="<%= item.id %>">
-                        <label for="<%= item.id %>" class="desc"><%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> (<%= 25 - item.count %> spot(s) remaining).</label>
+                        <label for="<%= item.id %>" class="desc"><%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> <% if (item.count != 1){ %> (<%= 25 - item.count %> spots remaining). <% } else { %> (<%= 25 - item.count %> spot remaining). <% } %></label>
                     </div><br>
                 <% }) %>
             <% } %>

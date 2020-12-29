@@ -1484,7 +1484,7 @@ app.get('/basic_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/basic_signup');
     } else {
-        var query = "select TO_CHAR(date_order, 'Month') as month_name, TO_CHAR(date_order, 'DD') as day_number, time_num, level, id, count from class_times where level in (0.5, 0.8) and count < 20 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order;";
+        var query = "select TO_CHAR(date_order, 'Month') as month_name, TO_CHAR(date_order, 'DD') as day_number, time_num, level, id, count from class_times where level in (0.5, 0.8) and count < 25 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order;";
         db.any(query)
             .then(function(rows){
                 if (rows.length == 0){
@@ -2243,7 +2243,7 @@ app.post('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day
                 })
         }
         if (req.params.belt_group == 'Basic'){
-            var query = "select * from class_times where count < 20 and level = 0.5 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
+            var query = "select * from class_times where count < 25 and level = 0.5 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
             db.any(query)
                 .then(function(rows){
                     res.render('store/basic_signup', {
