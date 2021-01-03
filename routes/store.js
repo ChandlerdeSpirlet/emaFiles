@@ -1418,7 +1418,7 @@ app.get('/1degree_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/1degree_signup');
     } else {
-        var query = "select TO_CHAR(date_order, 'Month') as month_name, TO_CHAR(date_order, 'DD') as day_number, time_num, id, count from class_times where level in (4) and count < 20 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order;";
+        var query = "select TO_CHAR(date_order, 'Month') as month_name, TO_CHAR(date_order, 'DD') as day_number, time_num, id, count from class_times where level in (4) and count < 30 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order;";
         db.any(query)
             .then(function(rows){
                 if (rows.length == 0){
@@ -1452,7 +1452,7 @@ app.get('/dragons_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/dragons_signup');
     } else {
-        var query = "select TO_CHAR(date_order, 'Month') as month_name, TO_CHAR(date_order, 'DD') as day_number, time_num, id, count from class_times where level in (0) and count < 20 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order;";
+        var query = "select TO_CHAR(date_order, 'Month') as month_name, TO_CHAR(date_order, 'DD') as day_number, time_num, id, count from class_times where level in (0) and count < 30 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order;";
         db.any(query)
             .then(function(rows){
                 if (rows.length == 0){
@@ -1484,7 +1484,7 @@ app.get('/basic_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/basic_signup');
     } else {
-        var query = "select TO_CHAR(date_order, 'Month') as month_name, TO_CHAR(date_order, 'DD') as day_number, time_num, level, id, count from class_times where level in (0.5, 0.8) and count < 25 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order;";
+        var query = "select TO_CHAR(date_order, 'Month') as month_name, TO_CHAR(date_order, 'DD') as day_number, time_num, level, id, count from class_times where level in (0.5, 0.8) and count < 30 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order;";
         db.any(query)
             .then(function(rows){
                 if (rows.length == 0){
@@ -1518,7 +1518,7 @@ app.get('/level1_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/level1_signup');
     } else {
-        var query = "select TO_CHAR(date_order, 'Month') as month_name, TO_CHAR(date_order, 'DD') as day_number, time_num, level, id, count from class_times where level in (1, 1.5) and count < 20 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order;";
+        var query = "select TO_CHAR(date_order, 'Month') as month_name, TO_CHAR(date_order, 'DD') as day_number, time_num, level, id, count from class_times where level in (1, 1.5) and count < 30 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order;";
         db.any(query)
             .then(function(rows){
                 if (rows.length == 0){
@@ -1552,7 +1552,7 @@ app.get('/level2_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/level2_signup');
     } else {
-        var query = "select TO_CHAR(date_order, 'Month') as month_name, TO_CHAR(date_order, 'DD') as day_number, time_num, id, count from class_times where level in (2) and count < 25 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order;";
+        var query = "select TO_CHAR(date_order, 'Month') as month_name, TO_CHAR(date_order, 'DD') as day_number, time_num, id, count from class_times where level in (2) and count < 30 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order;";
         db.any(query)
             .then(function(rows){
                 if (rows.length == 0){
@@ -1584,7 +1584,7 @@ app.get('/level3_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/level3_signup');
     } else {
-        var query = "select TO_CHAR(date_order, 'Month') as month_name, TO_CHAR(date_order, 'DD') as day_number, time_num, id, count from class_times where level in (3) and count < 20 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order;";
+        var query = "select TO_CHAR(date_order, 'Month') as month_name, TO_CHAR(date_order, 'DD') as day_number, time_num, id, count from class_times where level in (3) and count < 30 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order;";
         db.any(query)
             .then(function(rows){
                 if (rows.length == 0){
@@ -1616,7 +1616,7 @@ app.get('/prep_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/prep_signup');
     } else {
-        var query = "select TO_CHAR(date_order, 'Month') as month_name, TO_CHAR(date_order, 'DD') as day_number, time_num, id, count from class_times where level in (3.5) and count < 20 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order;";
+        var query = "select TO_CHAR(date_order, 'Month') as month_name, TO_CHAR(date_order, 'DD') as day_number, time_num, id, count from class_times where level in (3.5) and count < 30 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order;";
         db.any(query)
             .then(function(rows){
                 if (rows.length == 0){
@@ -1648,7 +1648,7 @@ app.get('/weapons_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/weapons_signup');
     } else {
-        var query = "select TO_CHAR(date_order, 'Month') as month_name, TO_CHAR(date_order, 'DD') as day_number, time_num, id, count from class_times where level in (6) and count < 20 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order;";
+        var query = "select TO_CHAR(date_order, 'Month') as month_name, TO_CHAR(date_order, 'DD') as day_number, time_num, id, count from class_times where level in (6) and count < 30 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order;";
         db.any(query)
             .then(function(rows){
                 if (rows.length == 0){
@@ -1680,7 +1680,7 @@ app.get('/open_mat_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/open_mat_signup');
     } else {
-        var query = "select TO_CHAR(date_order, 'Month') as month_name, TO_CHAR(date_order, 'DD') as day_number, time_num, id, count from class_times where level in (7) and count < 20 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order;";
+        var query = "select TO_CHAR(date_order, 'Month') as month_name, TO_CHAR(date_order, 'DD') as day_number, time_num, id, count from class_times where level in (7) and count < 30 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order;";
         db.any(query)
             .then(function(rows){
                 if (rows.length == 0){
@@ -2201,7 +2201,7 @@ app.post('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day
     }
     if (item.button == 'Edit'){
         if (req.params.belt_group == 'Black Belt'){
-            var query = "select * from class_times where count < 20 and level = 4 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
+            var query = "select * from class_times where count < 30 and level = 4 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
             db.any(query)
                 .then(function(rows){
                     res.render('store/1degree_signup', {
@@ -2222,7 +2222,7 @@ app.post('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day
                 })
         }
         if (req.params.belt_group == 'Little Dragons'){
-            var query = "select * from class_times where count < 20  and level = 0 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
+            var query = "select * from class_times where count < 30  and level = 0 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
             db.any(query)
                 .then(function(rows){
                     res.render('store/dragons_signup', {
@@ -2243,7 +2243,7 @@ app.post('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day
                 })
         }
         if (req.params.belt_group == 'Basic'){
-            var query = "select * from class_times where count < 25 and level = 0.5 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
+            var query = "select * from class_times where count < 30 and level = 0.5 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
             db.any(query)
                 .then(function(rows){
                     res.render('store/basic_signup', {
@@ -2264,7 +2264,7 @@ app.post('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day
                 })
         }
         if (req.params.belt_group == 'Level 1'){
-            var query = "select * from class_times where count < 20 and level = 1 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
+            var query = "select * from class_times where count < 30 and level = 1 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
             db.any(query)
                 .then(function(rows){
                     res.render('store/level1_signup', {
@@ -2285,7 +2285,7 @@ app.post('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day
                 })
         }
         if (req.params.belt_group == 'Level 2'){
-            var query = "select * from class_times where count < 25 and level = 2 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
+            var query = "select * from class_times where count < 30 and level = 2 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
             db.any(query)
                 .then(function(rows){
                     res.render('store/level2_signup', {
@@ -2327,7 +2327,7 @@ app.post('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day
                 })
         }
         if (req.params.belt_group == 'Prep Cycle'){
-            var query = "select * from class_times where count < 20 and level = 3.5 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
+            var query = "select * from class_times where count < 30 and level = 3.5 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
             db.any(query)
                 .then(function(rows){
                     res.render('store/prep_signup', {
@@ -2369,7 +2369,7 @@ app.post('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day
                 })
         }
         if (req.params.belt_group == 'Weapons'){
-            var query = "select * from class_times where count < 20 and level = 6 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
+            var query = "select * from class_times where count < 30 and level = 6 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order";
             db.any(query)
                 .then(function(rows){
                     res.render('store/open_mat_signup', {
