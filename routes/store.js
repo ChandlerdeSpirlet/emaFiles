@@ -1452,7 +1452,7 @@ app.get('/swat_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/swat_signup');
     } else {
-        var query = "select TO_CHAR(date_order, 'Month') as month_name, TO_CHAR(date_order, 'DD') as day_number, time_num, id, count from class_times where level in (0, 0.5, 0.8, 1, 1.5, 2, 3, 6) and swat_count < 3 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order;";
+        var query = "select TO_CHAR(date_order, 'Month') as month_name, TO_CHAR(date_order, 'DD') as day_number, time_num, id, swat_count, level from class_times where level in (0, 0.5, 0.8, 1, 1.5, 2, 3, 6) and swat_count < 3 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order;";
         db.any(query)
             .then(function(rows){
                 if (rows.length == 0){
