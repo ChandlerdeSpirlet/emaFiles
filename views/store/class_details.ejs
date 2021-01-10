@@ -109,7 +109,6 @@
                         <% if (data) { %>
                             <% if (data.length == 0) { %> <h2>No students to display!</h2>
                             <% } else { %>
-                                <p><%= data[1].first_name %></p>
                                 <h4>Students</h4>
                                     <% data.forEach(function(item) { %>
                                         <% if (item.is_swat == false) { %>
