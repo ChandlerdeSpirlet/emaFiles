@@ -109,6 +109,7 @@
                         <% if (data) { %>
                             <% if (data.length == 0) { %> <h2>No students to display!</h2>
                             <% } else { %>
+                                <p><%= data[1].first_name %></p>
                                 <h4>Students</h4>
                                     <% data.forEach(function(item) { %>
                                         <% if (item.is_swat == false) { %>
@@ -119,14 +120,18 @@
                                     <% }) %>
                                 <h4>SWATTERS</h4>
                                     <% data.forEach(function(item) { %> 
-                                        <% console.log('parse: ' + json.parse(data)); %>
-                                        <% console.log('stringify: ' + data[0].json); %>
                                         <% if (item.is_swat == true) { %>
                                             <div class="chip">
                                                 <%= item.first_name %> <%= item.last_name %>
                                             </div>
                                         <% } %>
                                     <% }) %>
+                                    <% for (var i = 0; i < data.length; i++) { %>
+                                        <div class="chip">
+                                            No SWATTERS for this class.
+                                        </div>
+                                        <% i = data.length; %>
+                                    <% } %>
                             <% } %>
                         <% } else { %>
                             There are no students to display.
