@@ -1448,6 +1448,40 @@ app.get('/1degree_signup', function(req, res){
     }
 });
 
+app.get('/swat_signup', function(req, res){
+    if (req.headers['x-forwarded-proto'] != 'https'){
+        res.redirect('https://emafiles.herokuapp.com/store/swat_signup');
+    } else {
+        var query = "select TO_CHAR(date_order, 'Month') as month_name, TO_CHAR(date_order, 'DD') as day_number, time_num, id, count from class_times where level in (0, 0.5, 0.8, 1, 1.5, 2, 3, 6) and swat_count < 3 and date_order >= (CURRENT_DATE - INTERVAL '1 day')::date order by date_order;";
+        db.any(query)
+            .then(function(rows){
+                if (rows.length == 0){
+                    res.render('store/temp_classes', {
+                        level: 'swat'
+                    })
+                } else {
+                    res.render('store/swat_signup', {
+                        fname: '',
+                        level: '',
+                        lname: '',
+                        email: '',
+                        data: rows
+                    })
+                }
+            })
+            .catch(function(err){
+                req.flash('error', 'Unable to render class signup (ERROR: ' + err + ')');
+                res.render('store/swat_signup', {
+                    fname: '',
+                    level: '',
+                    lname: '',
+                    email: '',
+                    data: ''
+                })
+            })
+    }
+});
+
 app.get('/dragons_signup', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/dragons_signup');
