@@ -119,8 +119,8 @@
                                     <% }) %>
                                 <h4>SWATTERS</h4>
                                     <% data.forEach(function(item) { %> 
-                                        <% console.log('data: ' + data); %>
-                                        <% console.log('data[0]: ' + data[0]); %>
+                                        <% console.log('data.swat_count: ' + data.swat_count); %>
+                                        <% console.log('data[0].swat_count: ' + data[0].swat_count); %>
                                         <% if (item.is_swat == true) { %>
                                             <div class="chip">
                                                 <%= item.first_name %> <%= item.last_name %>
