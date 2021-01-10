@@ -119,18 +119,18 @@
                                         <% } %>
                                     <% }) %>
                                 <h4>SWATTERS</h4>
-                                    <% data.forEach(function(item) { %> 
-                                        <% if (item.is_swat == true) { %>
-                                            <div class="chip">
-                                                <%= item.first_name %> <%= item.last_name %>
-                                            </div>
-                                        <% } %>
-                                    <% }) %>
-                                    <% for (var i = 0; i < data.length; i++) { %>
+                                    <% if (data[0].swat_count == 0) { %>
                                         <div class="chip">
                                             No SWATTERS for this class.
                                         </div>
-                                        <% i = data.length; %>
+                                    <% } else { %>
+                                        <% data.forEach(function(item) { %> 
+                                            <% if (item.is_swat == true) { %>
+                                                <div class="chip">
+                                                    <%= item.first_name %> <%= item.last_name %>
+                                                </div>
+                                            <% } %>
+                                        <% }) %>
                                     <% } %>
                             <% } %>
                         <% } else { %>
