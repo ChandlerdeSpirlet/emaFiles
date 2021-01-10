@@ -1755,7 +1755,25 @@ app.post('/1degree_signup', function(req, res){ //pass through to a page with th
         req.flash('error', 'Make sure to select at least one class.');
         res.redirect('1degree_signup');
     } else {
-        const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + email + '/' + belt_group + '/' + item.day_time;
+        const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + email + '/' + belt_group + '/' + item.day_time + '/false';
+        res.redirect(redir_link);
+    }
+});
+
+app.post('/swat_signup', function(req, res){ //pass through to a page with the info in the url
+    var item = {
+        fname: req.sanitize('fname'),
+        lname: req.sanitize('lname'),
+        email: req.sanitize('email'),
+        day_time: req.sanitize('day_time')
+    }
+    belt_group = 'SWAT';
+    var email = String(item.email).toLowerCase();
+    if ((item.day_time == NaN) || (item.day_time == '')){
+        req.flash('error', 'Make sure to select at least one class.');
+        res.redirect('swat_signup');
+    } else {
+        const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + email + '/' + belt_group + '/' + item.day_time + '/true';
         res.redirect(redir_link);
     }
 });
@@ -1772,7 +1790,7 @@ app.post('/2degree_signup', function(req, res){ //pass through to a page with th
         res.redirect('2degree_signup');
     }
     var email = String(item.email).toLowerCase();
-    const redir_link = '/store/process_classes/' + req.params.fname + '/' + req.params.lname + '/' + email + '/' + 'Black Belt Test' + '/' + item.day_time;
+    const redir_link = '/store/process_classes/' + req.params.fname + '/' + req.params.lname + '/' + email + '/' + 'Black Belt Test' + '/' + item.day_time + '/false';
     res.redirect(redir_link);
     /*
     getInfo = parseClassInfo(item.day_time);
@@ -1820,99 +1838,192 @@ app.get('/update_count/(:fname)/(:lname)/(:email)/(:belt_group)/(:class_id)', fu
     res.redirect(redir_link);
 });
 
-app.get('/process_classes/(:fname)/(:lname)/(:email)/(:belt_group)/(:id_set)', function(req, res){
-    const query_classes = 'insert into class_signups (first_name, last_name, belt, email, test_day, test_time, id_from_other, class_check) values ($1, $2, $3, $4, (select date_order from class_times where id = $5), (select time_num from class_times where id = $6), $7, $8) on conflict (class_check) do nothing;';
-    console.log('id_set in process_classes is ' + req.params.id_set);
-    var id_set = parseID(req.params.id_set);
-    console.log('id_set after parse in process is ' + id_set);
-    id_set.forEach(element => { 
-        var temp_class_check = req.params.fname.toLowerCase().replace(/\s/g, "") + req.params.lname.toLowerCase().replace(/\s/g, "") + element.toString();
-        db.none(query_classes, [req.params.fname, req.params.lname, req.params.belt_group, req.params.email, element, element, element, temp_class_check])
-            .then(function(row){
-                console.log('Added class with id ' + element);
-            })
-            .catch(function(err){
-                console.log('Err: with element ' + element + '. Err: ' + err);
-            })
-    }); 
-    console.log('id_set is ' + id_set);
-    switch(id_set.length){
-        case 1:
-            var end_query = "select distinct on (id_from_other) to_char(test_day, 'Month') as class_month, to_char(test_day, 'dd') as class_day, test_time from class_signups where id_from_other = $1;";
-            db.any(end_query, [id_set[0]])
-            .then(function(rows){
-                //use belt_group to redirect to correct good_job_class page
-                res.render('store/class_confirmed', {
-                    data: rows,
-                    email: req.params.email,
-                    name: req.params.fname + ' ' + req.params.lname,
-                    belt_group: req.params.belt_group
+app.get('/process_classes/(:fname)/(:lname)/(:email)/(:belt_group)/(:id_set)/(:is_swat)', function(req, res){
+    if (req.params.is_swat == true){
+        const query_classes = 'insert into class_signups (first_name, last_name, belt, email, test_day, test_time, id_from_other, class_check, swat_check, is_swat) values ($1, $2, $3, $4, (select date_order from class_times where id = $5), (select time_num from class_times where id = $6), $7, $8, $9, $10) on conflict (swat_check) do nothing;';
+        var id_set = parseID(req.params.id_set);
+        id_set.forEach(element => { 
+            var temp_class_check = req.params.fname.toLowerCase().replace(/\s/g, "") + req.params.lname.toLowerCase().replace(/\s/g, "") + element.toString();
+            db.none(query_classes, [req.params.fname, req.params.lname, req.params.belt_group, req.params.email, element, element, element, temp_class_check, temp_class_check, true])
+                .then(function(row){
+                    console.log('Added swat class with id ' + element);
                 })
-            })
-            .catch(function(err){
-                console.log('Err: ' + err);
-                req.flash('error', 'Unable to render classes signed up for.');
-                res.redirect('class_confirmed');
-            })
-            break;
-        case 2:
-            var end_query = "select distinct on (id_from_other) to_char(test_day, 'Month') as class_month, to_char(test_day, 'dd') as class_day, test_time from class_signups where id_from_other in ($1, $2);";
-            db.any(end_query, [id_set[0], id_set[1]])
-            .then(function(rows){
-                //use belt_group to redirect to correct good_job_class page
-                res.render('store/class_confirmed', {
-                    data: rows,
-                    email: req.params.email,
-                    name: req.params.fname + ' ' + req.params.lname,
-                    belt_group: req.params.belt_group
+                .catch(function(err){
+                    console.log('Err: with element ' + element + '. Err: ' + err);
                 })
-            })
-            .catch(function(err){
-                console.log('Err: ' + err);
-                req.flash('error', 'Unable to render classes signed up for.');
-                res.redirect('class_confirmed');
-            })
-            break;
-        case 3:
-            var end_query = "select distinct on (id_from_other) to_char(test_day, 'Month') as class_month, to_char(test_day, 'dd') as class_day, test_time from class_signups where id_from_other in ($1, $2, $3);";
-            db.any(end_query, [id_set[0], id_set[1], id_set[2]])
-            .then(function(rows){
-                //use belt_group to redirect to correct good_job_class page
-                res.render('store/class_confirmed', {
-                    data: rows,
-                    email: req.params.email,
-                    name: req.params.fname + ' ' + req.params.lname,
-                    belt_group: req.params.belt_group
+        }); 
+        switch(id_set.length){
+            case 1:
+                var end_query = "select distinct on (id_from_other) to_char(test_day, 'Month') as class_month, to_char(test_day, 'dd') as class_day, test_time from class_signups where id_from_other = $1;";
+                db.any(end_query, [id_set[0]])
+                .then(function(rows){
+                    //use belt_group to redirect to correct good_job_class page
+                    res.render('store/class_confirmed', {
+                        data: rows,
+                        email: req.params.email,
+                        name: req.params.fname + ' ' + req.params.lname,
+                        belt_group: req.params.belt_group
+                    })
                 })
-            })
-            .catch(function(err){
-                console.log('Err: ' + err);
-                req.flash('error', 'Unable to render classes signed up for.');
-                res.redirect('class_confirmed');
-            })
-            break;
-        case 4:
-            var end_query = "select distinct on (id_from_other) to_char(test_day, 'Month') as class_month, to_char(test_day, 'dd') as class_day, test_time from class_signups where id_from_other in ($1, $2, $3, $4);";
-            db.any(end_query, [id_set[0], id_set[1], id_set[2], id_set[3]])
-            .then(function(rows){
-                //use belt_group to redirect to correct good_job_class page
-                res.render('store/class_confirmed', {
-                    data: rows,
-                    email: req.params.email,
-                    name: req.params.fname + ' ' + req.params.lname,
-                    belt_group: req.params.belt_group
+                .catch(function(err){
+                    console.log('Err: ' + err);
+                    req.flash('error', 'Unable to render classes signed up for.');
+                    res.redirect('class_confirmed');
                 })
-            })
-            .catch(function(err){
-                console.log('Err: ' + err);
-                req.flash('error', 'Unable to render classes signed up for.');
+                break;
+            case 2:
+                var end_query = "select distinct on (id_from_other) to_char(test_day, 'Month') as class_month, to_char(test_day, 'dd') as class_day, test_time from class_signups where id_from_other in ($1, $2);";
+                db.any(end_query, [id_set[0], id_set[1]])
+                .then(function(rows){
+                    //use belt_group to redirect to correct good_job_class page
+                    res.render('store/class_confirmed', {
+                        data: rows,
+                        email: req.params.email,
+                        name: req.params.fname + ' ' + req.params.lname,
+                        belt_group: req.params.belt_group
+                    })
+                })
+                .catch(function(err){
+                    console.log('Err: ' + err);
+                    req.flash('error', 'Unable to render classes signed up for.');
+                    res.redirect('class_confirmed');
+                })
+                break;
+            case 3:
+                var end_query = "select distinct on (id_from_other) to_char(test_day, 'Month') as class_month, to_char(test_day, 'dd') as class_day, test_time from class_signups where id_from_other in ($1, $2, $3);";
+                db.any(end_query, [id_set[0], id_set[1], id_set[2]])
+                .then(function(rows){
+                    //use belt_group to redirect to correct good_job_class page
+                    res.render('store/class_confirmed', {
+                        data: rows,
+                        email: req.params.email,
+                        name: req.params.fname + ' ' + req.params.lname,
+                        belt_group: req.params.belt_group
+                    })
+                })
+                .catch(function(err){
+                    console.log('Err: ' + err);
+                    req.flash('error', 'Unable to render classes signed up for.');
+                    res.redirect('class_confirmed');
+                })
+                break;
+            case 4:
+                var end_query = "select distinct on (id_from_other) to_char(test_day, 'Month') as class_month, to_char(test_day, 'dd') as class_day, test_time from class_signups where id_from_other in ($1, $2, $3, $4);";
+                db.any(end_query, [id_set[0], id_set[1], id_set[2], id_set[3]])
+                .then(function(rows){
+                    //use belt_group to redirect to correct good_job_class page
+                    res.render('store/class_confirmed', {
+                        data: rows,
+                        email: req.params.email,
+                        name: req.params.fname + ' ' + req.params.lname,
+                        belt_group: req.params.belt_group
+                    })
+                })
+                .catch(function(err){
+                    console.log('Err: ' + err);
+                    req.flash('error', 'Unable to render classes signed up for.');
+                    res.redirect('class_confirmed');
+                })
+                break;
+            default:
+                console.log('Length of id_set not within [1, 4]. id_set is ' + id_set + ' with length of ' + id_set.length);
                 res.redirect('class_confirmed');
-            })
-            break;
-        default:
-            console.log('Length of id_set not within [1, 4]. id_set is ' + id_set + ' with length of ' + id_set.length);
-            res.redirect('class_confirmed');
-            break;
+                break;
+        }
+    } else {
+        const query_classes = 'insert into class_signups (first_name, last_name, belt, email, test_day, test_time, id_from_other, class_check) values ($1, $2, $3, $4, (select date_order from class_times where id = $5), (select time_num from class_times where id = $6), $7, $8) on conflict (class_check) do nothing;';
+        console.log('id_set in process_classes is ' + req.params.id_set);
+        var id_set = parseID(req.params.id_set);
+        console.log('id_set after parse in process is ' + id_set);
+        id_set.forEach(element => { 
+            var temp_class_check = req.params.fname.toLowerCase().replace(/\s/g, "") + req.params.lname.toLowerCase().replace(/\s/g, "") + element.toString();
+            db.none(query_classes, [req.params.fname, req.params.lname, req.params.belt_group, req.params.email, element, element, element, temp_class_check])
+                .then(function(row){
+                    console.log('Added class with id ' + element);
+                })
+                .catch(function(err){
+                    console.log('Err: with element ' + element + '. Err: ' + err);
+                })
+        }); 
+        console.log('id_set is ' + id_set);
+        switch(id_set.length){
+            case 1:
+                var end_query = "select distinct on (id_from_other) to_char(test_day, 'Month') as class_month, to_char(test_day, 'dd') as class_day, test_time from class_signups where id_from_other = $1;";
+                db.any(end_query, [id_set[0]])
+                .then(function(rows){
+                    //use belt_group to redirect to correct good_job_class page
+                    res.render('store/class_confirmed', {
+                        data: rows,
+                        email: req.params.email,
+                        name: req.params.fname + ' ' + req.params.lname,
+                        belt_group: req.params.belt_group
+                    })
+                })
+                .catch(function(err){
+                    console.log('Err: ' + err);
+                    req.flash('error', 'Unable to render classes signed up for.');
+                    res.redirect('class_confirmed');
+                })
+                break;
+            case 2:
+                var end_query = "select distinct on (id_from_other) to_char(test_day, 'Month') as class_month, to_char(test_day, 'dd') as class_day, test_time from class_signups where id_from_other in ($1, $2);";
+                db.any(end_query, [id_set[0], id_set[1]])
+                .then(function(rows){
+                    //use belt_group to redirect to correct good_job_class page
+                    res.render('store/class_confirmed', {
+                        data: rows,
+                        email: req.params.email,
+                        name: req.params.fname + ' ' + req.params.lname,
+                        belt_group: req.params.belt_group
+                    })
+                })
+                .catch(function(err){
+                    console.log('Err: ' + err);
+                    req.flash('error', 'Unable to render classes signed up for.');
+                    res.redirect('class_confirmed');
+                })
+                break;
+            case 3:
+                var end_query = "select distinct on (id_from_other) to_char(test_day, 'Month') as class_month, to_char(test_day, 'dd') as class_day, test_time from class_signups where id_from_other in ($1, $2, $3);";
+                db.any(end_query, [id_set[0], id_set[1], id_set[2]])
+                .then(function(rows){
+                    //use belt_group to redirect to correct good_job_class page
+                    res.render('store/class_confirmed', {
+                        data: rows,
+                        email: req.params.email,
+                        name: req.params.fname + ' ' + req.params.lname,
+                        belt_group: req.params.belt_group
+                    })
+                })
+                .catch(function(err){
+                    console.log('Err: ' + err);
+                    req.flash('error', 'Unable to render classes signed up for.');
+                    res.redirect('class_confirmed');
+                })
+                break;
+            case 4:
+                var end_query = "select distinct on (id_from_other) to_char(test_day, 'Month') as class_month, to_char(test_day, 'dd') as class_day, test_time from class_signups where id_from_other in ($1, $2, $3, $4);";
+                db.any(end_query, [id_set[0], id_set[1], id_set[2], id_set[3]])
+                .then(function(rows){
+                    //use belt_group to redirect to correct good_job_class page
+                    res.render('store/class_confirmed', {
+                        data: rows,
+                        email: req.params.email,
+                        name: req.params.fname + ' ' + req.params.lname,
+                        belt_group: req.params.belt_group
+                    })
+                })
+                .catch(function(err){
+                    console.log('Err: ' + err);
+                    req.flash('error', 'Unable to render classes signed up for.');
+                    res.redirect('class_confirmed');
+                })
+                break;
+            default:
+                console.log('Length of id_set not within [1, 4]. id_set is ' + id_set + ' with length of ' + id_set.length);
+                res.redirect('class_confirmed');
+                break;
+        }
     }
 });
 
@@ -1934,7 +2045,7 @@ app.post('/dragons_signup', function(req, res){ //pass through to a page with th
     }
     var email = String(item.email).toLowerCase();
     belt_group = 'Little Dragons';
-    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + email + '/' + belt_group + '/' + item.day_time;
+    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + email + '/' + belt_group + '/' + item.day_time + '/false';
     res.redirect(redir_link);
 });
 
@@ -1947,7 +2058,7 @@ app.post('/basic_signup', function(req, res){ //pass through to a page with the 
     }
     belt_group = 'Basic';
     var email = String(item.email).toLowerCase();
-    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + email + '/' + belt_group + '/' + item.day_time;
+    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + email + '/' + belt_group + '/' + item.day_time + '/false';
     res.redirect(redir_link);
 });
 
@@ -1960,7 +2071,7 @@ app.post('/level1_signup', function(req, res){ //pass through to a page with the
     }
     belt_group = 'Level 1';
     var email = String(item.email).toLowerCase();
-    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + email + '/' + belt_group + '/' + item.day_time;
+    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + email + '/' + belt_group + '/' + item.day_time + '/false';
     res.redirect(redir_link);
 });
 
@@ -1973,7 +2084,7 @@ app.post('/level2_signup', function(req, res){ //pass through to a page with the
     }
     belt_group = 'Level 2';
     var email = String(item.email).toLowerCase();
-    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + email + '/' + belt_group + '/' + item.day_time;
+    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + email + '/' + belt_group + '/' + item.day_time + '/false';
     res.redirect(redir_link);
 });
 
@@ -1986,7 +2097,7 @@ app.post('/level3_signup', function(req, res){ //pass through to a page with the
     }
     belt_group = 'Level 3';
     var email = String(item.email).toLowerCase();
-    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + email + '/' + belt_group + '/' + item.day_time;
+    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + email + '/' + belt_group + '/' + item.day_time + '/false';
     res.redirect(redir_link);
 });
 
@@ -1999,7 +2110,7 @@ app.post('/prep_signup', function(req, res){ //pass through to a page with the i
     }
     var email = String(item.email).toLowerCase();
     belt_group = 'Prep Cycle';
-    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + email + '/' + belt_group + '/' + item.day_time;
+    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + email + '/' + belt_group + '/' + item.day_time + '/false';
     res.redirect(redir_link);
 });
 
@@ -2012,7 +2123,7 @@ app.post('/weapons_signup', function(req, res){ //pass through to a page with th
     }
     belt_group = 'Weapons';
     var email = String(item.email).toLowerCase();
-    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + email + '/' + belt_group + '/' + item.day_time;
+    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + email + '/' + belt_group + '/' + item.day_time + '/false';
     res.redirect(redir_link);
 });
 
@@ -2025,7 +2136,7 @@ app.post('/open_mat_signup', function(req, res){ //pass through to a page with t
     }
     belt_group = 'Open Mat';
     var email = String(item.email).toLowerCase();
-    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + email + '/' + belt_group + '/' + item.day_time;
+    const redir_link = '/store/process_classes/' + item.fname + '/' + item.lname + '/' + email + '/' + belt_group + '/' + item.day_time + '/false';
     res.redirect(redir_link);
 });
 
@@ -2576,12 +2687,16 @@ app.post('/test_lookup', function(req, res){
     res.redirect('test_email/' + email);
 });
 
-app.get('/delete/(:id)/(:id_from_other)/(:email)', function(req, res){
-    var query_count = "update class_times set count = count - 1 where id = $1";
-    db.query(query_count, [req.params.id_from_other]);
-    var query_sched = "delete from class_signups where id = $1";
-    db.query(query_sched, [req.params.id]);
-    res.redirect('https://emafiles.herokuapp.com/store/classes_email/' + req.params.email);
+app.get('/delete/(:id)/(:id_from_other)/(:email)/(:is_swat)', function(req, res){
+    if (req.params.is_swat == true){
+
+    } else {
+        var query_count = "update class_times set swat_count = swat_count - 1 where id = $1";
+        db.query(query_count, [req.params.id_from_other]);
+        var query_sched = "delete from class_signups where id = $1";
+        db.query(query_sched, [req.params.id]);
+        res.redirect('https://emafiles.herokuapp.com/store/classes_email/' + req.params.email);
+    }
 });
 
 app.get('/delete_test/(:id)/(:id_from_other)/(:email)', function(req, res){
@@ -2631,7 +2746,7 @@ function clearCount(test_day, test_time, fname, lname){
 }
 
 app.get('/classes_email/(:email)', function(req, res){
-    var query = "select id, id_from_other, first_name, last_name, cast(to_char(test_day, 'Mon DD, YYYY') as varchar) as test_day_var, test_time from class_signups where email = $1 and test_day >= (CURRENT_DATE - INTERVAL '1 day')::date order by test_day";
+    var query = "select id, id_from_other, first_name, last_name, is_swat, cast(to_char(test_day, 'Mon DD, YYYY') as varchar) as test_day_var, test_time from class_signups where email = $1 and test_day >= (CURRENT_DATE - INTERVAL '1 day')::date order by test_day, is_swat;";
     db.query(query, [req.params.email])
     .then(function(rows){
         if (rows.length == 0){
@@ -2888,7 +3003,7 @@ app.get('/class_checkin/(:id)/(:date_selected)/(:level_num)/(:time_num)', (req, 
 });
 
 app.get('/class_details/(:id)/(:date_selected)/(:level_num)/(:time_num)', (req, res) => {
-    var student_find_query = "select first_name, last_name from class_signups where id_from_other = $1 order by last_name;";
+    var student_find_query = "select first_name, last_name, is_swat from class_signups where id_from_other = $1 order by last_name, is_swat;";
     db.query(student_find_query, [req.params.id])
         .then(function(rows){
             res.render('store/class_details', {
