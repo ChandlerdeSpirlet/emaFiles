@@ -108,19 +108,27 @@
             color: white;
         }
         .collapsible {
-            cursor: pointer;
-            padding: 18px;
-            width: 100%;
-            border: none;
-            text-align: left;
-            outline: none;
-            font-size: 15px;
-        }
-        .content {
-            padding: 0 18px;
-            display: none;
-            overflow: hidden;
-        }
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
     </style>
     <head>
         <h1>SWAT Class Signup</h1>
@@ -153,6 +161,7 @@
                         <% } %>
                     <% }) %>
                 </div>
+                <br>
                 <button type="button" class="collapsible">Basic</button>
                 <div class="content">
                     <% data.forEach(function(item){ %>
