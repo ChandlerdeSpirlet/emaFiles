@@ -116,12 +116,13 @@
                                                 <%= item.first_name %> <%= item.last_name %>
                                             </div>
                                         <% } %>
-                                        <% if (item.is_swat == true) { %>
-                                            <div class="chip">
-                                                <%= item.first_name %> <%= item.last_name %>
-                                            </div>
-                                        <% } %>
                                     <% }) %>
+                                <h4>SWATTERS</h4>
+                                    <% if (item.is_swat == true) { %>
+                                        <div class="chip">
+                                            <%= item.first_name %> <%= item.last_name %>
+                                        </div>
+                                    <% } %>
                             <% } %>
                         <% } else { %>
                             There are no students to display.

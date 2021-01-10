@@ -1839,9 +1839,11 @@ app.get('/update_count/(:fname)/(:lname)/(:email)/(:belt_group)/(:class_id)', fu
 });
 
 app.get('/process_classes/(:fname)/(:lname)/(:email)/(:belt_group)/(:id_set)/(:is_swat)', function(req, res){
-    if (req.params.is_swat == true){
+    console.log('In process_classes, is_swat is ' + req.params.is_swat + ' of type ' + typeof req.params.is_swat);
+    if (req.params.is_swat == 'true'){
         const query_classes = 'insert into class_signups (first_name, last_name, belt, email, test_day, test_time, id_from_other, class_check, swat_check, is_swat) values ($1, $2, $3, $4, (select date_order from class_times where id = $5), (select time_num from class_times where id = $6), $7, $8, $9, $10) on conflict (swat_check) do nothing;';
         var id_set = parseID(req.params.id_set);
+        console.log("In swat signup");
         id_set.forEach(element => { 
             var temp_class_check = req.params.fname.toLowerCase().replace(/\s/g, "") + req.params.lname.toLowerCase().replace(/\s/g, "") + element.toString();
             db.none(query_classes, [req.params.fname, req.params.lname, req.params.belt_group, req.params.email, element, element, element, temp_class_check, temp_class_check, true])
