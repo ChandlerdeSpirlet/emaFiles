@@ -153,7 +153,7 @@
             <div><label for="lname">Last Name: </label><input type="last name" name="lname" id="lname" pattern="[A-z]{1}[A-z ]+" value="<%= lname %>" placeholder="Last Name" required></div><br>
             <div><label for="email">Email: </label><input type="email" name="email" id="email" pattern="[A-z0-9.]+[@][A-z0-9]{1,}[.]+[A-z]{2,}" value="<%= email %>" placeholder="Email" required><br>
             <% if (data) {%>
-                <% data.forEach(function(item){
+                <% data.forEach(function(item){ %>
                     <h2>Little Dragons</h2>
                         <% if (item.level == 0) { %>
                             <div class="item">
