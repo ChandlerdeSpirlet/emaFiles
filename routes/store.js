@@ -39,7 +39,8 @@ app.get('/workouts', function(req, res){
 app.get('/schedule.pdf', function (req, res){
     var data =fs.readFileSync(__dirname + '/storedFiles/sched.pdf');
     res.contentType("application/pdf");
-    res.set('Cache-Control', 'no-store')
+    res.set('Cache-Control', 'no-store');
+    res.set('Cache-Control', 'max-age=0');
     res.send(data);
 });
 app.get('/Level_1_Rubric.pdf', function (req, res){
