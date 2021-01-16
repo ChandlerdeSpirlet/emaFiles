@@ -1,0 +1,270 @@
+<% if (messages.error) { %>
+    <p style="color:red"><%- messages.error %></p>
+    alert(<%- messages.error %>)
+<% } %>
+<% if (messages.success) { %>
+    <p style="color:green"><%- messages.success %></p>
+<% } %>
+<html>
+    <title>SWAT Class Signup</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        html {
+            background-image: linear-gradient(#0095ff, #9ed7ff);
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+        h1 {
+            text-align: center;
+        }
+        body {
+            font-size: 16px;
+        }
+        #footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 2.5rem;            /* Footer height */
+        }
+        p, li {
+            font-size: 14px;
+        }
+        form > div {
+            margin-bottom: 20px;
+        }
+        button, label {
+            display: block;
+            font-size: 100%;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            width: 100%;
+            padding: 5px;
+            height: 30px;
+        }
+        select {
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        .desc {
+            font-size: 14px;
+            display: inline;
+            font-weight: normal;
+        }
+        .select-wrapper {
+            position: relative;
+        }
+        .select-wrapper::after {
+            content: "▼";
+            font-size: 1rem;
+            top: 6px;
+            right: 10px;
+            position: absolute;
+        }
+        input[type="text"], [type="first name"], [type="last name"], [type="email"], [type="submit"] {
+            box-shadow: inset 1px 1px 3px #ccc;
+            border-radius: 5px;
+            display: block;
+            font-size: 100%;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            width: 100%;
+            padding: 5px;
+            height: 30px;
+        }
+        label {
+            margin-bottom: 5px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        button {
+            width: 60%;
+            margin: 0 auto;
+        }
+        .item {
+            display: block; 
+            padding: 5px;
+        }
+        input[type=checkbox] {
+            display: inline;
+        }
+        a:link {
+            color: white;
+        }
+        a:visited {
+            color: white;
+        }
+        a:hover {
+            color: white;
+        }
+        a:active {
+            color: white;
+        }
+        .collapsible {
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+            }
+            .collapsible:after {
+            content: '\002B';
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+            }
+
+            .active:after {
+            content: "\2212";
+            }
+
+            .content {
+            padding: 0 18px;
+            max-height: 0;
+            overflow: hidden;
+            }
+    </style>
+    <head>
+        <h1>SWAT Class Signup</h1>
+        <p>One person per signup please.</p>
+        <p>SWAT class times are available at the school at the below times. There are only 3 spots available for each class slot, so only class times with available slots are shown.</p>
+        <p>*SWAT classes <u>CANNOT</u> be done over Zoom. SWAT classes are in-person only.</p>
+        <p>*Please be aware of the following rules for in-person class:</p>
+        <ul>
+            <li><mark>Masks must be worn at all times, including during class time.</mark></li>
+            <li>Shoes must be taken off and placed on the shoe rack by the door.</li>
+            <li>Hand sanitizer must be used before and after class.</li>
+            <li>Parents must remain outside the class and can watch the class from Zoom.</li>
+            <li>Temperatures will be taken before sparring classes.</li>
+        </ul>
+    </head>
+    <body>
+        <form onsubmit="return ValidateForm()" name="Form" action="/store/swat_signup" method="POST">
+            <div><label for="fname">First Name: </label><input type="first name" name="fname" id="fname" pattern="[A-z]{1}[A-z ]+" value="<%= fname %>" placeholder="First Name" required></div><br>
+            <div><label for="lname">Last Name: </label><input type="last name" name="lname" id="lname" pattern="[A-z]{1}[A-z ]+" value="<%= lname %>" placeholder="Last Name" required></div><br>
+            <div><label for="email">Email: </label><input type="email" name="email" id="email" pattern="[A-z0-9.]+[@][A-z0-9]{1,}[.]+[A-z]{2,}" value="<%= email %>" placeholder="Email" required><br>
+            <% if (data) {%>
+                <h2>Little Dragons</h2>
+                    <% data.forEach(function(item){ %>
+                        <% if (item.level == 0) { %>
+                            <div class="item">
+                                <input type="checkbox" class="check" id="<%= item.id %>" name="day_time" value="<%= item.id %>">
+                                <label for="<%= item.id %>" class="desc"><%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> <% if (item.swat_count != 2){ %> (<%= 3 - item.swat_count %> spots remaining). <% } else { %> (<%= 3 - item.swat_count %> spot remaining). <% } %></label>
+                            </div><br>
+                        <% } %>
+                    <% }) %>
+                <h2>Basic</h2>
+                    <% data.forEach(function(item){ %>
+                        <% if (item.level == 0.5) { %>
+                            <div class="item">
+                                <input type="checkbox" class="check" id="<%= item.id %>" name="day_time" value="<%= item.id %>">
+                                <label for="<%= item.id %>" class="desc"><%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> <% if (item.swat_count != 2){ %> (<%= 3 - item.swat_count %> spots remaining). <% } else { %> (<%= 3 - item.swat_count %> spot remaining). <% } %></label>
+                            </div><br>
+                        <% } %>
+                    <% }) %>
+                <h2>Basic (Floor 2)</h2>
+                    <% data.forEach(function(item){ %>
+                        <% if (item.level == 0.8) { %>
+                            <div class="item">
+                                <input type="checkbox" class="check" id="<%= item.id %>" name="day_time" value="<%= item.id %>">
+                                <label for="<%= item.id %>" class="desc"><%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> <% if (item.swat_count != 2){ %> (<%= 3 - item.swat_count %> spots remaining). <% } else { %> (<%= 3 - item.swat_count %> spot remaining). <% } %></label>
+                            </div><br>
+                        <% } %>
+                    <% }) %>
+                <h2>Level 1</h2>
+                    <% data.forEach(function(item){ %>
+                        <% if (item.level == 1) { %>
+                            <div class="item">
+                                <input type="checkbox" class="check" id="<%= item.id %>" name="day_time" value="<%= item.id %>">
+                                <label for="<%= item.id %>" class="desc"><%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> <% if (item.swat_count != 2){ %> (<%= 3 - item.swat_count %> spots remaining). <% } else { %> (<%= 3 - item.swat_count %> spot remaining). <% } %></label>
+                            </div><br>
+                        <% } %>
+                    <% }) %>
+                <h2>Level 1 (Floor 2)</h2>
+                    <% data.forEach(function(item){ %>
+                        <% if (item.level == 1.5) { %>
+                            <div class="item">
+                                <input type="checkbox" class="check" id="<%= item.id %>" name="day_time" value="<%= item.id %>">
+                                <label for="<%= item.id %>" class="desc"><%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> <% if (item.swat_count != 2){ %> (<%= 3 - item.swat_count %> spots remaining). <% } else { %> (<%= 3 - item.swat_count %> spot remaining). <% } %></label>
+                            </div><br>
+                        <% } %>
+                    <% }) %>
+                <h2>Level 2</h2>
+                    <% data.forEach(function(item){ %>
+                        <% if (item.level == 2) { %>
+                            <div class="item">
+                                <input type="checkbox" class="check" id="<%= item.id %>" name="day_time" value="<%= item.id %>">
+                                <label for="<%= item.id %>" class="desc"><%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> <% if (item.swat_count != 2){ %> (<%= 3 - item.swat_count %> spots remaining). <% } else { %> (<%= 3 - item.swat_count %> spot remaining). <% } %></label>
+                            </div><br>
+                        <% } %>
+                    <% }) %>
+                <h2>Level 3</h2>
+                    <% data.forEach(function(item){ %>
+                        <% if (item.level == 3) { %>
+                            <div class="item">
+                                <input type="checkbox" class="check" id="<%= item.id %>" name="day_time" value="<%= item.id %>">
+                                <label for="<%= item.id %>" class="desc"><%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> <% if (item.swat_count != 2){ %> (<%= 3 - item.swat_count %> spots remaining). <% } else { %> (<%= 3 - item.swat_count %> spot remaining). <% } %></label>
+                            </div><br>
+                        <% } %>
+                    <% }) %>
+                <h2>Weapons</h2>
+                    <% data.forEach(function(item){ %>
+                        <% if (item.level == 6) { %>
+                            <div class="item">
+                                <input type="checkbox" class="check" id="<%= item.id %>" name="day_time" value="<%= item.id %>">
+                                <label for="<%= item.id %>" class="desc"><%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> <% if (item.swat_count != 2){ %> (<%= 3 - item.swat_count %> spots remaining). <% } else { %> (<%= 3 - item.swat_count %> spot remaining). <% } %></label>
+                            </div><br>
+                        <% } %>
+                    <% }) %>
+            <% } %>
+            <div><input type="submit" name="Submit" value="Submit"/></div>
+        </form>
+        <p style="font-style:italic;">You can now select up to <strong>4</strong> classes when signing up!</p>
+    </body>
+</html>
+<script>
+    var checks = document.querySelectorAll(".check");
+    var max = 4;
+    for (var i = 0; i < checks.length; i++){
+        checks[i].onclick = selectiveCheck;
+    }
+    function selectiveCheck (event) {
+        var checkedChecks = document.querySelectorAll(".check:checked");
+        if (checkedChecks.length >= max + 1){
+            alert('Maximum of 4 classes per signup please.');
+            return false;
+        }
+    }
+    function ValidateForm(){
+        var fname = document.getElementById('fname');
+        var lname = document.getElementById('lname');
+        var email = document.getElementById('email');
+        var choice = document.getElementsByClassName('day_time');
+        if (fname == null || fname == ""){
+            alert("First name is required and must contain at least two letters.");
+            return false;
+        }
+        if (lname == null || lname == ""){
+            alert("Last name is required and must contain at least two letters.");
+            return false;
+        }
+        if (email == null || email == ""){
+            alert("An email is required. We use this in case we need to contact you.");
+            return false;
+        }
+        if (choice == null || choice == ""){
+            alert("Please select a day and time.");
+            return false;
+        }
+        return true;
+    }
+</script>

@@ -65,11 +65,19 @@
             </tr>
             <% if (data) { %>
                 <% data.forEach(function(item){ %>
-                    <tr>
-                        <td><%= item.first_name %> <%= item.last_name %></td>
-                        <td><%= item.test_day_var %> at <%= item.test_time %></td>
-                        <td><a href="https://emafiles.herokuapp.com/store/delete/<%= item.id %>/<%= item.id_from_other %>/<%= email %>">Drop This Class</a></td>
-                    </tr>
+                    <% if (item.is_swat == true) { %>
+                        <tr>
+                            <td><%= item.first_name %> <%= item.last_name %></td>
+                            <td><%= item.test_day_var %> at <%= item.test_time %> <u><mark>SWAT</mark></u></td>
+                            <td><a href="https://emafiles.herokuapp.com/store/delete/<%= item.id %>/<%= item.id_from_other %>/<%= email %>/true">Drop This Class</a></td>
+                        </tr>
+                    <% } else { %>
+                        <tr>
+                            <td><%= item.first_name %> <%= item.last_name %></td>
+                            <td><%= item.test_day_var %> at <%= item.test_time %></td>
+                            <td><a href="https://emafiles.herokuapp.com/store/delete/<%= item.id %>/<%= item.id_from_other %>/<%= email %>/false">Drop This Class</a></td>
+                        </tr>
+                    <% } %>
                 <% }) %>
             <% } %>
         </table>

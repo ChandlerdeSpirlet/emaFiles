@@ -109,12 +109,31 @@
                         <% if (data) { %>
                             <% if (data.length == 0) { %> <h2>No students to display!</h2>
                             <% } else { %>
-                                <% data.forEach(function(item) { %>
-                                    <div class="chip">
-                                        <%= item.first_name %> <%= item.last_name %>
-                                    </div>
-                                <% }) %>
-                                <% } %>
+                                <h4>Students</h4>
+                                    <% data.forEach(function(item) { %>
+                                        <% if (item.is_swat == false) { %>
+                                            <div class="chip">
+                                                <%= item.first_name %> <%= item.last_name %>
+                                            </div>
+                                        <% } %>
+                                    <% }) %>
+                                <h4>SWATTERS</h4>
+                                    <% console.log(data[0].swat_count); %>
+                                    <% console.log(data[0].first_name); %>
+                                    <% if (data[0].swat_count == 0) { %>
+                                        <div class="chip">
+                                            No SWATTERS for this class.
+                                        </div>
+                                    <% } else { %>
+                                        <% data.forEach(function(item) { %> 
+                                            <% if (item.is_swat == true) { %>
+                                                <div class="chip">
+                                                    <%= item.first_name %> <%= item.last_name %>
+                                                </div>
+                                            <% } %>
+                                        <% }) %>
+                                    <% } %>
+                            <% } %>
                         <% } else { %>
                             There are no students to display.
                         <% } %>
