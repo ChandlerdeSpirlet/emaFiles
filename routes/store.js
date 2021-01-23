@@ -2692,9 +2692,21 @@ app.post('/test_lookup', function(req, res){
 });
 
 app.get('/delete/(:id)/(:id_from_other)/(:email)/(:is_swat)', function(req, res){
-    var query_sched = "delete from class_signups where id = $1";
-    db.none(query_sched, [req.params.id]);
-    res.redirect('https://emafiles.herokuapp.com/store/classes_email/' + req.params.email);
+    console.log('is_swat = ' + req.params.is_swat);
+    console.log('is_swat is type ' + typeof req.params.is_swat);
+    if (req.params.is_swat == true){
+        var query_count = "update class_times set swat_count = swat_count - 1 where id = $1";
+        db.query(query_count, [req.params.id_from_other]);
+        var query_sched = "delete from class_signups where id = $1";
+        db.query(query_sched, [req.params.id]);
+        res.redirect('https://emafiles.herokuapp.com/store/classes_email/' + req.params.email);
+    } else {
+        var query_count = "update class_times set count = count - 1 where id = $1";
+        db.query(query_count, [req.params.id_from_other]);
+        var query_sched = "delete from class_signups where id = $1";
+        db.query(query_sched, [req.params.id]);
+        res.redirect('https://emafiles.herokuapp.com/store/classes_email/' + req.params.email);
+    }
 });
 
 app.get('/delete_test/(:id)/(:id_from_other)/(:email)', function(req, res){
