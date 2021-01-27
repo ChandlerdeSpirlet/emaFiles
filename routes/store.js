@@ -453,7 +453,7 @@ app.post('/preview/(:fname)/(:lname)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', functio
     console.log('is_backdoor = ' + is_backdoor);
     if ((item.button == 'Submit') && (is_backdoor == false)){
         var total_score = Number(req.params.jj) + Number(req.params.pu) + Number(req.params.su) + Number(req.params.mtn_cl) + Number(req.params.fk);
-        var query = 'insert into progress_check (first_name, last_name, student_name, total_score_1) values ($1, $2, $3, $4)';
+        var query = 'insert into progress_check (first_name, last_name, student_name, total_score_1) values ($1, $2, $3, $4) on conflict (student_name) do nothing;';
         db.none(query, [req.params.fname, req.params.lname, req.params.fname + ' ' + req.params.lname, total_score])
             .then(function(row){
                 console.log('in .then');
@@ -470,7 +470,7 @@ app.post('/preview/(:fname)/(:lname)/(:jj)/(:pu)/(:su)/(:mtn_cl)/(:fk)', functio
                 console.log("In .catch");
                 console.log('error is ' + err);
                 req.flash('error', 'Unable to add progress check data (ERROR: ' + err + ')');
-                res.redirect('student_progress_check')
+                res.redirect('https://emafiles.herokuapp.com/store/student_progress_check');
             })
     }
     if (item.button == 'Edit'){
