@@ -32,7 +32,7 @@
             padding-bottom: 5px;
         }
         th,td {
-            width: calc(598px /7);
+            width: calc(598px /6);
             text-align: center;
             padding-top: 5px; 
             padding-bottom: 5px;
@@ -44,44 +44,44 @@
     }
     @media (min-width: 600px) {
         th, td {
-            width: calc(768px / 6);
+            width: calc(768px / 3);
         }
     }
 
     @media (min-width: 768px) {
         th,td {
-            width: calc(768px / 6);
+            width: calc(768px / 3);
         }
     }
     @media (min-width: 768.02px) {
         th, td {
-            width: calc(1024px / 6);
+            width: calc(1024px / 3);
         }
     }
     @media (min-width: 1024px) {
         th,td {
-            width: calc(1024px / 6);
+            width: calc(1024px / 3);
         }
     }
     @media (min-width: 1024.02px) {
         th, td {
-            width: calc(1200px / 6);
+            width: calc(1200px / 3);
         }
     }
     @media (min-width: 1200px) {
         th,td {
-            width: calc(1600px / 6);
+            width: calc(1600px / 3);
         }
     }
     @media (min-width: 1600.02px) {
         th, td {
-            width: calc(2000px / 6);
+            width: calc(2000px / 3;
             /* Simple hack for screen larger than 1600 pixels but smaller than 2000 */
         }
     }
     @media (min-width: 2000.02px) {
         th, td {
-            width: calc(2400px / 6);
+            width: calc(2400px / 3);
         }
     #page-container {
         position: relative;
@@ -114,11 +114,8 @@
                 <table>
                     <tr>
                         <th>Name</th>
-                        <th>Jumping Jacks</th>
-                        <th>Pushups</th>
-                        <th>Mountain Climbers</th>
-                        <th>Sit Ups</th>
-                        <th>Front Kicks</th>
+                        <th>Month 1</th>
+                        <th>Month 2</th>
                     </tr>
                 </table>
                 <table class="content">
@@ -128,11 +125,8 @@
                             <% data.forEach(function(item){ %>
                                 <tr>
                                     <td><%= item.student_name %></td>
-                                    <td><%= item.jumping_jacks %></td>
-                                    <td><%= item.pushups %></td>
-                                    <td><%= item.situps %></td>
-                                    <td><%= item.mtn_climbers %></td>
-                                    <td><%= item.front_kicks %></td>
+                                    <td><%= item.total_score_1 %></td>
+                                    <td><%= item.total_score_2 %></td>
                                 </tr>
                             <% }) %>
                         <% } %>

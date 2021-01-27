@@ -522,7 +522,7 @@ app.get('/view_scores', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/view_scores');
     } else {
-        var query = 'select * from progress_check order by id desc';
+        var query = 'select student_name, total_score_1, total_score_2 from progress_check order by student_name;';
         db.any(query)
             .then(function(rows){
                 res.render('store/view_scores', {
