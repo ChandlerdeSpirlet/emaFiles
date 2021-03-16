@@ -158,7 +158,7 @@
             <% if (data) {%>
                 <% data.forEach(function(item){ %>
                     <div class="item">
-                        <input type="radio" id="<%= item.id %>" name="day_time" value="<%= item.id %> <%= item.month_name %> <%= item.day_number %> at <%= item.time_num %>"><%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> (<%= 25 - item.count %> spot(s) remaining).
+                        <input type="radio" id="<%= item.id %>" name="day_time" value="<%= item.id %> <%= item.month_name %> <%= item.day_number %> at <%= item.time_num %>"><%= item.month_name %> <%= item.day_number %> at <%= item.time_num %> (<%= 25 - item.count %> spot(s) remaining). <% if item.id == '110' { %> <mark>Make-Up Testing</mark> <% } %>
                     </div>
                 <% }) %>
             <% } %>
