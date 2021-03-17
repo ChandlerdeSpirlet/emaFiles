@@ -1017,7 +1017,10 @@ app.post('/testing_preview/(:fname)/(:lname)/(:email)/(:belts)/(:month)/(:day)/(
         } else {
             var query_count = 'update testing_signup set count = count + 1 where id = $1';
             db.query(query_count, [req.params.id_from_other]); //Updates count
-            var date_conversion = req.params.month + ' ' + req.params.day + ' 2020';
+            let temp_date = new Date();
+            temp_date.setHours(temp_date.getHours() - 7);
+            let year = temp_date.getFullYear();
+            var date_conversion = req.params.month + ' ' + req.params.day + ' ' + year;
             var query_sched = "insert into people_testing (first_name, last_name, belt, email, test_day, test_time, id_from_other) values ($1, $2, $3, $4, to_date($5, 'Month DD YYYY'), $6, $7);"
             db.query(query_sched, [req.params.fname, req.params.lname, req.params.belts, req.params.email, date_conversion, req.params.time, req.params.id_from_other]);
             var temp_name = item.fname + ' ' + item.lname;
@@ -2260,7 +2263,10 @@ app.post('/class_preview/(:fname)/(:lname)/(:email)/(:belt_group)/(:month)/(:day
         } else {
             var query_count = 'update class_times set count = count + 1 where id = $1';
             db.query(query_count, [req.params.other_id]);
-            var date_conversion = req.params.month + ' ' + req.params.day + ' 2020';
+            let temp_date = new Date();
+            temp_date.setHours(temp_date.getHours() - 7);
+            let year = temp_date.getFullYear();
+            var date_conversion = req.params.month + ' ' + req.params.day + ' ' + year;
             var query_sched = "insert into class_signups (first_name, last_name, belt, email, test_day, test_time, id_from_other) values ($1, $2, $3, $4, to_date($5, 'Month DD YYYY'), $6, $7)";
             db.query(query_sched, [req.params.fname, req.params.lname, req.params.belt_group, req.params.email, date_conversion, req.params.time, req.params.other_id]);
             var temp_name = item.fname + ' ' + item.lname;
