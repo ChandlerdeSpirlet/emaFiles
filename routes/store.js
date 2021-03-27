@@ -252,6 +252,12 @@ app.get('/announcement', function(req, res){
     })
 });
 
+app.get('/manuals', function(req, res){
+    res.render('store/manuals', {
+
+    })
+});
+
 app.get('/student_progress_check_month2', function(req, res){
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/student_progress_check')
