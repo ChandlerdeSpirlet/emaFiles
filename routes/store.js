@@ -2848,7 +2848,8 @@ app.get('/board_breaking', function(req, res){
 
 app.post('/board_breaking_post', function(req, res){
     var item = {
-        student: req.sanitize('student')
+        student: req.sanitize('student'),
+        level: req.sanitize('level')
     }
         var student_name = item.student + ' is ';
         var redir_link = '/store/board_confirmed_processing/' + item.student + '/' + item.level + '/' + student_name;
