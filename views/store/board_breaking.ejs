@@ -92,9 +92,11 @@
     </head>
     <body>
         <p><strong>Summer Camp Spots</strong></p>
-        <ul>
-            <li>9:00 AM &mdash; 3:00 PM (<%= 25 - classes[0].count %> spaces remaining)</li>
-        </ul>
+        <% classes.forEach(function(item) {
+            <ul>
+                <li><%= item.class_month %> <%= item.class_day %> from <%= item.class_time %> (<%= 25 - item.count %> spaces remaining)</li>
+            </ul>
+        })
         <br>
         <form action="/store/board_breaking_post" name="form" method="POST">
             <div>
@@ -117,7 +119,7 @@
                         </select>
                     <% } %>
                 <% } %>
-                <% if (!classes[0]) { %>
+                <% if (classes.length() == 0) { %>
                     <p>No remaining spaces. Check back as more spaces may be added.</p>
                 <% } %>
             </div>
