@@ -2848,8 +2848,7 @@ app.get('/board_breaking', function(req, res){
 
 app.post('/board_breaking_post', function(req, res){
     var item = {
-        student: req.sanitize('student'),
-        level: req.sanitize('level')
+        student: req.sanitize('student')
     }
         var student_name = item.student + ' is ';
         var redir_link = '/store/board_confirmed_processing/' + item.student + '/' + item.level + '/' + student_name;
@@ -2861,7 +2860,7 @@ app.get('/board_confirmed_processing/(:student_name)/(:time)/(:combined)', funct
     db.any(signup_query, [req.params.student_name, req.params.time])
         .then(function(rows){
             console.log('in .then for signup');
-            const inc_count_query = 'update board_breaking_times set count = count + 1 where class_time = $1';
+            const inc_count_query = 'update board_breaking_times set count = count + 1 where class_name = $1';
             db.any(inc_count_query, [req.params.time])
                 .then(function(rows){
                     res.render('store/board_confirmed', {
