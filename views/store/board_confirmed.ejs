@@ -1,5 +1,4 @@
 <html>
-    <meta http-equiv = "refresh" content = "20; url = https://emafiles.herokuapp.com/store/board_breaking"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         * {
@@ -19,8 +18,22 @@
         }
     </style>
     <head>
-        <p><strong><%= student_name %></strong>signed up for Summer Camp from <strong><%= class_time %></strong>.</p><br>
-        <p>We'll see you soon!!</p>
+        <p><strong><%= student_name %></strong>will be signed up for <strong><%= class_time %></strong>.</p><br>
         <p>If you need to cancel your signup, please message EMA on Facebook so we can make room for other students.</p>
+        <p>You'll be redirected in <div id="some_div"></div> seconds to make your $50 deposit, or you can click the button below.</p>
+        <div style="width:100%;text-align:center"><input name="" type="button" value="Make $50 Deposit" style="color:#000000;background-color:;font-family:Arial;font-size:10px;" onclick="window.open('https://payments.paysimple.com/Login/CheckOutFormLogin/fLQoUWUZct1BnO35HQf-xjWHU-Q-')"><a href="http://www.paysimple.com/security.html" style="display:block;font-size:8px;color:#999;margin:4px 0 0 0;">Secure Payments</a></div>
     </head>
 </html>
+<script>
+    var timeLeft = 30;
+    var elem = document.getElementById('some_div');
+    var timeID = setInterval(countdown, 1000);
+    function countdown(){
+        if (timeLeft == -1){
+            window.location.replace("https://payments.paysimple.com/Login/CheckOutFormLogin/fLQoUWUZct1BnO35HQf-xjWHU-Q-");
+        } else {
+            elem.innerHTML = timeLeft;
+            timeLeft--;
+        }
+    }
+</script>
