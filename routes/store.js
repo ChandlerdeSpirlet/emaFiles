@@ -2851,7 +2851,7 @@ app.post('/board_breaking_post', function(req, res){
         student: req.sanitize('student'),
         level: req.sanitize('level')
     }
-        var student_name = item.student + ' is ';
+        var student_name = item.student + ' ';
         var redir_link = '/store/board_confirmed_processing/' + item.student + '/' + item.level + '/' + student_name;
     res.redirect(redir_link);
 });
