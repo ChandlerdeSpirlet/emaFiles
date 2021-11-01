@@ -231,7 +231,7 @@ app.get('/data', function(req, res){
 });
 
 app.get('/student_progress_check', function(req, res){
-    if(req.headers['x-forwarded-proto'] != 'https'){
+    /*if(req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/student_progress_check')
     } else {
         res.render('store/student_progress_check', {
@@ -243,7 +243,10 @@ app.get('/student_progress_check', function(req, res){
             su: '',
             fk: ''
         })
-    }
+    }*/
+    res.render('store/announcement', {
+        
+    })
 });
 
 app.get('/announcement', function(req, res){
