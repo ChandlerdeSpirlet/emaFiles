@@ -1,4 +1,5 @@
 var express = require('express');
+const { func } = require('../database');
 var app = express();
 var db = require('../database');
 module.exports = app;
@@ -14,6 +15,19 @@ function emptyOrRows(rows) {
     } else {
         return rows;
     }
+}
+
+async function write_to_DB(input) {
+    values = input[0];
+    ret_status = 400;
+    try {
+        console.log('req.body = ' + values);
+        //DO DB THINGS
+        ret_status = 200;
+    } catch (err) {
+        console.log('ERROR: ' + err);
+    }
+    return ret_status;
 }
 
 app.get('/test/(:barcode)', (req, res, next) => {
@@ -32,11 +46,10 @@ app.get('/test/(:barcode)', (req, res, next) => {
 })
 
 app.post('/add_test', async function(req, res, next) {
-    try {
-        console.log('req.body = ' + req.body[0]);
-        res.sendStatus(200);
-    } catch (err) {
-        console.log('ERROR: ' + err);
-        res.sendStatus(400);
-    }
+   ret_status = write_to_DB(req.body);
+   if (ret_status == 200){
+       res.status(200).send('All good here');
+   } else {
+    res.status(400).send('Bad Request')
+   }
 })
