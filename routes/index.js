@@ -60,7 +60,7 @@ app.get('/test/(:barcode)', (req, res, next) => {
 })
 
 app.post('/add_test', async function(req, res, next) {
-    console.log('req = ' + JSON.stringify(req))
+    console.log('req = ' + JSON.safeStringify(req))
     console.log('req.body = ' + JSON.safeStringify(req.body))
    ret_status = write_to_DB(req.body[0]);
    if (ret_status == 200){
