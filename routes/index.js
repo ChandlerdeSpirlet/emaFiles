@@ -26,7 +26,7 @@ app.get('/test', (req, res, next) => {
         })
         .catch(err => {
             res.json({
-                error
+                err
             })
         })
 })
