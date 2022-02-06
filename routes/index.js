@@ -31,19 +31,6 @@ function emptyOrRows(rows) {
     }
 }
 
-async function write_to_DB(input) {
-    values = input;
-    ret_status = 400;
-    try {
-        console.log('req.body = ' + values);
-        //DO DB THINGS
-        ret_status = 200;
-    } catch (err) {
-        console.log('ERROR: ' + err);
-    }
-    return ret_status;
-}
-
 app.get('/test/(:barcode)', (req, res, next) => {
     db.any('select * from test_records where barcode = $1 order by test_date', [req.params.barcode])
         .then(return_val => {
@@ -60,12 +47,17 @@ app.get('/test/(:barcode)', (req, res, next) => {
 })
 
 app.post('/add_test', async function(req, res, next) {
-    console.log('req = ' + JSON.safeStringify(req))
-    console.log('req.body = ' + JSON.safeStringify(req.body))
-   ret_status = write_to_DB(req.body[0]);
-   if (ret_status == 200){
-       res.status(200).send('All good here');
-   } else {
-    res.status(400).send('Bad Request')
-   }
+    ret_status = 400;
+    try {
+        console.log('req.body = ' + req.body[0]);
+        //DO DB THINGS
+        ret_status = 200;
+    } catch (err) {
+        console.log('ERROR: ' + err);
+    }
+    if (ret_status == 200){
+        res.status(200).send('All good here');
+    } else {
+        res.status(400).send('Bad Request')
+    }
 })
