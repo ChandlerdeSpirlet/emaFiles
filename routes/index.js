@@ -16,8 +16,8 @@ function emptyOrRows(rows) {
     }
 }
 
-app.get('/test', (req, res, next) => {
-    db.any('select * from board_breaking_times')
+app.get('/test/(:barcode)', (req, res, next) => {
+    db.any('select * from test_records where barcode = $1 order by test_date', [req.params.barcode])
         .then(return_val => {
             const values = emptyOrRows(return_val);
             res.json({
