@@ -17,7 +17,7 @@ function emptyOrRows(rows) {
 }
 
 app.get('/test', (req, res, next) => {
-    db.any('select * from login')
+    db.any('select * from board_breaking_times')
         .then(return_val => {
             const values = emptyOrRows(return_val);
             res.json({
