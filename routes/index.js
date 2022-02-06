@@ -8,7 +8,21 @@ app.get('/', function (req, res){
         
     })
 });
-
+JSON.safeStringify = (obj, indent = 2) => {
+    let cache = [];
+    const retVal = JSON.stringify(
+        obj,
+        (key, value) =>
+            typeof value === "object" && value !== null
+            ? cache.includes(value)
+                ? undefined // Duplicate reference found, discard key
+                : cache.push(value) && value // Store value in our collection
+            : value,
+        indent
+    );
+    cache = null;
+    return retVal;
+  };
 function emptyOrRows(rows) {
     if (!rows) {
         return [];
@@ -46,8 +60,7 @@ app.get('/test/(:barcode)', (req, res, next) => {
 })
 
 app.post('/add_test', async function(req, res, next) {
-    console.log('req.body = ' + req.body);
-    console.log('req.body[0] = ' + req.body[0])
+    console.log('req.body = ' + safeStringify(req.body))
    ret_status = write_to_DB(req.body[0]);
    if (ret_status == 200){
        res.status(200).send('All good here');
