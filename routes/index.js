@@ -32,7 +32,8 @@ function emptyOrRows(rows) {
 }
 
 app.get('/test/(:barcode)', (req, res, next) => {
-    db.any('select * from test_records where barcode = $1 order by test_date', [req.params.barcode])
+    console.log('req = ' + JSON.safeStringify(req))
+    db.any("select rank, pass_status, to_char(test_date, 'Month DD, YYYY') as test_date from test_records where barcode = $1 order by test_date", [req.params.barcode])
         .then(return_val => {
             const values = emptyOrRows(return_val);
             res.json({
