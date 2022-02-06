@@ -18,7 +18,7 @@ function emptyOrRows(rows) {
 }
 
 async function write_to_DB(input) {
-    values = input[0];
+    values = input;
     ret_status = 400;
     try {
         console.log('req.body = ' + values);
@@ -46,7 +46,9 @@ app.get('/test/(:barcode)', (req, res, next) => {
 })
 
 app.post('/add_test', async function(req, res, next) {
-   ret_status = write_to_DB(req.body);
+    console.log('req.body = ' + req.body);
+    console.log('req.body[0] = ' + req.body[0])
+   ret_status = write_to_DB(req.body[0]);
    if (ret_status == 200){
        res.status(200).send('All good here');
    } else {
