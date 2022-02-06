@@ -30,3 +30,13 @@ app.get('/test/(:barcode)', (req, res, next) => {
             })
         })
 })
+
+app.post('/add_test', async function(req, res, next) {
+    try {
+        console.log('req.body = ' + req.body);
+        res.send(200);
+    } catch (err) {
+        console.log('ERROR: ' + err);
+        res.send(400);
+    }
+})
