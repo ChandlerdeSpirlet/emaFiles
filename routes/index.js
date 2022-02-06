@@ -8,8 +8,25 @@ app.get('/', function (req, res){
     })
 });
 
+function emptyOrRows(rows) {
+    if (!rows) {
+        return [];
+    } else {
+        return rows;
+    }
+}
+
 app.get('/test', (req, res, next) => {
-    res.json({
-        message: 'alive'
-    });
+    db.any('select * from login')
+        .then(return_val => {
+            const values = emptyOrRows(return_val);
+            res.json({
+                values
+            });
+        })
+        .catch(err => {
+            res.json({
+                error
+            })
+        })
 })
