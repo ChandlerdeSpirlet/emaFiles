@@ -47,7 +47,7 @@ app.get('/test/(:barcode)', (req, res, next) => {
         })
 })
 
-app.post('/add_test', async function(req, res, next) {
+app.put('/add_test', async function(req, res, next) {
     ret_status = 400;
     try {
         console.log('req = ' + JSON.safeStringify(req));
