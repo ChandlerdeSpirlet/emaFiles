@@ -47,13 +47,18 @@ app.get('/test/(:barcode)', (req, res, next) => {
         })
 })
 
-app.put('/add_test', async function(req, res, next) {
+app.put('/add_test/(:barcode)/(:pass_status)/(:rank)', async function(req, res, next) {
     ret_status = 400;
     try {
-        console.log('res = ' + JSON.safeStringify(res));
-        console.log('req.headers[0]: ' + req.headers[0])
-        console.log('req = ' + JSON.safeStringify(req));
+        var items = {
+            barcode: req.params.barcode,
+            pass_status: req.params.pass_status,
+            rank: req.params.rank
+        }
         //DO DB THINGS
+        console.log('items.barcode: ' + items.barcode)
+        console.log(items.pass_status)
+        console.log(rank)
         ret_status = 200;
     } catch (err) {
         console.log('ERROR: ' + err);
