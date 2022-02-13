@@ -57,6 +57,8 @@ app.put('/add_test/(:barcode)/(:pass_status)/(:rank)/(:test_id)', async function
             rank: req.params.rank
         }
         //DO DB THINGS
+        const regex = /\(pc\)/i;
+        items.rank = (items.rank.replace(regex, '- Progress Check'));
         const update_query = "insert into test_records (rank, barcode, pass_status, test_date, test_id) values ($1, $2, $3, now(), $4);"
         db.none(update_query, [items.rank, items.barcode, items.pass_status, String(items.barcode) + String(items.test_id)])
             .then(row => {
