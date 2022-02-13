@@ -51,6 +51,7 @@ app.post('/add_test', async function(req, res, next) {
     ret_status = 400;
     try {
         console.log('req = ' + JSON.safeStringify(req));
+        console.log('body = ' + JSON.safeStringify(body))
         //DO DB THINGS
         ret_status = 200;
     } catch (err) {
