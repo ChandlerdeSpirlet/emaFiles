@@ -47,8 +47,9 @@ app.get('/test/(:barcode)', (req, res, next) => {
         })
 })
 
-app.put('/add_test/(:barcode)/(:pass_status)/(:rank)', async function(req, res, next) {
+app.put('/add_test/(:barcode)/(:pass_status)/(:rank)/(:test_id)', async function(req, res, next) {
     ret_status = 400;
+    err = '';
     try {
         var items = {
             barcode: req.params.barcode,
@@ -56,16 +57,21 @@ app.put('/add_test/(:barcode)/(:pass_status)/(:rank)', async function(req, res, 
             rank: req.params.rank
         }
         //DO DB THINGS
-        console.log('items.barcode: ' + items.barcode)
-        console.log(items.pass_status)
-        console.log(rank)
-        ret_status = 200;
+        const update_query = "insert into test_records (rank, barcode, pass_status, test_date, test_id) values ($1, $2, $3, now(), $4);"
+        db.none(update_query, [items.rank, items.barcode, items.pass_status, String(items.barcode) + String(items.test_id)])
+            .then(row => {
+                ret_status = 200;
+            })
+            .catch(err => {
+                console.log('PUT API error: ' + err);
+                ret_status = 400;
+            }) 
     } catch (err) {
         console.log('ERROR: ' + err);
     }
     if (ret_status == 200){
         res.status(200).send('All good here');
     } else {
-        res.status(400).send('Bad Request')
+        res.status(400).send('Bad Request - ' + err);
     }
 })
