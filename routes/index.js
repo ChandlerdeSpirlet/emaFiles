@@ -50,8 +50,9 @@ app.get('/test/(:barcode)', (req, res, next) => {
 app.put('/add_test', async function(req, res, next) {
     ret_status = 400;
     try {
+        console.log('res = ' + JSON.safeStringify(res));
+        console.log('req.headers[0]: ' + req.headers[0])
         console.log('req = ' + JSON.safeStringify(req));
-        console.log('body = ' + JSON.safeStringify(body))
         //DO DB THINGS
         ret_status = 200;
     } catch (err) {
