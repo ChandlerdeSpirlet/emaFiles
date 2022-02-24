@@ -262,6 +262,7 @@ app.get('/manuals', function(req, res){
 });
 
 app.get('/student_progress_check_month2', function(req, res){
+/*
     if (req.headers['x-forwarded-proto'] != 'https'){
         res.redirect('https://emafiles.herokuapp.com/store/student_progress_check')
     } else {
@@ -278,7 +279,10 @@ app.get('/student_progress_check_month2', function(req, res){
                     fk: ''
                 })
             })
-    }
+    }*/
+    res.render('store/announcement', {
+        
+    })
 });
 
 app.post('/student_progress_check_month2', function(req, res){
